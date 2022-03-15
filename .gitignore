@@ -21,3 +21,20 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# cert
+.cert/*.pem
+.cert/*.key
+.cert/*.crt
+
+# IDEs
+/.idea/
+.run/
+*.iml
+
+# env
+.proxy-env.custom
+.env
+
+# Deploy cache
+.firebase/
