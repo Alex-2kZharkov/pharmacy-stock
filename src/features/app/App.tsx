@@ -8,8 +8,8 @@ import { Medicine } from "../medicine/Medicine";
 export const App = () => {
   return (
     <>
-      <CssBaseline />
       <MuiThemeProvider theme={theme}>
+        <CssBaseline />
         <Router>
           <Routes>
             <Route path="/" element={<Sidebar />} />

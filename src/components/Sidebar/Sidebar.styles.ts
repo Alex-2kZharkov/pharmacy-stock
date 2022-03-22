@@ -24,8 +24,8 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   panelTitle: {
-    fontSize: "1.2rem",
-    fontWeight: 700,
+    fontSize: "1.25rem",
+    fontWeight: 500,
     color: theme.palette.secondary.light,
     "&:hover": {
       color: theme.palette.primary.light,
