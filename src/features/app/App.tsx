@@ -14,7 +14,7 @@ export const App = () => {
           <Routes>
             <Route path="/" element={<Sidebar />} />
             <Route path="/medicines" element={<Medicine />} />
-            <Route path="/" element={<Medicine />} />
+            <Route path="/employees" element={<Medicine />} />
             <Route path="/" element={<Medicine />} />{" "}
             <Route path="/" element={<Medicine />} />
           </Routes>

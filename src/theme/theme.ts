@@ -6,6 +6,7 @@ import {
   BACKGROUND,
   BACKGROUND_ACCENT,
   DEFAULT_GREY,
+  LIGHT_GREY,
   MAIN,
   WHITE,
 } from "./colors/colors.constants";
@@ -31,6 +32,7 @@ export const theme = createTheme({
       contrastText: WHITE,
     },
     secondary: {
+      light: LIGHT_GREY,
       main: DEFAULT_GREY,
     },
     background: {

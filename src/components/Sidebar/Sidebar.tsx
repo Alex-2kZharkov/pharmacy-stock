@@ -1,21 +1,44 @@
-import { People, Drafts, Medication } from "@mui/icons-material";
 import {
-  Box,
+  AdminPanelSettingsRounded,
+  People,
+  Drafts,
+  Medication,
+} from "@mui/icons-material";
+import {
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Stack,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useStyles } from "./Sidebar.styles";
 
 export const Sidebar = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
+
+  const handleTitleClick = () => navigate("/");
 
   return (
-    <Box className={classes.sidebar}>
+    <Stack spacing={2} className={classes.sidebar}>
+      <Stack
+        direction="row"
+        alignItems="center"
+        className={classes.panel}
+        onClick={handleTitleClick}
+      >
+        <Stack
+          alignItems="center"
+          justifyContent="center"
+          className={classes.panelIconContainer}
+        >
+          <AdminPanelSettingsRounded className={classes.panelIcon} />
+        </Stack>
+        <div className={classes.panelTitle}>Админ Панель</div>
+      </Stack>
       <nav aria-label="main mailbox folders">
         <List>
           <ListItem component={Link} to="/medicines">
@@ -26,7 +49,7 @@ export const Sidebar = () => {
               <ListItemText primary="Лекарства" />
             </ListItemButton>
           </ListItem>
-          <ListItem>
+          <ListItem component={Link} to="/employees">
             <ListItemButton className={classes.listItem}>
               <ListItemIcon>
                 <People />
@@ -68,6 +91,6 @@ export const Sidebar = () => {
           </ListItem>
         </List>
       </nav>
-    </Box>
+    </Stack>
   );
 };

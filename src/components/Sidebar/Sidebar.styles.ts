@@ -7,18 +7,36 @@ export const useStyles = makeStyles((theme) => ({
     minHeight: "100vh",
     backgroundColor: theme.palette.background.paper,
   },
+
+  panel: {
+    padding: theme.spacing(3, 4, 0),
+    cursor: "pointer",
+  },
+  panelIconContainer: {
+    marginRight: theme.spacing(1),
+    padding: theme.spacing(1, 0.8),
+    borderRadius: 100,
+    backgroundColor: theme.palette.primary.main,
+  },
+  panelIcon: {
+    marginLeft: theme.spacing(0.4),
+    color: theme.palette.primary.light,
+  },
+
+  panelTitle: {
+    fontSize: "1.2rem",
+    fontWeight: 700,
+    color: theme.palette.secondary.light,
+    "&:hover": {
+      color: theme.palette.primary.light,
+    },
+  },
+
   listItem: {
     "& .MuiTypography-root": {
       color: theme.palette.secondary.main,
     },
-    "& .MuiListItemButton-root": {
-      backgroundColor: `${theme.palette.primary.main} !important`,
-    },
     "&": {
-      "&:hover": {
-        backgroundColor: theme.palette.primary.main,
-      },
-
       "&:hover .MuiTypography-root": {
         color: theme.palette.primary.light,
       },
@@ -26,9 +44,8 @@ export const useStyles = makeStyles((theme) => ({
         color: theme.palette.primary.light,
       },
     },
-
     "& .MuiListItemIcon-root": {
-      color: theme.palette.secondary.main,
+      color: theme.palette.secondary.light,
     },
   },
 }));
