@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core";
 export const useStyles = makeStyles((theme) => ({
   sidebar: {
     width: "100%",
-    maxWidth: 300,
+    maxWidth: 255,
     minHeight: "100vh",
     backgroundColor: theme.palette.background.paper,
   },
@@ -37,6 +37,9 @@ export const useStyles = makeStyles((theme) => ({
       color: theme.palette.secondary.main,
     },
     "&": {
+      "& .MuiTypography-root": {
+        marginLeft: theme.spacing(-1.1),
+      },
       "&:hover .MuiTypography-root": {
         color: theme.palette.primary.light,
       },
