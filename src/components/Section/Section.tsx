@@ -14,14 +14,12 @@ export const Section: FC<Props> = ({ title, name }) => {
 
   return (
     <Stack
-      sx={{ width: "100%" }}
       direction="row"
       justifyContent="space-between"
       alignItems="center"
+      className={classes.root}
     >
-      <Typography variant="h6" component="div">
-        {title}
-      </Typography>
+      <div className={classes.title}>{title}</div>
       <Stack direction="row" alignItems="center" spacing={1}>
         <Typography variant="subtitle2" component="div">
           {name}
@@ -29,7 +27,7 @@ export const Section: FC<Props> = ({ title, name }) => {
         <div className={classes.avatarContainer}>
           <img
             className={classes.avatar}
-            src="https://ied.eu/wp-content/uploads/2018/04/entrepreneur-1.jpg"
+            src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bWVufGVufDB8fDB8fA%3D%3D&w=1000&q=80"
             alt="Person avatar"
             width="44"
             height="44"

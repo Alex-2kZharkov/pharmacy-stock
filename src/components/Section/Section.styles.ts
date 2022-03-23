@@ -1,6 +1,13 @@
 import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles((theme) => ({
+  root: {
+    marginBottom: theme.spacing(8.5),
+  },
+  title: {
+    fontSize: "1.5rem",
+    fontWeight: 500,
+  },
   avatarContainer: {
     display: "flex",
     justifyContent: "center",
@@ -12,5 +19,6 @@ export const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     borderRadius: "100%",
+    objectFit: "cover",
   },
 }));

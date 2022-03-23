@@ -5,6 +5,7 @@ import {
   ACCENT,
   BACKGROUND,
   BACKGROUND_ACCENT,
+  BORDER_COLOUR,
   DEFAULT_GREY,
   LIGHT_GREY,
   MAIN,
@@ -34,6 +35,7 @@ export const theme = createTheme({
     secondary: {
       light: LIGHT_GREY,
       main: DEFAULT_GREY,
+      dark: BORDER_COLOUR,
     },
     background: {
       default: BACKGROUND,

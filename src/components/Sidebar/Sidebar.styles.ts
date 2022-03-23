@@ -9,11 +9,11 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   panel: {
-    padding: theme.spacing(3, 4, 0),
+    padding: theme.spacing(3, 3, 0),
     cursor: "pointer",
   },
   panelIconContainer: {
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(1.5),
     padding: theme.spacing(1, 0.8),
     borderRadius: 100,
     backgroundColor: theme.palette.primary.main,
@@ -24,7 +24,7 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   panelTitle: {
-    fontSize: "1.25rem",
+    fontSize: "1.2rem",
     fontWeight: 500,
     color: theme.palette.secondary.light,
     "&:hover": {
