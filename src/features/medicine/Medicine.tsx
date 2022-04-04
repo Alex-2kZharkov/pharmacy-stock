@@ -1,23 +1,28 @@
-import { Stack } from "@mui/material";
+import { Box } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
 
-import { Section } from "../../components/Section/Section";
-import { SectionCard } from "../../components/Section/SectionCard/SectionCard";
-import { Sidebar } from "../../components/Sidebar/Sidebar";
-import { Indicator } from "../overview/Indicator/Indicator";
+import { AdminPageWrapper } from "../../components/AdminPageWrapper/AdminPageWrapper";
+import { ROWS_PER_PAGE } from "../../constants/pagination.constants";
+import { MEDICINES_MOCK } from "../../mocks/medicines.mock";
+
+import { MEDICINE_TABLE_COLUMNS } from "./Medicine.constants";
+import { useStyles } from "./Medicine.styles";
 
 export const Medicine = () => {
+  const classes = useStyles();
+
   return (
-    <Stack direction="row">
-      <Sidebar />{" "}
-      <SectionCard>
-        <Section title="Лекарства" name="Александр Жарков" />
-        <Stack direction="row" spacing={4}>
-          <Indicator title="Продано" number={60} />{" "}
-          <Indicator title="Куплено" number={16} />
-          <Indicator title="Остаток" number={43} />
-          <Indicator title="Продано" number={64} />
-        </Stack>
-      </SectionCard>
-    </Stack>
+    <AdminPageWrapper sectionTitle="Лекарства">
+      <Box className={classes.dataGridContainer}>
+        <DataGrid
+          className={classes.dataGrid}
+          rows={MEDICINES_MOCK}
+          columns={MEDICINE_TABLE_COLUMNS}
+          pageSize={5}
+          rowsPerPageOptions={[ROWS_PER_PAGE]}
+          disableSelectionOnClick
+        />
+      </Box>
+    </AdminPageWrapper>
   );
 };

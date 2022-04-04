@@ -1,10 +1,14 @@
 import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
+  dataGridContainer: {
+    height: 400,
+    width: "100%",
+    backgroundColor: theme.palette.primary.contrastText,
   },
-  content: {
-    marginLeft: theme.spacing(1),
+  dataGrid: {
+    "& .MuiDataGrid-row:hover": {
+      backgroundColor: `${theme.palette.background.default} !important`,
+    },
   },
 }));

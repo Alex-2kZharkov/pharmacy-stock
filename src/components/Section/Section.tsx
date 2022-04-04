@@ -6,10 +6,9 @@ import { useStyles } from "./Section.styles";
 
 interface Props {
   title: string;
-  name: string;
 }
 
-export const Section: FC<Props> = ({ title, name }) => {
+export const Section: FC<Props> = ({ title }) => {
   const classes = useStyles();
 
   return (
@@ -22,7 +21,7 @@ export const Section: FC<Props> = ({ title, name }) => {
       <div className={classes.title}>{title}</div>
       <Stack direction="row" alignItems="center" spacing={1}>
         <Typography variant="subtitle2" component="div">
-          {name}
+          Александр Жарков
         </Typography>
         <div className={classes.avatarContainer}>
           <img

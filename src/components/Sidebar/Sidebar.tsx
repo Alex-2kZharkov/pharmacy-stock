@@ -1,8 +1,10 @@
 import {
   AdminPanelSettingsRounded,
-  People,
-  Drafts,
-  Medication,
+  AssuredWorkloadOutlined,
+  GridView,
+  LocalPharmacyOutlined,
+  PeopleOutlined,
+  ShowChartOutlined,
 } from "@mui/icons-material";
 import {
   List,
@@ -41,10 +43,18 @@ export const Sidebar = () => {
       </Stack>
       <nav aria-label="main mailbox folders">
         <List>
+          <ListItem component={Link} to="/">
+            <ListItemButton className={classes.listItem}>
+              <ListItemIcon>
+                <GridView />
+              </ListItemIcon>
+              <ListItemText primary="Обзор" />
+            </ListItemButton>
+          </ListItem>
           <ListItem component={Link} to="/medicines">
             <ListItemButton className={classes.listItem}>
               <ListItemIcon>
-                <Medication />
+                <LocalPharmacyOutlined />
               </ListItemIcon>
               <ListItemText primary="Лекарства" />
             </ListItemButton>
@@ -52,7 +62,7 @@ export const Sidebar = () => {
           <ListItem component={Link} to="/employees">
             <ListItemButton className={classes.listItem}>
               <ListItemIcon>
-                <People />
+                <PeopleOutlined />
               </ListItemIcon>
               <ListItemText primary="Сотрудники" />
             </ListItemButton>
@@ -60,33 +70,17 @@ export const Sidebar = () => {
           <ListItem>
             <ListItemButton className={classes.listItem}>
               <ListItemIcon>
-                <Drafts />
+                <ShowChartOutlined />
               </ListItemIcon>
-              <ListItemText primary="Сотрудники" />
+              <ListItemText primary="Спрос" />
             </ListItemButton>
           </ListItem>
           <ListItem>
             <ListItemButton className={classes.listItem}>
               <ListItemIcon>
-                <Drafts />
+                <AssuredWorkloadOutlined />
               </ListItemIcon>
-              <ListItemText primary="Сотрудники" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton className={classes.listItem}>
-              <ListItemIcon>
-                <Drafts />
-              </ListItemIcon>
-              <ListItemText primary="Сотрудники" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton className={classes.listItem}>
-              <ListItemIcon>
-                <Drafts />
-              </ListItemIcon>
-              <ListItemText primary="Сотрудники" />
+              <ListItemText primary="Рекомендации" />
             </ListItemButton>
           </ListItem>
         </List>
