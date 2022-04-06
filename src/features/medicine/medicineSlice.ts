@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { RootState } from "../../store/store";
 
-import { MedicineDto } from "./Medicine.types";
+import { MedicineDto } from "./Medicines.types";
 
 export interface MedicineState {
   medicines: MedicineDto[];

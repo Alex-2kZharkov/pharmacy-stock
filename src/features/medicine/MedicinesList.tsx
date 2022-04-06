@@ -5,10 +5,10 @@ import { AdminPageWrapper } from "../../components/AdminPageWrapper/AdminPageWra
 import { ROWS_PER_PAGE } from "../../constants/pagination.constants";
 import { MEDICINES_MOCK } from "../../mocks/medicines.mock";
 
-import { MEDICINE_TABLE_COLUMNS } from "./Medicine.constants";
-import { useStyles } from "./Medicine.styles";
+import { MEDICINE_TABLE_COLUMNS } from "./Medicines.constants";
+import { useStyles } from "./Medicines.styles";
 
-export const Medicine = () => {
+export const MedicinesList = () => {
   const classes = useStyles();
 
   return (
@@ -18,8 +18,7 @@ export const Medicine = () => {
           className={classes.dataGrid}
           rows={MEDICINES_MOCK}
           columns={MEDICINE_TABLE_COLUMNS}
-          pageSize={5}
-          rowsPerPageOptions={[ROWS_PER_PAGE]}
+          pageSize={ROWS_PER_PAGE}
           disableSelectionOnClick
         />
       </Box>
