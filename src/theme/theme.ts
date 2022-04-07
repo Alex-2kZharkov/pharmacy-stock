@@ -7,8 +7,11 @@ import {
   BACKGROUND_ACCENT,
   BORDER_COLOUR,
   DEFAULT_GREY,
+  ERROR,
   LIGHT_GREY,
   MAIN,
+  SUCCESS,
+  WARNING,
   WHITE,
 } from "./colors/colors.constants";
 import { getMuiTypography } from "./Typography";
@@ -48,17 +51,17 @@ export const theme = createTheme({
     },
     error: {
       light: red[100],
-      main: red[700],
+      main: ERROR,
       dark: red[900],
     },
     warning: {
       light: orange[50],
-      main: orange[700],
+      main: WARNING,
       dark: orange[900],
     },
     success: {
       light: green[50],
-      main: green[700],
+      main: SUCCESS,
       dark: green[900],
     },
     info: {

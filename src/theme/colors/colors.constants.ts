@@ -12,3 +12,6 @@ export const LOGO_COLOUR = "rgba(255, 255, 255, 0.5)";
 export const MAIN = "#DDE2FF";
 export const SB_BRAND_BLUE = "#002849";
 export const WHITE = "#ffffff";
+export const ERROR = "#F12B2C";
+export const WARNING = "#FEC400";
+export const SUCCESS = "#29CC97";

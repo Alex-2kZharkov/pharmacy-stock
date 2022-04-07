@@ -22,6 +22,7 @@ export const UsersList = () => {
           pageSize={ROWS_PER_PAGE}
           disableSelectionOnClick
           getRowId={(row) => row._id}
+          disableColumnMenu={true}
         />
       </Box>
     </AdminPageWrapper>

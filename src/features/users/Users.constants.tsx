@@ -1,6 +1,12 @@
-import { GridValueGetterParams } from "@mui/x-data-grid";
+import {
+  GridColumns,
+  GridRenderCellParams,
+  GridValueGetterParams,
+} from "@mui/x-data-grid";
 
-export const USER_TABLE_COLUMNS = [
+import { RoleChip } from "../../components/RoleChip/RoleChip";
+
+export const USER_TABLE_COLUMNS: GridColumns = [
   {
     field: "updatedAt",
     headerName: "Дата создания",
@@ -39,5 +45,8 @@ export const USER_TABLE_COLUMNS = [
     valueGetter: ({ row }: GridValueGetterParams) => {
       return row.role.description;
     },
+    renderCell: ({ row }: GridRenderCellParams<Date>) => (
+      <RoleChip role={row.role.name} description={row.role.description} />
+    ),
   },
 ];
