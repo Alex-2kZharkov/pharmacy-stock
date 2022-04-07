@@ -20,6 +20,7 @@ export const MedicinesList = () => {
           columns={MEDICINE_TABLE_COLUMNS}
           pageSize={ROWS_PER_PAGE}
           disableSelectionOnClick
+          getRowId={(row) => row._id}
         />
       </Box>
     </AdminPageWrapper>
