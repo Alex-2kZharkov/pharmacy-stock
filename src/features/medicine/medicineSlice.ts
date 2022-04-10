@@ -5,12 +5,10 @@ import { MedicineDto } from "../../types/dto/medicine.types";
 
 export interface MedicineState {
   medicines: MedicineDto[];
-  status: "idle" | "loading" | "failed";
 }
 
 const initialState: MedicineState = {
   medicines: [],
-  status: "idle",
 };
 
 export const medicineSlice = createSlice({
