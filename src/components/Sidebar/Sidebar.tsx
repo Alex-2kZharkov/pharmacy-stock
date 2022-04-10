@@ -56,7 +56,7 @@ export const Sidebar = () => {
               <ListItemIcon>
                 <LocalPharmacyOutlined />
               </ListItemIcon>
-              <ListItemText primary="Лекарства" />
+              <ListItemText primary="Товары" />
             </ListItemButton>
           </ListItem>
           <ListItem component={Link} to="/employees">

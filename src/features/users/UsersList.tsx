@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
 import { AdminPageWrapper } from "../../components/AdminPageWrapper/AdminPageWrapper";
-import { ROWS_PER_PAGE } from "../../constants/pagination.constants";
 import { useGetUsersQuery } from "../../services/api/user.api";
 import { useStyles } from "../medicine/Medicines.styles";
 
@@ -19,7 +18,6 @@ export const UsersList = () => {
           className={classes.dataGrid}
           rows={usersList ?? []}
           columns={USER_TABLE_COLUMNS}
-          pageSize={ROWS_PER_PAGE}
           disableSelectionOnClick
           getRowId={(row) => row._id}
           disableColumnMenu={true}

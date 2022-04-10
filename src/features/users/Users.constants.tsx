@@ -1,17 +1,25 @@
 import {
   GridColumns,
   GridRenderCellParams,
+  GridValueFormatterParams,
   GridValueGetterParams,
 } from "@mui/x-data-grid";
+import { format } from "date-fns";
+import russianLocale from "date-fns/locale/ru";
 
 import { RoleChip } from "../../components/RoleChip/RoleChip";
 
 export const USER_TABLE_COLUMNS: GridColumns = [
   {
-    field: "updatedAt",
+    field: "createdAt",
     headerName: "Дата создания",
     width: 200,
     editable: true,
+    valueFormatter: (params: GridValueFormatterParams) => {
+      return format(new Date(params.value as string), "HH:mm, dd MMMM yyyy", {
+        locale: russianLocale,
+      });
+    },
   },
   {
     field: "firstName",

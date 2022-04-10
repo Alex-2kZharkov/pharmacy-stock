@@ -15,7 +15,6 @@ interface Props {
 export const RoleChip: FC<Props> = ({ role, description }) => {
   const classes = useStyles();
   // eslint-disable-next-line no-console
-  console.log(role, description);
   return (
     <Chip
       className={clsx(classes.container, {
