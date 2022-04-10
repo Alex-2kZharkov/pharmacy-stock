@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles((theme) => ({
   dataGridContainer: {
-    height: 400,
+    height: 401,
     width: "100%",
     backgroundColor: theme.palette.primary.contrastText,
   },
