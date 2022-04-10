@@ -1,24 +1,33 @@
-import { useState } from "react";
+import { useEffect } from "react";
 
 import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
 import { AdminPageWrapper } from "../../components/AdminPageWrapper/AdminPageWrapper";
 import { useGetUsersQuery } from "../../services/api/user.api";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { PagesTypes } from "../../types/common/pages.types";
+import { setCurrentPage } from "../app/appSlice";
 import { useStyles } from "../medicine/Medicines.styles";
 
 import { UserDialog } from "./UserDialog/UserDialog";
+import { selectIsUserDialogOpen, setIsUserDialogOpen } from "./userSlice";
 import { USER_TABLE_COLUMNS } from "./UsersPage.constants";
 
 export const UsersPage = () => {
+  const dispatch = useAppDispatch();
   const classes = useStyles();
+
   const { data: usersList } = useGetUsersQuery();
+  const isUserDialogOpen = useAppSelector(selectIsUserDialogOpen);
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const handleDialogOpened = () => dispatch(setIsUserDialogOpen(true));
 
-  const handleDialogOpened = () => setIsDialogOpen(true);
+  const handleDialogClosed = () => dispatch(setIsUserDialogOpen(false));
 
-  const handleDialogClosed = () => setIsDialogOpen(false);
+  useEffect(() => {
+    dispatch(setCurrentPage(PagesTypes.EMPLOYEES_PAGE));
+  }, [dispatch]);
 
   return (
     <>
@@ -36,7 +45,7 @@ export const UsersPage = () => {
       </AdminPageWrapper>
 
       <UserDialog
-        isOpen={isDialogOpen}
+        isOpen={isUserDialogOpen}
         onClose={handleDialogClosed}
         onSubmit={handleDialogOpened}
       />

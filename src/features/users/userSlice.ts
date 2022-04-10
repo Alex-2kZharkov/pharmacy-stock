@@ -3,26 +3,26 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../store/store";
 
 export interface UserState {
-  isCreationDialogOpen: boolean;
+  isUserDialogOpen: boolean;
 }
 
 const initialState: UserState = {
-  isCreationDialogOpen: false,
+  isUserDialogOpen: false,
 };
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    changeCreationDialogVisibility: (state, { payload }) => {
-      state.isCreationDialogOpen = payload;
+    setIsUserDialogOpen: (state, { payload }) => {
+      state.isUserDialogOpen = payload;
     },
   },
 });
 
-export const { changeCreationDialogVisibility } = userSlice.actions;
+export const { setIsUserDialogOpen } = userSlice.actions;
 
-export const selectIsCreationDialogOpen = (state: RootState) =>
-  state.user.isCreationDialogOpen;
+export const selectIsUserDialogOpen = (state: RootState) =>
+  state.user.isUserDialogOpen;
 
 export const userReducer = userSlice.reducer;
