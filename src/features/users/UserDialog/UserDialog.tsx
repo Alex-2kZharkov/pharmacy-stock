@@ -6,14 +6,16 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormHelperText,
-  TextField,
+  MenuItem,
+  // FormHelperText,
 } from "@mui/material";
-import { Formik, Field, Form } from "formik";
-import InputMask from "react-input-mask";
+import { Formik, Field, Form, FormikValues } from "formik";
+import { TextField } from "formik-material-ui";
+
+import { RoleTypes, RoleTypesRussian } from "../../../types/common/role.types";
 
 import { userValidationSchema } from "./UserDialog.schema";
-// import { useStyles } from "./UserDialog.styles";
+import { useStyles } from "./UserDialog.styles";
 
 interface Props {
   isOpen: boolean;
@@ -22,21 +24,28 @@ interface Props {
 }
 
 export const UserDialog: FC<Props> = ({ isOpen, onClose, onSubmit }) => {
-  // const classes = useStyles();
+  const classes = useStyles();
   const initialValues = {
     firstName: "",
     lastName: "",
     email: "",
-    phone: "",
+    phone: "+996",
     role: "",
   };
 
-  const handleFormSubmit = () => {
-    alert("2121312");
+  const handleFormSubmit = ({
+    firstName,
+    lastName,
+    email,
+    phone,
+    role,
+  }: FormikValues) => {
+    /* eslint-disable */
+    console.log(firstName, lastName, email, phone, role);
   };
 
   return (
-    <Dialog open={isOpen} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog open={isOpen} onClose={onClose} maxWidth="xs" fullWidth>
       <DialogTitle>Создать нового пользователя</DialogTitle>
       <DialogContent>
         <Formik
@@ -44,105 +53,66 @@ export const UserDialog: FC<Props> = ({ isOpen, onClose, onSubmit }) => {
           onSubmit={handleFormSubmit}
           validationSchema={userValidationSchema}
         >
-          {({ values, errors, handleSubmit }) => (
+          {() => (
             <Form>
               <Field
+                autoFocus
+                id="firstName"
                 name="firstName"
-                component={() => (
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="firstName"
-                    name="firstName"
-                    label="Имя"
-                    type="text"
-                    fullWidth
-                    variant="standard"
-                  />
-                )}
+                label="Имя"
+                fullWidth
+                variant="standard"
+                component={TextField}
+                margin="dense"
               />
-              {errors.firstName && (
-                <FormHelperText error>{errors.firstName}</FormHelperText>
-              )}
               <Field
+                id="lastName"
                 name="lastName"
-                component={() => (
-                  <TextField
-                    margin="dense"
-                    id="lastName"
-                    name="lastName"
-                    label="Фамилия"
-                    type="text"
-                    fullWidth
-                    variant="standard"
-                  />
-                )}
+                label="Фамилия"
+                fullWidth
+                variant="standard"
+                component={TextField}
+                margin="dense"
               />
-              {errors.lastName && (
-                <FormHelperText error>{errors.lastName}</FormHelperText>
-              )}
               <Field
+                id="email"
                 name="email"
-                component={() => (
-                  <TextField
-                    margin="dense"
-                    id="email"
-                    name="email"
-                    label="Email адрес"
-                    type="text"
-                    fullWidth
-                    variant="standard"
-                  />
-                )}
+                label="Email адрес"
+                fullWidth
+                variant="standard"
+                component={TextField}
+                margin="dense"
               />
-              {errors.email && (
-                <FormHelperText error>{errors.email}</FormHelperText>
-              )}
+
               <Field
+                id="phone"
                 name="phone"
-                component={() => (
-                  <InputMask
-                    /* eslint-disable */
-                    mask="+\9\96999999999"
-                    name="phone"
-                    disabled={false}
-                    maskPlaceholder="x"
-                  >
-                    {() => (
-                      <TextField
-                        margin="dense"
-                        id="phone"
-                        name="phone"
-                        label="Телефон"
-                        type=""
-                        fullWidth
-                        variant="standard"
-                      />
-                    )}
-                  </InputMask>
-                )}
+                label="Телефон"
+                fullWidth
+                variant="standard"
+                component={TextField}
+                margin="dense"
               />
-              {errors.phone && (
-                <FormHelperText error>{errors.phone}</FormHelperText>
-              )}
+
               <Field
+                id="role"
                 name="role"
-                component={() => (
-                  <TextField
-                    margin="dense"
-                    id="role"
-                    name="role"
-                    label="Роль"
-                    type="text"
-                    fullWidth
-                    variant="standard"
-                  />
-                )}
-              />
-              {errors.role && (
-                <FormHelperText error>{errors.role}</FormHelperText>
-              )}
-              <DialogActions>
+                label="Роль"
+                fullWidth
+                select
+                variant="standard"
+                component={TextField}
+                margin="dense"
+              >
+                <MenuItem value={RoleTypes.MANAGER}>
+                  {RoleTypesRussian.MANAGER}
+                </MenuItem>
+                <MenuItem value={RoleTypes.EMPLOYEE}>
+                  {RoleTypesRussian.EMPLOYEE}
+                </MenuItem>
+              </Field>
+
+              <DialogActions className={classes.dialogActions}>
                 <Button onClick={onClose} variant="outlined">
                   Отменить
                 </Button>
