@@ -12,7 +12,9 @@ import {
 import { Formik, Field, Form, FormikValues } from "formik";
 import { TextField } from "formik-material-ui";
 
+import { useLazyCreateUserQuery } from "../../../services/api/user.api";
 import { RoleTypes, RoleTypesRussian } from "../../../types/common/role.types";
+import { UserDto } from "../../../types/dto/user.types";
 
 import { userValidationSchema } from "./UserDialog.schema";
 import { useStyles } from "./UserDialog.styles";
@@ -20,11 +22,11 @@ import { useStyles } from "./UserDialog.styles";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: () => void;
 }
 
-export const UserDialog: FC<Props> = ({ isOpen, onClose, onSubmit }) => {
+export const UserDialog: FC<Props> = ({ isOpen, onClose }) => {
   const classes = useStyles();
+  const [createUser] = useLazyCreateUserQuery();
   const initialValues = {
     firstName: "",
     lastName: "",
@@ -33,15 +35,11 @@ export const UserDialog: FC<Props> = ({ isOpen, onClose, onSubmit }) => {
     role: "",
   };
 
-  const handleFormSubmit = ({
-    firstName,
-    lastName,
-    email,
-    phone,
-    role,
-  }: FormikValues) => {
+  const handleFormSubmit = (values: FormikValues) => {
+    createUser(values as UserDto);
     /* eslint-disable */
-    console.log(firstName, lastName, email, phone, role);
+    console.log(values);
+    window.location.reload();
   };
 
   return (

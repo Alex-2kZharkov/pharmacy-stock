@@ -8,11 +8,11 @@ import { useGetUsersQuery } from "../../services/api/user.api";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { PagesTypes } from "../../types/common/pages.types";
 import { setCurrentPage } from "../app/appSlice";
-import { useStyles } from "../medicine/Medicines.styles";
 
 import { UserDialog } from "./UserDialog/UserDialog";
 import { selectIsUserDialogOpen, setIsUserDialogOpen } from "./userSlice";
 import { USER_TABLE_COLUMNS } from "./UsersPage.constants";
+import { useStyles } from "./UsersPage.styles";
 
 export const UsersPage = () => {
   const dispatch = useAppDispatch();
@@ -20,8 +20,6 @@ export const UsersPage = () => {
 
   const { data: usersList } = useGetUsersQuery();
   const isUserDialogOpen = useAppSelector(selectIsUserDialogOpen);
-
-  const handleDialogOpened = () => dispatch(setIsUserDialogOpen(true));
 
   const handleDialogClosed = () => dispatch(setIsUserDialogOpen(false));
 
@@ -44,11 +42,7 @@ export const UsersPage = () => {
         </Box>
       </AdminPageWrapper>
 
-      <UserDialog
-        isOpen={isUserDialogOpen}
-        onClose={handleDialogClosed}
-        onSubmit={handleDialogOpened}
-      />
+      <UserDialog isOpen={isUserDialogOpen} onClose={handleDialogClosed} />
     </>
   );
 };
