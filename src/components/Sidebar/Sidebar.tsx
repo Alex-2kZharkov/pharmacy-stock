@@ -48,7 +48,7 @@ export const Sidebar = () => {
               <ListItemIcon>
                 <GridView />
               </ListItemIcon>
-              <ListItemText primary="Обзор" />
+              <ListItemText primary="Главная" />
             </ListItemButton>
           </ListItem>
           <ListItem component={Link} to="/medicines">

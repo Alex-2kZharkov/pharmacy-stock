@@ -4,7 +4,7 @@ import { BLACK, WHITE } from "../../../theme/colors/colors.constants";
 
 export const useStyles = makeStyles((theme) => ({
   root: {
-    width: "23%",
+    width: "33%",
     padding: theme.spacing(3, 3.5),
     border: `solid 2px ${theme.palette.secondary.dark}`,
     borderRadius: theme.spacing(1),
@@ -22,6 +22,7 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   title: {
+    textAlign: "center",
     fontSize: "1.2rem",
     fontWeight: 500,
     color: theme.palette.secondary.main,
