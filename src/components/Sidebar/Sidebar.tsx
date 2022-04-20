@@ -1,4 +1,8 @@
 import {
+  AddShoppingCartOutlined,
+  AttachMoneyOutlined,
+} from "@material-ui/icons";
+import {
   AdminPanelSettingsRounded,
   AssuredWorkloadOutlined,
   GridView,
@@ -57,6 +61,22 @@ export const Sidebar = () => {
                 <LocalPharmacyOutlined />
               </ListItemIcon>
               <ListItemText primary="Товары" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem component={Link} to="/medicine-sales">
+            <ListItemButton className={classes.listItem}>
+              <ListItemIcon>
+                <AttachMoneyOutlined />
+              </ListItemIcon>
+              <ListItemText primary="Продажи" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem component={Link} to="/medicine-purchases">
+            <ListItemButton className={classes.listItem}>
+              <ListItemIcon>
+                <AddShoppingCartOutlined />
+              </ListItemIcon>
+              <ListItemText primary="Расходы" />
             </ListItemButton>
           </ListItem>
           <ListItem component={Link} to="/employees">

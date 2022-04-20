@@ -9,6 +9,5 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: theme.spacing(1),
     padding: theme.spacing(2, 0),
     backgroundColor: WHITE,
-    cursor: "pointer",
   },
 }));

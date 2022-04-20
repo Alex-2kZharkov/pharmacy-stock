@@ -36,7 +36,7 @@ export const IncomeChart = () => {
   return (
     <Box className={classes.root}>
       <AreaChart
-        width={600}
+        width={550}
         height={450}
         data={data}
         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
@@ -61,6 +61,9 @@ export const IncomeChart = () => {
           stroke="#8884d8"
           fillOpacity={1}
           fill="url(#colorUv)"
+          strokeWidth={2}
+          /* eslint-disable-next-line id-length */
+          activeDot={{ r: 8 }}
         />
         <Area
           type="monotone"
@@ -68,6 +71,9 @@ export const IncomeChart = () => {
           stroke="#82ca9d"
           fillOpacity={1}
           fill="url(#colorPv)"
+          strokeWidth={2}
+          /* eslint-disable-next-line id-length */
+          activeDot={{ r: 8 }}
         />
       </AreaChart>
     </Box>

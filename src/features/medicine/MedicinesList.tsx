@@ -11,7 +11,7 @@ export const MedicinesList = () => {
   const classes = useStyles();
 
   return (
-    <AdminPageWrapper sectionTitle="Лекарства">
+    <AdminPageWrapper sectionTitle="Товары">
       <Box className={classes.dataGridContainer}>
         <DataGrid
           className={classes.dataGrid}

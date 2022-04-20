@@ -1,92 +1,75 @@
 import React, { PureComponent } from "react";
 
+import { Box } from "@mui/material";
 import {
   XAxis,
   Tooltip,
-  Legend,
   YAxis,
   Line,
   LineChart,
-  ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
+
+import { BORDER_COLOUR, WHITE } from "../../../theme/colors/colors.constants";
 
 const data = [
   {
     name: "Page A",
-    uv11: 4000,
-    pv11: 2400,
-    amt: 2400,
+    "Кол-во проданных товаров": 4000,
   },
   {
     name: "Page B",
-    uv11: 3000,
-    pv11: 1398,
-    amt: 2210,
+    "Кол-во проданных товаров": 3000,
   },
   {
     name: "Page C",
-    uv11: 2000,
-    pv11: 9800,
-    amt: 2290,
+    "Кол-во проданных товаров": 2000,
   },
   {
     name: "Page D",
-    uv11: 2780,
-    pv11: 3908,
-    amt: 2000,
+    "Кол-во проданных товаров": 2780,
   },
   {
     name: "Page E",
-    uv11: 1890,
-    pv11: 4800,
-    amt: 2181,
+    "Кол-во проданных товаров": 1890,
   },
   {
     name: "Page F",
-    uv11: 2390,
-    pv11: 3800,
-    amt: 2500,
+    "Кол-во проданных товаров": 2390,
   },
   {
     name: "Page G",
-    uv11: 3490,
-    pv11: 4300,
-    amt: 2100,
+    "Кол-во проданных товаров": 3490,
   },
 ];
 
 export class Example extends PureComponent {
   render() {
     return (
-      <ResponsiveContainer width="30%" height="35%">
-        <LineChart
-          width={500}
-          height={400}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
+      <Box
+        style={{
+          maxWidth: 600,
+          border: `solid 2px ${BORDER_COLOUR}`,
+          borderRadius: 8,
+          padding: "16px 20px 8px 0",
+          backgroundColor: WHITE,
+        }}
+      >
+        <LineChart width={550} height={450} data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
-          <Legend />
           <Line
             type="monotone"
-            dataKey="pv11"
+            dataKey="Кол-во проданных товаров"
             stroke="#8884d8"
             strokeWidth={2}
             /* eslint-disable-next-line id-length */
             activeDot={{ r: 8 }}
           />
-          <Line type="monotone" dataKey="uv11" stroke="#82ca9d" />
         </LineChart>
-      </ResponsiveContainer>
+      </Box>
     );
   }
 }

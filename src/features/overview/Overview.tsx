@@ -21,8 +21,8 @@ export const Overview = () => {
         alignItems="center"
       >
         <IncomeChart />
+        <Example />
       </Stack>
-      <Example />
     </AdminPageWrapper>
   );
 };
