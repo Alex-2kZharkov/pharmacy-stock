@@ -13,10 +13,10 @@ export const USER_TABLE_COLUMNS: GridColumns = [
   {
     field: "createdAt",
     headerName: "Дата создания",
-    width: 200,
+    width: 170,
     editable: true,
     valueFormatter: (params: GridValueFormatterParams) => {
-      return format(new Date(params.value as string), "HH:mm, dd MMMM yyyy", {
+      return format(new Date(params.value as string), "dd MMMM yyyy HH:mm", {
         locale: russianLocale,
       });
     },
@@ -42,7 +42,7 @@ export const USER_TABLE_COLUMNS: GridColumns = [
   {
     field: "phone",
     headerName: "Телефон",
-    width: 200,
+    width: 170,
     editable: true,
   },
   {

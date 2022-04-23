@@ -2,10 +2,12 @@ import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles((theme) => ({
   sidebar: {
-    width: "100%",
-    maxWidth: 255,
+    width: 315,
     minHeight: "100vh",
     backgroundColor: theme.palette.background.paper,
+  },
+  sideBarClosed: {
+    maxWidth: 100,
   },
 
   panel: {
@@ -50,5 +52,11 @@ export const useStyles = makeStyles((theme) => ({
     "& .MuiListItemIcon-root": {
       color: theme.palette.secondary.light,
     },
+  },
+  listItemClosed: {
+    maxWidth: 64,
+  },
+  sidebarDisplayItem: {
+    marginTop: theme.spacing(22),
   },
 }));

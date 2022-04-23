@@ -18,7 +18,6 @@ export const MedicinesList = () => {
           rows={MEDICINES_MOCK}
           columns={MEDICINE_TABLE_COLUMNS}
           disableSelectionOnClick
-          // getRowId={(row) => row?._id}
         />
       </Box>
     </AdminPageWrapper>

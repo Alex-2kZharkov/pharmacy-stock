@@ -6,10 +6,10 @@ export const MEDICINE_TABLE_COLUMNS = [
   {
     field: "updatedAt",
     headerName: "Дата изменения",
-    width: 200,
+    width: 170,
     editable: true,
     valueFormatter: (params: GridValueFormatterParams) => {
-      return format(new Date(params.value as string), "HH:mm, dd MMMM yyyy", {
+      return format(new Date(params.value as string), "dd MMMM yyyy HH:mm", {
         locale: russianLocale,
       });
     },
@@ -17,26 +17,47 @@ export const MEDICINE_TABLE_COLUMNS = [
   {
     field: "name",
     headerName: "Наименование",
-    width: 200,
+    width: 170,
     editable: true,
   },
   {
     field: "quantity",
-    headerName: "Количество",
+    headerName: "Остаток на складе",
+    type: "number",
+    width: 170,
+    editable: true,
+  },
+  {
+    field: "primaryAmount",
+    headerName: "Стоимость покупки 1 ед.",
     type: "number",
     width: 200,
     editable: true,
   },
   {
-    field: "amount",
-    headerName: "Общая сумма",
+    field: "finalAmount",
+    headerName: "Стоимость продажи 1 ед.",
     type: "number",
-    width: 150,
+    width: 200,
     editable: true,
   },
   {
-    field: "singleAmount",
-    headerName: "Стоимость единицы",
+    field: "percent",
+    headerName: "% добавленной стоимости",
+    type: "number",
+    width: 200,
+    editable: true,
+  },
+  {
+    field: "soldItemsForMonth",
+    headerName: "Продано на текущий месяц",
+    type: "number",
+    width: 200,
+    editable: true,
+  },
+  {
+    field: "nextMonthPrognosis",
+    headerName: "Прогноризуемый спрос",
     type: "number",
     width: 200,
     editable: true,

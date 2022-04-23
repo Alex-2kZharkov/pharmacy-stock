@@ -1,9 +1,11 @@
+import { useState } from "react";
+
 import {
   AddShoppingCartOutlined,
   AttachMoneyOutlined,
-} from "@material-ui/icons";
-import {
+  DoubleArrowOutlined,
   AdminPanelSettingsRounded,
+  ArrowBackIosNewOutlined,
   AssuredWorkloadOutlined,
   GridView,
   LocalPharmacyOutlined,
@@ -11,13 +13,16 @@ import {
   ShowChartOutlined,
 } from "@mui/icons-material";
 import {
+  Collapse,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
   Stack,
+  Tooltip,
 } from "@mui/material";
+import clsx from "clsx";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useStyles } from "./Sidebar.styles";
@@ -25,86 +30,157 @@ import { useStyles } from "./Sidebar.styles";
 export const Sidebar = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const [isSideBarExpanded, setIsSideBarExpanded] = useState(true);
+
+  const collapseSidebar = () => setIsSideBarExpanded(false);
+  const expandSidebar = () => setIsSideBarExpanded(true);
+
+  const collapseButton = (
+    <ListItem onClick={collapseSidebar} className={classes.sidebarDisplayItem}>
+      <ListItemButton className={classes.listItem}>
+        <ListItemIcon>
+          <ArrowBackIosNewOutlined />
+        </ListItemIcon>
+        <ListItemText primary="Скрыть" />
+      </ListItemButton>
+    </ListItem>
+  );
+
+  const expandButton = (
+    <ListItem onClick={expandSidebar} className={classes.sidebarDisplayItem}>
+      <ListItemButton
+        className={clsx(classes.listItem, classes.listItemClosed)}
+      >
+        <Tooltip title="Раскрыть">
+          <ListItemIcon>
+            <DoubleArrowOutlined />
+          </ListItemIcon>
+        </Tooltip>
+      </ListItemButton>
+    </ListItem>
+  );
 
   const handleTitleClick = () => navigate("/");
 
   return (
-    <Stack spacing={2} className={classes.sidebar}>
+    <Collapse
+      orientation="horizontal"
+      in={isSideBarExpanded}
+      collapsedSize={100}
+    >
       <Stack
-        direction="row"
-        alignItems="center"
-        className={classes.panel}
-        onClick={handleTitleClick}
+        spacing={2}
+        className={clsx(classes.sidebar, {
+          [classes.sideBarClosed]: !isSideBarExpanded,
+        })}
       >
         <Stack
+          direction="row"
           alignItems="center"
-          justifyContent="center"
-          className={classes.panelIconContainer}
+          className={classes.panel}
+          onClick={handleTitleClick}
         >
-          <AdminPanelSettingsRounded className={classes.panelIcon} />
+          <Stack
+            alignItems="center"
+            justifyContent="center"
+            className={classes.panelIconContainer}
+          >
+            <AdminPanelSettingsRounded className={classes.panelIcon} />
+          </Stack>
+          {isSideBarExpanded && (
+            <div className={classes.panelTitle}>Админ Панель</div>
+          )}
         </Stack>
-        <div className={classes.panelTitle}>Админ Панель</div>
+        <nav aria-label="main mailbox folders">
+          <List>
+            <ListItem component={Link} to="/">
+              <ListItemButton
+                className={clsx(classes.listItem, {
+                  [classes.listItemClosed]: !isSideBarExpanded,
+                })}
+              >
+                <ListItemIcon>
+                  <GridView />
+                </ListItemIcon>
+                {isSideBarExpanded && <ListItemText primary="Главная" />}
+              </ListItemButton>
+            </ListItem>
+            <ListItem component={Link} to="/medicines">
+              <ListItemButton
+                className={clsx(classes.listItem, {
+                  [classes.listItemClosed]: !isSideBarExpanded,
+                })}
+              >
+                <ListItemIcon>
+                  <LocalPharmacyOutlined />
+                </ListItemIcon>
+                {isSideBarExpanded && <ListItemText primary="Товары" />}
+              </ListItemButton>
+            </ListItem>
+            <ListItem component={Link} to="/medicine-sales">
+              <ListItemButton
+                className={clsx(classes.listItem, {
+                  [classes.listItemClosed]: !isSideBarExpanded,
+                })}
+              >
+                <ListItemIcon>
+                  <AttachMoneyOutlined />
+                </ListItemIcon>
+                {isSideBarExpanded && <ListItemText primary="Продажи" />}
+              </ListItemButton>
+            </ListItem>
+            <ListItem component={Link} to="/medicine-purchases">
+              <ListItemButton
+                className={clsx(classes.listItem, {
+                  [classes.listItemClosed]: !isSideBarExpanded,
+                })}
+              >
+                <ListItemIcon>
+                  <AddShoppingCartOutlined />
+                </ListItemIcon>
+                {isSideBarExpanded && <ListItemText primary="Расходы" />}
+              </ListItemButton>
+            </ListItem>
+            <ListItem component={Link} to="/employees">
+              <ListItemButton
+                className={clsx(classes.listItem, {
+                  [classes.listItemClosed]: !isSideBarExpanded,
+                })}
+              >
+                <ListItemIcon>
+                  <PeopleOutlined />
+                </ListItemIcon>
+                {isSideBarExpanded && <ListItemText primary="Сотрудники" />}
+              </ListItemButton>
+            </ListItem>
+            <ListItem>
+              <ListItemButton
+                className={clsx(classes.listItem, {
+                  [classes.listItemClosed]: !isSideBarExpanded,
+                })}
+              >
+                <ListItemIcon>
+                  <ShowChartOutlined />
+                </ListItemIcon>
+                {isSideBarExpanded && <ListItemText primary="Спрос" />}
+              </ListItemButton>
+            </ListItem>
+            <ListItem>
+              <ListItemButton
+                className={clsx(classes.listItem, {
+                  [classes.listItemClosed]: !isSideBarExpanded,
+                })}
+              >
+                <ListItemIcon>
+                  <AssuredWorkloadOutlined />
+                </ListItemIcon>
+                {isSideBarExpanded && <ListItemText primary="Рекомендации" />}
+              </ListItemButton>
+            </ListItem>
+            {isSideBarExpanded ? collapseButton : expandButton}
+          </List>
+        </nav>
       </Stack>
-      <nav aria-label="main mailbox folders">
-        <List>
-          <ListItem component={Link} to="/">
-            <ListItemButton className={classes.listItem}>
-              <ListItemIcon>
-                <GridView />
-              </ListItemIcon>
-              <ListItemText primary="Главная" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem component={Link} to="/medicines">
-            <ListItemButton className={classes.listItem}>
-              <ListItemIcon>
-                <LocalPharmacyOutlined />
-              </ListItemIcon>
-              <ListItemText primary="Товары" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem component={Link} to="/medicine-sales">
-            <ListItemButton className={classes.listItem}>
-              <ListItemIcon>
-                <AttachMoneyOutlined />
-              </ListItemIcon>
-              <ListItemText primary="Продажи" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem component={Link} to="/medicine-purchases">
-            <ListItemButton className={classes.listItem}>
-              <ListItemIcon>
-                <AddShoppingCartOutlined />
-              </ListItemIcon>
-              <ListItemText primary="Расходы" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem component={Link} to="/employees">
-            <ListItemButton className={classes.listItem}>
-              <ListItemIcon>
-                <PeopleOutlined />
-              </ListItemIcon>
-              <ListItemText primary="Сотрудники" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton className={classes.listItem}>
-              <ListItemIcon>
-                <ShowChartOutlined />
-              </ListItemIcon>
-              <ListItemText primary="Спрос" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton className={classes.listItem}>
-              <ListItemIcon>
-                <AssuredWorkloadOutlined />
-              </ListItemIcon>
-              <ListItemText primary="Рекомендации" />
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </nav>
-    </Stack>
+    </Collapse>
   );
 };

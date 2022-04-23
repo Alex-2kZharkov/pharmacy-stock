@@ -39,7 +39,8 @@ export const UserDialog: FC<Props> = ({ isOpen, onClose }) => {
     createUser(values as UserDto);
     /* eslint-disable */
     console.log(values);
-    window.location.reload();
+    // window.location.reload();
+    onClose();
   };
 
   return (
