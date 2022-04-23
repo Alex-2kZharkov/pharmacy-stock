@@ -1,3 +1,4 @@
+import { ActionCreator } from "../../store/store";
 import { MedicineDto } from "../dto/medicine.types";
 import { UserDto } from "../dto/user.types";
 
@@ -10,3 +11,8 @@ export enum EntitiesNames {
 }
 
 export type Entities = UserDto | MedicineDto;
+
+export interface CurrentEntityAction {
+  setCurrentEntity: (payload: Entities) => ActionCreator;
+  setIsCurrentModalOpen: (payload: boolean) => ActionCreator;
+}

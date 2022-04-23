@@ -17,6 +17,10 @@ export const store = configureStore({
     getDefaultMiddleware().concat(userApi.middleware),
 });
 
+export interface ActionCreator {
+  payload: unknown;
+  type: string;
+}
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<

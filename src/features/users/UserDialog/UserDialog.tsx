@@ -50,7 +50,9 @@ export const UserDialog: FC<Props> = ({
 
   return (
     <Dialog open={isOpen} onClose={onClose} maxWidth="xs" fullWidth>
-      <DialogTitle>Создать нового пользователя</DialogTitle>
+      <DialogTitle>
+        {firstName ? "Обновить пользователя" : "Создать нового пользователя"}
+      </DialogTitle>
       <DialogContent>
         <Formik
           initialValues={initialValues}
@@ -121,7 +123,7 @@ export const UserDialog: FC<Props> = ({
                   Отменить
                 </Button>
                 <Button variant="contained" type="submit">
-                  Создать
+                  Сохранить
                 </Button>
               </DialogActions>
             </Form>
