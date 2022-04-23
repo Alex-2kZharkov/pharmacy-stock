@@ -10,5 +10,8 @@ export const useStyles = makeStyles((theme) => ({
     "& .MuiDataGrid-row:hover": {
       backgroundColor: `${theme.palette.background.default} !important`,
     },
+    "&.MuiDataGrid-root .MuiDataGrid-cell:focus": {
+      outline: "none",
+    },
   },
 }));

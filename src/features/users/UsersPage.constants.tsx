@@ -1,3 +1,4 @@
+import { Stack } from "@mui/material";
 import {
   GridColumns,
   GridRenderCellParams,
@@ -7,6 +8,8 @@ import {
 import { format } from "date-fns";
 import russianLocale from "date-fns/locale/ru";
 
+import { DeleteButton } from "../../components/DeleteButton/DeleteButton";
+import { EditButton } from "../../components/EditButton/EditButton";
 import { RoleChip } from "../../components/RoleChip/RoleChip";
 
 export const USER_TABLE_COLUMNS: GridColumns = [
@@ -24,13 +27,13 @@ export const USER_TABLE_COLUMNS: GridColumns = [
   {
     field: "firstName",
     headerName: "Имя",
-    width: 200,
+    width: 170,
     editable: true,
   },
   {
     field: "lastName",
     headerName: "Фамилия",
-    width: 200,
+    width: 170,
     editable: true,
   },
   {
@@ -42,19 +45,25 @@ export const USER_TABLE_COLUMNS: GridColumns = [
   {
     field: "phone",
     headerName: "Телефон",
-    width: 170,
+    width: 130,
     editable: true,
   },
   {
     field: "description",
     headerName: "Роль",
-    width: 200,
+    width: 250,
     editable: true,
     valueGetter: ({ row }: GridValueGetterParams) => {
       return row.role.description;
     },
     renderCell: ({ row }: GridRenderCellParams<Date>) => (
-      <RoleChip role={row.role.name} description={row.role.description} />
+      <Stack direction="row" spacing={2} justifyContent="space-between">
+        <RoleChip role={row.role.name} description={row.role.description} />
+        <Stack direction="row">
+          <EditButton />
+          <DeleteButton />
+        </Stack>
+      </Stack>
     ),
   },
 ];
