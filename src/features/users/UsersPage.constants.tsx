@@ -11,6 +11,8 @@ import russianLocale from "date-fns/locale/ru";
 import { DeleteButton } from "../../components/DeleteButton/DeleteButton";
 import { EditButton } from "../../components/EditButton/EditButton";
 import { RoleChip } from "../../components/RoleChip/RoleChip";
+import { EntitiesNames } from "../../types/common/general.types";
+import { UserDto } from "../../types/dto/user.types";
 
 export const USER_TABLE_COLUMNS: GridColumns = [
   {
@@ -60,7 +62,10 @@ export const USER_TABLE_COLUMNS: GridColumns = [
       <Stack direction="row" spacing={2} justifyContent="space-between">
         <RoleChip role={row.role.name} description={row.role.description} />
         <Stack direction="row">
-          <EditButton />
+          <EditButton
+            entityName={EntitiesNames.User}
+            payload={row as UserDto}
+          />
           <DeleteButton />
         </Stack>
       </Stack>

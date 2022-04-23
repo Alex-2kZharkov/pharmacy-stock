@@ -12,31 +12,36 @@ import {
 import { Formik, Field, Form, FormikValues } from "formik";
 import { TextField } from "formik-material-ui";
 
-import { useLazyCreateUserQuery } from "../../../services/api/user.api";
 import { RoleTypes, RoleTypesRussian } from "../../../types/common/role.types";
 import { UserDto } from "../../../types/dto/user.types";
+import { userValidationSchema } from "../UsersPage.schema";
 
-import { userValidationSchema } from "./UserDialog.schema";
 import { useStyles } from "./UserDialog.styles";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  confirm: (payload: UserDto) => void;
+  user?: UserDto;
 }
 
-export const UserDialog: FC<Props> = ({ isOpen, onClose }) => {
+export const UserDialog: FC<Props> = ({
+  isOpen,
+  onClose,
+  confirm,
+  user: { firstName, lastName, email, phone, role } = {},
+}) => {
   const classes = useStyles();
-  const [createUser] = useLazyCreateUserQuery();
   const initialValues = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "+996",
-    role: "",
+    firstName: firstName ?? "",
+    lastName: lastName ?? "",
+    email: email ?? "",
+    phone: phone ?? "+996",
+    role: role ?? "",
   };
 
   const handleFormSubmit = (values: FormikValues) => {
-    createUser(values as UserDto);
+    confirm(values as UserDto);
     /* eslint-disable */
     console.log(values);
     // window.location.reload();

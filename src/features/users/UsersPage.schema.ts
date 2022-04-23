@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-import { PHONE_REGEX } from "../../../constants/regex.constants";
+import { PHONE_REGEX } from "../../constants/regex.constants";
 import {
   INVALID_EMAIL_MESSAGE,
   INVALID_PHONE_MESSAGE,
@@ -8,7 +8,7 @@ import {
   PHONE_LENGTH,
   INVALID_PHONE_MIN_MESSAGE,
   INVALID_PHONE_MAX_MESSAGE,
-} from "../../../constants/yup.constants";
+} from "../../constants/yup.constants";
 
 export const userValidationSchema = yup.object().shape({
   firstName: yup.string().required(REQUIRED_FIELD_MESSAGE),
