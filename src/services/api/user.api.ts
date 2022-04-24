@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { BASE_URL } from "../../constants/host.constants";
+import { Optional } from "../../types/common/general.types";
 import { UserDto } from "../../types/dto/user.types";
 
 export const userApi = createApi({
@@ -22,6 +23,32 @@ export const userApi = createApi({
         body: payload,
       }),
     }),
+    deleteUser: builder.query<undefined, Optional<string>>({
+      query: (id) => ({
+        url: `users/${id}`,
+        method: "DELETE",
+      }),
+      async onQueryStarted(
+        _id: Optional<string>,
+        { dispatch, queryFulfilled }
+      ) {
+        const patchResult = dispatch(
+          userApi.util.updateQueryData(
+            "getUsers",
+            undefined,
+            (draft: UserDto[]) => {
+              const index = draft.findIndex((user) => user._id === _id);
+              draft.splice(index, 1);
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+    }),
   }),
 });
 
@@ -29,4 +56,5 @@ export const {
   useLazyGetUsersQuery,
   useLazyCreateUserQuery,
   useLazyUpdateUserQuery,
+  useLazyDeleteUserQuery,
 } = userApi;

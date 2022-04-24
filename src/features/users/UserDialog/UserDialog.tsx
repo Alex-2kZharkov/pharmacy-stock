@@ -41,9 +41,6 @@ export const UserDialog: FC<Props> = ({
 
   const handleFormSubmit = (values: FormikValues) => {
     confirm({ ...(values as UserDto), _id: _id ?? "" });
-    /* eslint-disable */
-    console.log(values);
-    // window.location.reload();
     onClose();
   };
 

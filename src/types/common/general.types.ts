@@ -10,7 +10,7 @@ export enum EntitiesNames {
   Medicine = "Medicine",
 }
 
-export type Entities = UserDto | MedicineDto;
+export type Entities = Optional<UserDto> | MedicineDto;
 
 export interface CurrentEntityAction {
   setCurrentEntity: (payload: Entities) => ActionCreator;
