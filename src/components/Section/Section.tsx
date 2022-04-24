@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { Stack, Typography } from "@mui/material";
 
-import { Toolbar } from "../Toolbar/Toolbar";
+import { Toolbar } from "../Toolbar";
 
 import { useStyles } from "./Section.styles";
 

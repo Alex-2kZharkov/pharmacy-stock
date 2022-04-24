@@ -43,7 +43,7 @@ const data = [
   },
 ];
 
-export class Example extends PureComponent {
+export class ItemsChart extends PureComponent {
   render() {
     return (
       <Box

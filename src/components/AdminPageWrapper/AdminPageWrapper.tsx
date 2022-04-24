@@ -2,9 +2,9 @@ import { FC } from "react";
 
 import { Stack } from "@mui/material";
 
-import { Section } from "../Section/Section";
-import { SectionCard } from "../Section/SectionCard/SectionCard";
-import { Sidebar } from "../Sidebar/Sidebar";
+import { Section } from "../Section";
+import { SectionCard } from "../Section/SectionCard";
+import { Sidebar } from "../Sidebar";
 
 interface Props {
   sectionTitle: string;

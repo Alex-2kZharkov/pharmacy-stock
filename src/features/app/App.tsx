@@ -9,9 +9,9 @@ import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 
 import { ErrorFallback } from "../../components/ErrorFallback";
 import { theme } from "../../theme/theme";
-import { MedicinesList } from "../medicine/MedicinesList";
-import { Overview } from "../overview/Overview";
-import { UsersPage } from "../users/UsersPage";
+import { MedicinesList } from "../medicine";
+import { Overview } from "../overview";
+import { UsersPage } from "../users";
 
 export const App = () => {
   const handleDefaultError: ErrorBoundaryPropsWithFallback["onError"] =

@@ -8,9 +8,9 @@ import {
 import { format } from "date-fns";
 import russianLocale from "date-fns/locale/ru";
 
-import { DeleteButton } from "../../components/DeleteButton/DeleteButton";
-import { EditButton } from "../../components/EditButton/EditButton";
-import { RoleChip } from "../../components/RoleChip/RoleChip";
+import { DeleteButton } from "../../components/DeleteButton";
+import { EditButton } from "../../components/EditButton";
+import { RoleChip } from "../../components/RoleChip";
 import { EntitiesNames } from "../../types/common/general.types";
 import { UserDto } from "../../types/dto/user.types";
 

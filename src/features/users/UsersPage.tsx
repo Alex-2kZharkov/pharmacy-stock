@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
-import { AdminPageWrapper } from "../../components/AdminPageWrapper/AdminPageWrapper";
+import { AdminPageWrapper } from "../../components/AdminPageWrapper";
 import {
   useGetUsersQuery,
   useLazyCreateUserQuery,
