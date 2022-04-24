@@ -66,7 +66,10 @@ export const USER_TABLE_COLUMNS: GridColumns = [
             entityName={EntitiesNames.User}
             payload={row as UserDto}
           />
-          <DeleteButton />
+          <DeleteButton
+            entityName={EntitiesNames.User}
+            payload={row as UserDto}
+          />
         </Stack>
       </Stack>
     ),

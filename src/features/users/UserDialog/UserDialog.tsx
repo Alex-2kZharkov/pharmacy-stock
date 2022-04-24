@@ -7,7 +7,6 @@ import {
   DialogContent,
   DialogTitle,
   MenuItem,
-  // FormHelperText,
 } from "@mui/material";
 import { Formik, Field, Form, FormikValues } from "formik";
 import { TextField } from "formik-material-ui";
@@ -37,7 +36,7 @@ export const UserDialog: FC<Props> = ({
     lastName: lastName ?? "",
     email: email ?? "",
     phone: phone ?? "+996",
-    role: role ?? "",
+    role: role?.name ?? "",
   };
 
   const handleFormSubmit = (values: FormikValues) => {

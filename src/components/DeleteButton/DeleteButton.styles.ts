@@ -1,7 +1,10 @@
 import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles((theme) => ({
-  editButton: {
+  deleteButton: {
     color: theme.palette.error.main,
+  },
+  disabledDeleteButton: {
+    color: theme.palette.primary.light,
   },
 }));
