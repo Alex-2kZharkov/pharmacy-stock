@@ -5,8 +5,9 @@ import { DataGrid } from "@mui/x-data-grid";
 
 import { AdminPageWrapper } from "../../components/AdminPageWrapper";
 import {
-  useGetUsersQuery,
   useLazyCreateUserQuery,
+  useLazyGetUsersQuery,
+  useLazyUpdateUserQuery,
 } from "../../services/api/user.api";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { PagesTypes } from "../../types/common/pages.types";
@@ -24,15 +25,18 @@ import { USER_TABLE_COLUMNS } from "./UsersPage.constants";
 import { useStyles } from "./UsersPage.styles";
 
 export const UsersPage = () => {
-  const dispatch = useAppDispatch();
   const classes = useStyles();
+  const dispatch = useAppDispatch();
 
   const isCreateDialogOpen = useAppSelector(selectIsCreateUserDialogOpen);
   const isUpdateDialogOpen = useAppSelector(selectIsUpdateUserDialogOpen);
   const currentEditableUser = useAppSelector(selectCurrentEditableUser);
 
-  const { data: usersList } = useGetUsersQuery();
-  const [createUser] = useLazyCreateUserQuery();
+  const [getUsers, { data: usersList }] = useLazyGetUsersQuery();
+  const [createUser, { isFetching: isCreationFetching }] =
+    useLazyCreateUserQuery();
+  const [updateUser, { isFetching: isUpdateFetching }] =
+    useLazyUpdateUserQuery();
 
   const handleCreateDialogClosed = () =>
     dispatch(setIsCreateUserDialogOpen(false));
@@ -43,6 +47,10 @@ export const UsersPage = () => {
   useEffect(() => {
     dispatch(setCurrentPage(PagesTypes.EMPLOYEES_PAGE));
   }, [dispatch]);
+
+  useEffect(() => {
+    getUsers();
+  }, [getUsers, isCreationFetching, isUpdateFetching]);
 
   return (
     <>
@@ -67,7 +75,7 @@ export const UsersPage = () => {
       <UserDialog
         isOpen={isUpdateDialogOpen}
         onClose={handleUpdateDialogClosed}
-        confirm={createUser}
+        confirm={updateUser}
         user={currentEditableUser}
       />
     </>

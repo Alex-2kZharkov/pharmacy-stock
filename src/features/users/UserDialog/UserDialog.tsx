@@ -28,7 +28,7 @@ export const UserDialog: FC<Props> = ({
   isOpen,
   onClose,
   confirm,
-  user: { firstName, lastName, email, phone, role } = {},
+  user: { _id, firstName, lastName, email, phone, role } = {},
 }) => {
   const classes = useStyles();
   const initialValues = {
@@ -40,7 +40,7 @@ export const UserDialog: FC<Props> = ({
   };
 
   const handleFormSubmit = (values: FormikValues) => {
-    confirm(values as UserDto);
+    confirm({ ...(values as UserDto), _id: _id ?? "" });
     /* eslint-disable */
     console.log(values);
     // window.location.reload();

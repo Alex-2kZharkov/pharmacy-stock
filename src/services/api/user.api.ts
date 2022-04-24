@@ -14,7 +14,19 @@ export const userApi = createApi({
     createUser: builder.query<UserDto, UserDto>({
       query: (body) => ({ url: "users", method: "POST", body }),
     }),
+
+    updateUser: builder.query<UserDto, UserDto>({
+      query: (payload) => ({
+        url: `users/${payload._id}`,
+        method: "PUT",
+        body: payload,
+      }),
+    }),
   }),
 });
 
-export const { useGetUsersQuery, useLazyCreateUserQuery } = userApi;
+export const {
+  useLazyGetUsersQuery,
+  useLazyCreateUserQuery,
+  useLazyUpdateUserQuery,
+} = userApi;
