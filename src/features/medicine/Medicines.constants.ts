@@ -49,14 +49,14 @@ export const MEDICINE_TABLE_COLUMNS = [
     editable: true,
   },
   {
-    field: "soldItemsForMonth",
+    field: "soldForMonth",
     headerName: "Продано на текущий месяц",
     type: "number",
     width: 200,
     editable: true,
   },
   {
-    field: "nextMonthPrognosis",
+    field: "prognosis",
     headerName: "Прогноризуемый спрос",
     type: "number",
     width: 200,

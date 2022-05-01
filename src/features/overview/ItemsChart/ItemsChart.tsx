@@ -66,7 +66,7 @@ export class ItemsChart extends PureComponent {
             stroke="#8884d8"
             strokeWidth={2}
             /* eslint-disable-next-line id-length */
-            activeDot={{ r: 8 }}
+            activeDot={{ r: 6 }}
           />
         </LineChart>
       </Box>

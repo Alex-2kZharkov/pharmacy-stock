@@ -1,23 +1,32 @@
+import { useEffect } from "react";
+
 import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
 import { AdminPageWrapper } from "../../components/AdminPageWrapper";
-import { MEDICINES_MOCK } from "../../mocks/medicines.mock";
+import { useLazyGetMedicinesQuery } from "../../services/api/medicine.api";
 
 import { MEDICINE_TABLE_COLUMNS } from "./Medicines.constants";
 import { useStyles } from "./Medicines.styles";
 
 export const MedicinesList = () => {
   const classes = useStyles();
+  const [getMedicines, { data: medicineList }] = useLazyGetMedicinesQuery();
+
+  useEffect(() => {
+    getMedicines();
+  }, [getMedicines]);
 
   return (
     <AdminPageWrapper sectionTitle="Товары">
       <Box className={classes.dataGridContainer}>
         <DataGrid
           className={classes.dataGrid}
-          rows={MEDICINES_MOCK}
           columns={MEDICINE_TABLE_COLUMNS}
           disableSelectionOnClick
+          rows={medicineList ?? []}
+          disableColumnMenu={true}
+          getRowId={(row) => row._id}
         />
       </Box>
     </AdminPageWrapper>

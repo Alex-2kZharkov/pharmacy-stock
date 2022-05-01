@@ -63,7 +63,7 @@ export const IncomeChart = () => {
           fill="url(#colorUv)"
           strokeWidth={2}
           /* eslint-disable-next-line id-length */
-          activeDot={{ r: 8 }}
+          activeDot={{ r: 6 }}
         />
         <Area
           type="monotone"
@@ -73,7 +73,7 @@ export const IncomeChart = () => {
           fill="url(#colorPv)"
           strokeWidth={2}
           /* eslint-disable-next-line id-length */
-          activeDot={{ r: 8 }}
+          activeDot={{ r: 6 }}
         />
       </AreaChart>
     </Box>
