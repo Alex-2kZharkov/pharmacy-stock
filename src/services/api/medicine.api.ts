@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { BASE_URL } from "../../constants/host.constants";
-import { MedicineDto } from "../../types/dto/medicine.types";
+import { MedicineDto } from "../../types/dto/Medicine.dto";
 
 export const medicineApi = createApi({
   reducerPath: "medicineApi",

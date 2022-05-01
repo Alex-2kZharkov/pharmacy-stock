@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { BASE_URL } from "../../constants/host.constants";
 import { Optional } from "../../types/common/general.types";
-import { UserDto } from "../../types/dto/user.types";
+import { UserDto } from "../../types/dto/User.dto";
 
 export const userApi = createApi({
   reducerPath: "userApi",

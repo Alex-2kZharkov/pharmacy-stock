@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { RootState } from "../../store/store";
 import { Optional } from "../../types/common/general.types";
-import { UserDto } from "../../types/dto/user.types";
+import { UserDto } from "../../types/dto/User.dto";
 
 export interface UserState {
   isCreateUserDialogOpen: boolean;

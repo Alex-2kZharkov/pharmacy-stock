@@ -5,18 +5,17 @@ import { IconButton } from "@mui/material";
 import clsx from "clsx";
 
 import { useLazyDeleteUserQuery } from "../../services/api/user.api";
-import { Entities, EntitiesNames } from "../../types/common/general.types";
+import { Entities } from "../../types/common/general.types";
 import { RoleTypes } from "../../types/common/role.types";
-import { UserDto } from "../../types/dto/user.types";
+import { UserDto } from "../../types/dto/User.dto";
 
 import { useStyles } from "./DeleteButton.styles";
 
 interface Props {
-  entityName: EntitiesNames;
   payload: Entities;
 }
 
-export const DeleteButton: FC<Props> = ({ entityName, payload }) => {
+export const DeleteButton: FC<Props> = ({ payload }) => {
   const classes = useStyles();
   const isDisabled = (payload as UserDto)?.role?.name === RoleTypes.ADMIN;
 

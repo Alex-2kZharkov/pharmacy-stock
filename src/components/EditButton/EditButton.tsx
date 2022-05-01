@@ -7,7 +7,7 @@ import clsx from "clsx";
 import { useAppDispatch } from "../../store/hooks";
 import { Entities, EntitiesNames } from "../../types/common/general.types";
 import { RoleTypes } from "../../types/common/role.types";
-import { UserDto } from "../../types/dto/user.types";
+import { UserDto } from "../../types/dto/User.dto";
 import { getCurrentEntityActions } from "../../utils/common.utils";
 
 import { useStyles } from "./EditButton.styles";

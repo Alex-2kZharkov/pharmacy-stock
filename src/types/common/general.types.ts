@@ -1,6 +1,6 @@
 import { ActionCreator } from "../../store/store";
-import { MedicineDto } from "../dto/medicine.types";
-import { UserDto } from "../dto/user.types";
+import { MedicineDto } from "../dto/Medicine.dto";
+import { UserDto } from "../dto/User.dto";
 
 export type UnknownObject = Record<string, unknown>;
 export type Optional<T> = T | undefined;

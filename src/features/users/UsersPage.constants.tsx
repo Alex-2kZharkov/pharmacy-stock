@@ -12,7 +12,7 @@ import { DeleteButton } from "../../components/DeleteButton";
 import { EditButton } from "../../components/EditButton";
 import { RoleChip } from "../../components/RoleChip";
 import { EntitiesNames } from "../../types/common/general.types";
-import { UserDto } from "../../types/dto/user.types";
+import { UserDto } from "../../types/dto/User.dto";
 
 export const USER_TABLE_COLUMNS: GridColumns = [
   {
@@ -66,10 +66,7 @@ export const USER_TABLE_COLUMNS: GridColumns = [
             entityName={EntitiesNames.User}
             payload={row as UserDto}
           />
-          <DeleteButton
-            entityName={EntitiesNames.User}
-            payload={row as UserDto}
-          />
+          <DeleteButton payload={row as UserDto} />
         </Stack>
       </Stack>
     ),

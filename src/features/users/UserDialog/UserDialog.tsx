@@ -12,7 +12,7 @@ import { Formik, Field, Form, FormikValues } from "formik";
 import { TextField } from "formik-material-ui";
 
 import { RoleTypes, RoleTypesRussian } from "../../../types/common/role.types";
-import { UserDto } from "../../../types/dto/user.types";
+import { UserDto } from "../../../types/dto/User.dto";
 import { userValidationSchema } from "../UsersPage.schema";
 
 import { useStyles } from "./UserDialog.styles";
