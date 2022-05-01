@@ -53,6 +53,14 @@ export const useStyles = makeStyles((theme) => ({
       color: theme.palette.secondary.light,
     },
   },
+  listItemActive: {
+    "& .MuiTypography-root": {
+      color: theme.palette.primary.light,
+    },
+    "& .MuiListItemIcon-root": {
+      color: theme.palette.primary.light,
+    },
+  },
   listItemClosed: {
     maxWidth: 64,
   },

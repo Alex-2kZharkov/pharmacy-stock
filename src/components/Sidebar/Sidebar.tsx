@@ -23,7 +23,7 @@ import {
   Tooltip,
 } from "@mui/material";
 import clsx from "clsx";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { useStyles } from "./Sidebar.styles";
 
@@ -31,6 +31,17 @@ export const Sidebar = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [isSideBarExpanded, setIsSideBarExpanded] = useState(true);
+  const { pathname } = useLocation();
+
+  // eslint-disable-next-line no-console
+  console.log(
+    pathname,
+    "$$$$$$$$$$$$$$$$$$",
+    pathname === "/",
+    pathname === "/medicines",
+    pathname === "/medicine-sales",
+    pathname === "/employees"
+  );
 
   const collapseSidebar = () => setIsSideBarExpanded(false);
   const expandSidebar = () => setIsSideBarExpanded(true);
@@ -97,6 +108,7 @@ export const Sidebar = () => {
               <ListItemButton
                 className={clsx(classes.listItem, {
                   [classes.listItemClosed]: !isSideBarExpanded,
+                  [classes.listItemActive]: pathname === "/",
                 })}
               >
                 <ListItemIcon>
@@ -109,6 +121,7 @@ export const Sidebar = () => {
               <ListItemButton
                 className={clsx(classes.listItem, {
                   [classes.listItemClosed]: !isSideBarExpanded,
+                  [classes.listItemActive]: pathname === "/medicines",
                 })}
               >
                 <ListItemIcon>
@@ -121,6 +134,7 @@ export const Sidebar = () => {
               <ListItemButton
                 className={clsx(classes.listItem, {
                   [classes.listItemClosed]: !isSideBarExpanded,
+                  [classes.listItemActive]: pathname === "/medicine-sales",
                 })}
               >
                 <ListItemIcon>
@@ -145,6 +159,7 @@ export const Sidebar = () => {
               <ListItemButton
                 className={clsx(classes.listItem, {
                   [classes.listItemClosed]: !isSideBarExpanded,
+                  [classes.listItemActive]: pathname === "/employees",
                 })}
               >
                 <ListItemIcon>
