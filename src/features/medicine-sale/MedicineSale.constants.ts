@@ -28,7 +28,7 @@ export const MEDICINE_SALE_TABLE_COLUMNS = [
   },
   {
     field: "quantity",
-    headerName: "Продано ед.",
+    headerName: "Объем продажи",
     type: "number",
     width: 170,
     editable: true,

@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { EditOutlined } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import clsx from "clsx";
 
 import { useAppDispatch } from "../../store/hooks";
@@ -15,9 +15,10 @@ import { useStyles } from "./EditButton.styles";
 interface Props {
   entityName: EntitiesNames;
   payload: Entities;
+  tooltipText?: string;
 }
 
-export const EditButton: FC<Props> = ({ entityName, payload }) => {
+export const EditButton: FC<Props> = ({ entityName, payload, tooltipText }) => {
   const classes = useStyles();
   const dispatch = useAppDispatch();
   const isDisabled = (payload as UserDto)?.role?.name === RoleTypes.ADMIN;
@@ -31,12 +32,14 @@ export const EditButton: FC<Props> = ({ entityName, payload }) => {
   };
 
   return (
-    <IconButton onClick={handleIconClick} disabled={isDisabled}>
-      <EditOutlined
-        className={clsx(classes.editButton, {
-          [classes.disabledEditButton]: isDisabled,
-        })}
-      />
-    </IconButton>
+    <Tooltip title={tooltipText ?? "Редактировать"}>
+      <IconButton onClick={handleIconClick} disabled={isDisabled}>
+        <EditOutlined
+          className={clsx(classes.editButton, {
+            [classes.disabledEditButton]: isDisabled,
+          })}
+        />
+      </IconButton>
+    </Tooltip>
   );
 };

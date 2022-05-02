@@ -33,16 +33,6 @@ export const Sidebar = () => {
   const [isSideBarExpanded, setIsSideBarExpanded] = useState(true);
   const { pathname } = useLocation();
 
-  // eslint-disable-next-line no-console
-  console.log(
-    pathname,
-    "$$$$$$$$$$$$$$$$$$",
-    pathname === "/",
-    pathname === "/medicines",
-    pathname === "/medicine-sales",
-    pathname === "/employees"
-  );
-
   const collapseSidebar = () => setIsSideBarExpanded(false);
   const expandSidebar = () => setIsSideBarExpanded(true);
 
@@ -152,7 +142,23 @@ export const Sidebar = () => {
                 <ListItemIcon>
                   <AddShoppingCartOutlined />
                 </ListItemIcon>
-                {isSideBarExpanded && <ListItemText primary="Расходы" />}
+                {isSideBarExpanded && (
+                  <ListItemText primary="Расходы на товары" />
+                )}
+              </ListItemButton>
+            </ListItem>
+            <ListItem>
+              <ListItemButton
+                className={clsx(classes.listItem, {
+                  [classes.listItemClosed]: !isSideBarExpanded,
+                })}
+              >
+                <ListItemIcon>
+                  <ShowChartOutlined />
+                </ListItemIcon>
+                {isSideBarExpanded && (
+                  <ListItemText primary="Административные расходы" />
+                )}
               </ListItemButton>
             </ListItem>
             <ListItem component={Link} to="/employees">
@@ -168,18 +174,7 @@ export const Sidebar = () => {
                 {isSideBarExpanded && <ListItemText primary="Сотрудники" />}
               </ListItemButton>
             </ListItem>
-            <ListItem>
-              <ListItemButton
-                className={clsx(classes.listItem, {
-                  [classes.listItemClosed]: !isSideBarExpanded,
-                })}
-              >
-                <ListItemIcon>
-                  <ShowChartOutlined />
-                </ListItemIcon>
-                {isSideBarExpanded && <ListItemText primary="Спрос" />}
-              </ListItemButton>
-            </ListItem>
+
             <ListItem>
               <ListItemButton
                 className={clsx(classes.listItem, {

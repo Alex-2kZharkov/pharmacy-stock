@@ -16,7 +16,11 @@ export const store = configureStore({
     [medicineSaleApi.reducerPath]: medicineSaleApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(userApi.middleware),
+    getDefaultMiddleware().concat(
+      userApi.middleware,
+      medicineApi.middleware,
+      medicineSaleApi.middleware
+    ),
 });
 
 export interface ActionCreator {
