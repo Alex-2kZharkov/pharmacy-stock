@@ -49,7 +49,7 @@ export const MEDICINE_TABLE_COLUMNS = [
       >
         {row.quantity < row.orderPoint ? (
           <>
-            <div style={{ marginRight: 8, marginLeft: 38 }}>{row.quantity}</div>
+            <div style={{ marginRight: 8, marginLeft: 34 }}>{row.quantity}</div>
             <Tooltip title="Количества товара на складе меньше Точки заказа. Закупите больше товара">
               <WarningOutlined style={{ color: WARNING }} />
             </Tooltip>
@@ -112,7 +112,7 @@ export const MEDICINE_TABLE_COLUMNS = [
         alignItems="center"
       >
         <div>{row.prognosis}</div>
-        <DemandButton />
+        <DemandButton medicine={row} />
       </Stack>
     ),
   },

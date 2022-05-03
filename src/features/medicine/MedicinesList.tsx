@@ -5,19 +5,23 @@ import { DataGrid } from "@mui/x-data-grid";
 
 import { AdminPageWrapper } from "../../components/AdminPageWrapper";
 import {
+  useLazyCalculatePrognosisQuery,
   useLazyGetMedicinesQuery,
   useLazyUpdateOrderPointQuery,
 } from "../../services/api/medicine.api";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { MedicineDto } from "../../types/dto/Medicine.dto";
 
+import { CalculatePrognosisDialog } from "./components/CalculatePrognosisDialog";
 import { EditOrderPointDialog } from "./components/EditOrderPointDialog";
 import { MEDICINE_TABLE_COLUMNS } from "./Medicines.constants";
 import { useStyles } from "./Medicines.styles";
 import {
   selectCurrentEditableMedicine,
+  selectIsCalculatePrognosisDialogOpen,
   selectIsEditOrderPointDialogOpen,
   setCurrentEditableMedicine,
+  setIsCalculatePrognosisDialogOpen,
   setIsEditOrderPointDialogOpen,
 } from "./medicineSlice";
 
@@ -29,13 +33,23 @@ export const MedicinesList = () => {
   const isEditOrderPointDialogOpened = useAppSelector(
     selectIsEditOrderPointDialogOpen
   );
+  const isCalculatePrognosisDialogOpen = useAppSelector(
+    selectIsCalculatePrognosisDialogOpen
+  );
 
   const [getMedicines, { data: medicineList }] = useLazyGetMedicinesQuery();
   const [updateOrderPoint, { isFetching: isUpdateExecuting }] =
     useLazyUpdateOrderPointQuery();
+  const [
+    calculatePrognosis,
+    { data: prognosisResultMessage, isFetching: isCalculatePrognosisExecuting },
+  ] = useLazyCalculatePrognosisQuery();
 
   const handleEditOrderPointDialogClose = () =>
     dispatch(setIsEditOrderPointDialogOpen(false));
+
+  const handleCalculatePrognosisDialogClose = () =>
+    dispatch(setIsCalculatePrognosisDialogOpen(false));
 
   const handleEditOrderPointDialogConfirm = (payload: Partial<MedicineDto>) => {
     updateOrderPoint(payload);
@@ -45,7 +59,13 @@ export const MedicinesList = () => {
 
   useEffect(() => {
     getMedicines();
-  }, [getMedicines, isUpdateExecuting]);
+  }, [getMedicines, isUpdateExecuting, isCalculatePrognosisExecuting]);
+
+  useEffect(() => {
+    if (currentEditableMedicine?._id) {
+      calculatePrognosis(currentEditableMedicine?._id);
+    }
+  }, [calculatePrognosis, currentEditableMedicine?._id]);
 
   return (
     <>
@@ -67,6 +87,12 @@ export const MedicinesList = () => {
         onClose={handleEditOrderPointDialogClose}
         confirm={handleEditOrderPointDialogConfirm}
         medicine={currentEditableMedicine}
+      />
+
+      <CalculatePrognosisDialog
+        isOpen={isCalculatePrognosisDialogOpen}
+        onClose={handleCalculatePrognosisDialogClose}
+        message={prognosisResultMessage}
       />
     </>
   );
