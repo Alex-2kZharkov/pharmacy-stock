@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { EditOutlined } from "@mui/icons-material";
-import { IconButton, Stack, Tooltip } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import clsx from "clsx";
 
 import { useAppDispatch } from "../../../../store/hooks";
@@ -27,18 +27,10 @@ export const EditOrderPointButton: FC<Props> = ({ medicine }) => {
   };
 
   return (
-    <Stack
-      direction="row"
-      spacing={3}
-      justifyContent="space-between"
-      alignItems="center"
-    >
-      <div>{medicine.orderPoint}</div>
-      <Tooltip title="Редактировать точку заказа">
-        <IconButton onClick={handleIconClick}>
-          <EditOutlined className={clsx(classes.editOrderPointButton)} />
-        </IconButton>
-      </Tooltip>
-    </Stack>
+    <Tooltip title="Редактировать товар">
+      <IconButton onClick={handleIconClick}>
+        <EditOutlined className={clsx(classes.editOrderPointButton)} />
+      </IconButton>
+    </Tooltip>
   );
 };

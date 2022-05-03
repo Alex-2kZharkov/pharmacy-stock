@@ -9,7 +9,6 @@ import russianLocale from "date-fns/locale/ru";
 
 import { DemandButton } from "../../components/DemanButton";
 import { WARNING } from "../../theme/colors/colors.constants";
-import { MedicineDto } from "../../types/dto/Medicine.dto";
 
 import { EditOrderPointButton } from "./components/EditOrderPointButton";
 
@@ -37,28 +36,17 @@ export const MEDICINE_TABLE_COLUMNS = [
     type: "number",
     width: 150,
     editable: true,
-    renderCell: ({ row }: GridRenderCellParams<Date>) => (
-      <Stack
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-        style={{
-          width: "100%",
-          textAlign: "center",
-        }}
-      >
-        {row.quantity < row.orderPoint ? (
-          <>
-            <div style={{ marginRight: 8, marginLeft: 34 }}>{row.quantity}</div>
-            <Tooltip title="Количества товара на складе меньше Точки заказа. Закупите больше товара">
-              <WarningOutlined style={{ color: WARNING }} />
-            </Tooltip>
-          </>
-        ) : (
-          row.quantity
-        )}
-      </Stack>
-    ),
+    renderCell: ({ row }: GridRenderCellParams<Date>) =>
+      row.quantity < row.orderPoint ? (
+        <>
+          <Tooltip title="Количества товара на складе меньше Точки заказа. Закупите больше товара">
+            <WarningOutlined style={{ color: WARNING }} />
+          </Tooltip>
+          <div style={{ marginLeft: 8 }}>{row.quantity}</div>
+        </>
+      ) : (
+        row.quantity
+      ),
   },
   {
     field: "orderPoint",
@@ -66,9 +54,6 @@ export const MEDICINE_TABLE_COLUMNS = [
     type: "number",
     width: 110,
     editable: true,
-    renderCell: ({ row }: GridRenderCellParams<MedicineDto>) => (
-      <EditOrderPointButton medicine={row} />
-    ),
   },
   {
     field: "primaryAmount",
@@ -100,7 +85,7 @@ export const MEDICINE_TABLE_COLUMNS = [
   },
   {
     field: "prognosisUpdatedAt",
-    headerName: "Дата расчета последнего прогноща",
+    headerName: "Дата расчета последнего прогноза",
     width: 170,
     editable: true,
     valueFormatter: (params: GridValueFormatterParams) => {
@@ -126,6 +111,7 @@ export const MEDICINE_TABLE_COLUMNS = [
       >
         <div>{row.prognosis}</div>
         <DemandButton medicine={row} />
+        <EditOrderPointButton medicine={row} />
       </Stack>
     ),
   },

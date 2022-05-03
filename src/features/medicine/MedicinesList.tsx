@@ -68,8 +68,6 @@ export const MedicinesList = () => {
     getMedicines();
   }, [getMedicines, isUpdateExecuting, data?.message]);
 
-  // eslint-disable-next-line no-console
-  console.log(data?.message);
   return (
     <>
       <AdminPageWrapper sectionTitle="Товары">
@@ -85,17 +83,16 @@ export const MedicinesList = () => {
         </Box>
       </AdminPageWrapper>
 
+      <CalculatePrognosisDialog
+        isOpen={isCalculatePrognosisDialogOpen}
+        onClose={handleCalculatePrognosisDialogClose}
+        message={data?.message}
+      />
       <EditOrderPointDialog
         isOpen={isEditOrderPointDialogOpened}
         onClose={handleEditOrderPointDialogClose}
         confirm={handleEditOrderPointDialogConfirm}
         medicine={currentEditableMedicine}
-      />
-
-      <CalculatePrognosisDialog
-        isOpen={isCalculatePrognosisDialogOpen}
-        onClose={handleCalculatePrognosisDialogClose}
-        message={data?.message}
       />
     </>
   );
