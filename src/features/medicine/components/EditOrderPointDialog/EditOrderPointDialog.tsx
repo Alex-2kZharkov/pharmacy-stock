@@ -18,7 +18,7 @@ import { useStyles } from "./EditOrderPointDialog.styles";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  confirm: () => void;
+  confirm: (payload: Partial<MedicineDto>) => void;
   medicine?: MedicineDto;
 }
 
@@ -26,7 +26,7 @@ export const EditOrderPointDialog: FC<Props> = ({
   isOpen,
   onClose,
   confirm,
-  medicine: { name, orderPoint } = {},
+  medicine: { _id, name, orderPoint } = {},
 }) => {
   const classes = useStyles();
   const initialValues = {
@@ -40,10 +40,10 @@ export const EditOrderPointDialog: FC<Props> = ({
       <DialogContent>
         <Formik
           initialValues={initialValues}
-          onSubmit={confirm}
+          onSubmit={(values) => confirm({ _id, ...values })}
           validationSchema={orderPointValidationSchema}
         >
-          {() => (
+          {({ isValid, values }) => (
             <Form>
               <Field
                 autoFocus
@@ -64,14 +64,20 @@ export const EditOrderPointDialog: FC<Props> = ({
                 variant="standard"
                 component={TextField}
                 margin="dense"
-                number
+                type="number"
               />
 
               <DialogActions className={classes.dialogActions}>
-                <Button onClick={onClose} variant="outlined">
+                <Button variant="outlined" onClick={onClose}>
                   Отменить
                 </Button>
-                <Button variant="contained" type="submit">
+                <Button
+                  variant="contained"
+                  type="submit"
+                  disabled={
+                    !isValid || values.orderPoint === initialValues.orderPoint
+                  }
+                >
                   Сохранить
                 </Button>
               </DialogActions>

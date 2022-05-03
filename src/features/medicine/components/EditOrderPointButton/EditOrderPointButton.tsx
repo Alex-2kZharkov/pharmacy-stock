@@ -6,7 +6,10 @@ import clsx from "clsx";
 
 import { useAppDispatch } from "../../../../store/hooks";
 import { MedicineDto } from "../../../../types/dto/Medicine.dto";
-import { setIsEditOrderPointDialogOpen } from "../../medicineSlice";
+import {
+  setCurrentEditableMedicine,
+  setIsEditOrderPointDialogOpen,
+} from "../../medicineSlice";
 
 import { useStyles } from "./EditOrderPointButton.styles";
 
@@ -18,7 +21,10 @@ export const EditOrderPointButton: FC<Props> = ({ medicine }) => {
   const classes = useStyles();
   const dispatch = useAppDispatch();
 
-  const handleIconClick = () => dispatch(setIsEditOrderPointDialogOpen(true));
+  const handleIconClick = () => {
+    dispatch(setCurrentEditableMedicine(medicine));
+    dispatch(setIsEditOrderPointDialogOpen(true));
+  };
 
   return (
     <Stack

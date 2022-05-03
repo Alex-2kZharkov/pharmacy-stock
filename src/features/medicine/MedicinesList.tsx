@@ -4,8 +4,12 @@ import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
 import { AdminPageWrapper } from "../../components/AdminPageWrapper";
-import { useLazyGetMedicinesQuery } from "../../services/api/medicine.api";
+import {
+  useLazyGetMedicinesQuery,
+  useLazyUpdateOrderPointQuery,
+} from "../../services/api/medicine.api";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { MedicineDto } from "../../types/dto/Medicine.dto";
 
 import { EditOrderPointDialog } from "./components/EditOrderPointDialog";
 import { MEDICINE_TABLE_COLUMNS } from "./Medicines.constants";
@@ -13,6 +17,7 @@ import { useStyles } from "./Medicines.styles";
 import {
   selectCurrentEditableMedicine,
   selectIsEditOrderPointDialogOpen,
+  setCurrentEditableMedicine,
   setIsEditOrderPointDialogOpen,
 } from "./medicineSlice";
 
@@ -26,13 +31,21 @@ export const MedicinesList = () => {
   );
 
   const [getMedicines, { data: medicineList }] = useLazyGetMedicinesQuery();
+  const [updateOrderPoint, { isFetching: isUpdateExecuting }] =
+    useLazyUpdateOrderPointQuery();
 
   const handleEditOrderPointDialogClose = () =>
     dispatch(setIsEditOrderPointDialogOpen(false));
 
+  const handleEditOrderPointDialogConfirm = (payload: Partial<MedicineDto>) => {
+    updateOrderPoint(payload);
+    dispatch(setCurrentEditableMedicine(undefined));
+    handleEditOrderPointDialogClose();
+  };
+
   useEffect(() => {
     getMedicines();
-  }, [getMedicines]);
+  }, [getMedicines, isUpdateExecuting]);
 
   return (
     <>
@@ -52,7 +65,7 @@ export const MedicinesList = () => {
       <EditOrderPointDialog
         isOpen={isEditOrderPointDialogOpened}
         onClose={handleEditOrderPointDialogClose}
-        confirm={handleEditOrderPointDialogClose}
+        confirm={handleEditOrderPointDialogConfirm}
         medicine={currentEditableMedicine}
       />
     </>

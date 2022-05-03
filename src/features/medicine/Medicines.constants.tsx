@@ -1,4 +1,4 @@
-import { Chip, Stack } from "@mui/material";
+import { Chip, Stack, Tooltip } from "@mui/material";
 import {
   GridRenderCellParams,
   GridValueFormatterParams,
@@ -38,10 +38,12 @@ export const MEDICINE_TABLE_COLUMNS = [
     editable: true,
     renderCell: ({ row }: GridRenderCellParams<Date>) =>
       row.quantity < row.orderPoint ? (
-        <Chip
-          style={{ backgroundColor: WARNING, color: WHITE, fontWeight: 700 }}
-          label={row.quantity}
-        />
+        <Tooltip title="Количества товара на складе меньше Точки заказа. Закупите больше товара">
+          <Chip
+            style={{ backgroundColor: WARNING, color: WHITE, fontWeight: 700 }}
+            label={row.quantity}
+          />
+        </Tooltip>
       ) : (
         row.orderPoint
       ),
