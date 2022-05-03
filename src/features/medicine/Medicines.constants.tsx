@@ -99,6 +99,19 @@ export const MEDICINE_TABLE_COLUMNS = [
     editable: true,
   },
   {
+    field: "prognosisUpdatedAt",
+    headerName: "Дата расчета последнего прогноща",
+    width: 170,
+    editable: true,
+    valueFormatter: (params: GridValueFormatterParams) => {
+      return params.value
+        ? format(new Date(params.value as string), "dd MMMM yyyy HH:mm", {
+            locale: russianLocale,
+          })
+        : "";
+    },
+  },
+  {
     field: "prognosis",
     headerName: "Прогноризуемый спрос",
     type: "number",

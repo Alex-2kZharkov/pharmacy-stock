@@ -20,7 +20,7 @@ export const medicineApi = createApi({
       }),
     }),
 
-    calculatePrognosis: builder.query<string, Optional<string>>({
+    calculatePrognosis: builder.query<{ message: string }, Optional<string>>({
       query: (id) => ({
         url: `medicines/prognosis`,
         method: "POST",

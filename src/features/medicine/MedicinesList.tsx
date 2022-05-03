@@ -40,10 +40,7 @@ export const MedicinesList = () => {
   const [getMedicines, { data: medicineList }] = useLazyGetMedicinesQuery();
   const [updateOrderPoint, { isFetching: isUpdateExecuting }] =
     useLazyUpdateOrderPointQuery();
-  const [
-    calculatePrognosis,
-    { data: prognosisResultMessage, isFetching: isCalculatePrognosisExecuting },
-  ] = useLazyCalculatePrognosisQuery();
+  const [calculatePrognosis, { data }] = useLazyCalculatePrognosisQuery();
 
   const handleEditOrderPointDialogClose = () =>
     dispatch(setIsEditOrderPointDialogOpen(false));
@@ -58,15 +55,21 @@ export const MedicinesList = () => {
   };
 
   useEffect(() => {
-    getMedicines();
-  }, [getMedicines, isUpdateExecuting, isCalculatePrognosisExecuting]);
-
-  useEffect(() => {
-    if (currentEditableMedicine?._id) {
+    if (currentEditableMedicine?._id && isCalculatePrognosisDialogOpen) {
       calculatePrognosis(currentEditableMedicine?._id);
     }
-  }, [calculatePrognosis, currentEditableMedicine?._id]);
+  }, [
+    calculatePrognosis,
+    currentEditableMedicine?._id,
+    isCalculatePrognosisDialogOpen,
+  ]);
 
+  useEffect(() => {
+    getMedicines();
+  }, [getMedicines, isUpdateExecuting, data?.message]);
+
+  // eslint-disable-next-line no-console
+  console.log(data?.message);
   return (
     <>
       <AdminPageWrapper sectionTitle="Товары">
@@ -92,7 +95,7 @@ export const MedicinesList = () => {
       <CalculatePrognosisDialog
         isOpen={isCalculatePrognosisDialogOpen}
         onClose={handleCalculatePrognosisDialogClose}
-        message={prognosisResultMessage}
+        message={data?.message}
       />
     </>
   );
