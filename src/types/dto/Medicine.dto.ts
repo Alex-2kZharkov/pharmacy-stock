@@ -8,4 +8,6 @@ export interface MedicineDto {
   finalAmount: number;
   percent: number;
   prognosis: number;
+  prognosisUpdatedAt?: Date;
+  orderPoint?: number;
 }

@@ -7,10 +7,10 @@ import { format } from "date-fns";
 import russianLocale from "date-fns/locale/ru";
 
 import { DemandButton } from "../../components/DemanButton";
-import { EditButton } from "../../components/EditButton";
 import { WARNING, WHITE } from "../../theme/colors/colors.constants";
-import { EntitiesNames } from "../../types/common/general.types";
-import { UserDto } from "../../types/dto/User.dto";
+import { MedicineDto } from "../../types/dto/Medicine.dto";
+
+import { EditOrderPointButton } from "./components/EditOrderPointButton";
 
 export const MEDICINE_TABLE_COLUMNS = [
   {
@@ -52,20 +52,8 @@ export const MEDICINE_TABLE_COLUMNS = [
     type: "number",
     width: 110,
     editable: true,
-    renderCell: ({ row }: GridRenderCellParams<Date>) => (
-      <Stack
-        direction="row"
-        spacing={3}
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <div>{row.orderPoint}</div>
-        <EditButton
-          entityName={EntitiesNames.User}
-          payload={row as UserDto}
-          tooltipText="Редактировать точку заказа"
-        />
-      </Stack>
+    renderCell: ({ row }: GridRenderCellParams<MedicineDto>) => (
+      <EditOrderPointButton medicine={row} />
     ),
   },
   {

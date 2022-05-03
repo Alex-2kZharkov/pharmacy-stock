@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
 import { appReducer } from "../features/app/appSlice";
+import { medicineReducer } from "../features/medicine/medicineSlice";
 import { userReducer } from "../features/users/userSlice";
 import { medicineApi } from "../services/api/medicine.api";
 import { medicineSaleApi } from "../services/api/medicineSale.api";
@@ -11,6 +12,7 @@ export const store = configureStore({
   reducer: {
     app: appReducer,
     user: userReducer,
+    medicine: medicineReducer,
     [userApi.reducerPath]: userApi.reducer,
     [medicineApi.reducerPath]: medicineApi.reducer,
     [medicineSaleApi.reducerPath]: medicineSaleApi.reducer,
