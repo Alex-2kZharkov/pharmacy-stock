@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Chip, Stack } from "@mui/material";
 import {
   GridRenderCellParams,
   GridValueFormatterParams,
@@ -8,6 +8,7 @@ import russianLocale from "date-fns/locale/ru";
 
 import { DemandButton } from "../../components/DemanButton";
 import { EditButton } from "../../components/EditButton";
+import { WARNING, WHITE } from "../../theme/colors/colors.constants";
 import { EntitiesNames } from "../../types/common/general.types";
 import { UserDto } from "../../types/dto/User.dto";
 
@@ -35,6 +36,15 @@ export const MEDICINE_TABLE_COLUMNS = [
     type: "number",
     width: 150,
     editable: true,
+    renderCell: ({ row }: GridRenderCellParams<Date>) =>
+      row.quantity < row.orderPoint ? (
+        <Chip
+          style={{ backgroundColor: WARNING, color: WHITE, fontWeight: 700 }}
+          label={row.quantity}
+        />
+      ) : (
+        row.orderPoint
+      ),
   },
   {
     field: "orderPoint",
