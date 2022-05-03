@@ -1,4 +1,5 @@
-import { Chip, Stack, Tooltip } from "@mui/material";
+import { WarningOutlined } from "@mui/icons-material";
+import { Stack, Tooltip } from "@mui/material";
 import {
   GridRenderCellParams,
   GridValueFormatterParams,
@@ -7,7 +8,7 @@ import { format } from "date-fns";
 import russianLocale from "date-fns/locale/ru";
 
 import { DemandButton } from "../../components/DemanButton";
-import { WARNING, WHITE } from "../../theme/colors/colors.constants";
+import { WARNING } from "../../theme/colors/colors.constants";
 import { MedicineDto } from "../../types/dto/Medicine.dto";
 
 import { EditOrderPointButton } from "./components/EditOrderPointButton";
@@ -36,17 +37,28 @@ export const MEDICINE_TABLE_COLUMNS = [
     type: "number",
     width: 150,
     editable: true,
-    renderCell: ({ row }: GridRenderCellParams<Date>) =>
-      row.quantity < row.orderPoint ? (
-        <Tooltip title="Количества товара на складе меньше Точки заказа. Закупите больше товара">
-          <Chip
-            style={{ backgroundColor: WARNING, color: WHITE, fontWeight: 700 }}
-            label={row.quantity}
-          />
-        </Tooltip>
-      ) : (
-        row.orderPoint
-      ),
+    renderCell: ({ row }: GridRenderCellParams<Date>) => (
+      <Stack
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        style={{
+          width: "100%",
+          textAlign: "center",
+        }}
+      >
+        {row.quantity < row.orderPoint ? (
+          <>
+            <div style={{ marginRight: 8, marginLeft: 38 }}>{row.quantity}</div>
+            <Tooltip title="Количества товара на складе меньше Точки заказа. Закупите больше товара">
+              <WarningOutlined style={{ color: WARNING }} />
+            </Tooltip>
+          </>
+        ) : (
+          row.quantity
+        )}
+      </Stack>
+    ),
   },
   {
     field: "orderPoint",
