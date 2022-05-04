@@ -12,10 +12,10 @@ export const medicineApi = createApi({
       query: () => ({ url: "medicines" }),
     }),
 
-    updateOrderPoint: builder.query<undefined, Partial<MedicineDto>>({
+    updateMedicine: builder.query<undefined, Partial<MedicineDto>>({
       query: ({ _id, ...payload }) => ({
-        url: `medicines/order-point/${_id}`,
-        method: "PATCH",
+        url: `medicines/${_id}`,
+        method: "PUT",
         body: payload,
       }),
     }),
@@ -32,6 +32,6 @@ export const medicineApi = createApi({
 
 export const {
   useLazyGetMedicinesQuery,
-  useLazyUpdateOrderPointQuery,
+  useLazyUpdateMedicineQuery,
   useLazyCalculatePrognosisQuery,
 } = medicineApi;

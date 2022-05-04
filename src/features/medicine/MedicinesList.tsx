@@ -7,7 +7,7 @@ import { AdminPageWrapper } from "../../components/AdminPageWrapper";
 import {
   useLazyCalculatePrognosisQuery,
   useLazyGetMedicinesQuery,
-  useLazyUpdateOrderPointQuery,
+  useLazyUpdateMedicineQuery,
 } from "../../services/api/medicine.api";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { MedicineDto } from "../../types/dto/Medicine.dto";
@@ -38,8 +38,8 @@ export const MedicinesList = () => {
   );
 
   const [getMedicines, { data: medicineList }] = useLazyGetMedicinesQuery();
-  const [updateOrderPoint, { isFetching: isUpdateExecuting }] =
-    useLazyUpdateOrderPointQuery();
+  const [updateMedicine, { isFetching: isUpdateExecuting }] =
+    useLazyUpdateMedicineQuery();
   const [calculatePrognosis, { data }] = useLazyCalculatePrognosisQuery();
 
   const handleEditOrderPointDialogClose = () =>
@@ -49,7 +49,7 @@ export const MedicinesList = () => {
     dispatch(setIsCalculatePrognosisDialogOpen(false));
 
   const handleEditOrderPointDialogConfirm = (payload: Partial<MedicineDto>) => {
-    updateOrderPoint(payload);
+    updateMedicine(payload);
     dispatch(setCurrentEditableMedicine(undefined));
     handleEditOrderPointDialogClose();
   };
