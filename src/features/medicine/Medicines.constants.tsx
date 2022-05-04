@@ -10,7 +10,7 @@ import russianLocale from "date-fns/locale/ru";
 import { DemandButton } from "../../components/DemanButton";
 import { WARNING } from "../../theme/colors/colors.constants";
 
-import { EditOrderPointButton } from "./components/EditOrderPointButton";
+import { EditOrderPointButton } from "./components/EditMedicineButton/EditMedicineButton";
 
 export const MEDICINE_TABLE_COLUMNS = [
   {

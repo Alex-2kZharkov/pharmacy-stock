@@ -11,7 +11,7 @@ import {
   setIsEditOrderPointDialogOpen,
 } from "../../medicineSlice";
 
-import { useStyles } from "./EditOrderPointButton.styles";
+import { useStyles } from "./EditMedicineButton.styles";
 
 interface Props {
   medicine: MedicineDto;

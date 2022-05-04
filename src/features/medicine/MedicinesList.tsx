@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { MedicineDto } from "../../types/dto/Medicine.dto";
 
 import { CalculatePrognosisDialog } from "./components/CalculatePrognosisDialog";
-import { EditOrderPointDialog } from "./components/EditOrderPointDialog";
+import { EditMedicineDialog } from "./components/EditMedicineDialog";
 import { MEDICINE_TABLE_COLUMNS } from "./Medicines.constants";
 import { useStyles } from "./Medicines.styles";
 import {
@@ -88,7 +88,7 @@ export const MedicinesList = () => {
         onClose={handleCalculatePrognosisDialogClose}
         message={data?.message}
       />
-      <EditOrderPointDialog
+      <EditMedicineDialog
         isOpen={isEditOrderPointDialogOpened}
         onClose={handleEditOrderPointDialogClose}
         confirm={handleEditOrderPointDialogConfirm}

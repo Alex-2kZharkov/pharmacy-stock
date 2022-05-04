@@ -13,8 +13,8 @@ import { TextField } from "formik-material-ui";
 import { ONE_HUNDRED_PERCENT } from "../../../../constants/calculations.constants";
 import { MedicineDto } from "../../../../types/dto/Medicine.dto";
 
-import { orderPointValidationSchema } from "./EditOrderPointDialog.schema";
-import { useStyles } from "./EditOrderPointDialog.styles";
+import { medicineValidationSchema } from "./EditMedicineDialog.schema";
+import { useStyles } from "./EditMedicineDialog.styles";
 
 interface Props {
   isOpen: boolean;
@@ -23,7 +23,7 @@ interface Props {
   medicine?: MedicineDto;
 }
 
-export const EditOrderPointDialog: FC<Props> = ({
+export const EditMedicineDialog: FC<Props> = ({
   isOpen,
   onClose,
   confirm,
@@ -39,7 +39,7 @@ export const EditOrderPointDialog: FC<Props> = ({
         <Formik
           initialValues={initialValues}
           onSubmit={(values) => confirm({ _id: medicine?._id, ...values })}
-          validationSchema={orderPointValidationSchema}
+          validationSchema={medicineValidationSchema}
         >
           {({ isValid, setFieldValue, values: { percent, primaryAmount } }) => (
             <Form>
