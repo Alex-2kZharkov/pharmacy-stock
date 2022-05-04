@@ -13,8 +13,11 @@ import { TextField } from "formik-material-ui";
 import { ONE_HUNDRED_PERCENT } from "../../../../constants/calculations.constants";
 import { MedicineDto } from "../../../../types/dto/Medicine.dto";
 
-import { medicineValidationSchema } from "./EditMedicineDialog.schema";
-import { useStyles } from "./EditMedicineDialog.styles";
+import {
+  createMedicineValidationSchema,
+  editMedicineValidationSchema,
+} from "./MedicineDialog.schema";
+import { useStyles } from "./MedicineDialog.styles";
 
 interface Props {
   isOpen: boolean;
@@ -23,25 +26,48 @@ interface Props {
   medicine?: MedicineDto;
 }
 
-export const EditMedicineDialog: FC<Props> = ({
+export const MedicineDialog: FC<Props> = ({
   isOpen,
   onClose,
   confirm,
-  medicine,
+  medicine = {
+    _id: "",
+    name: "",
+    quantity: "",
+    primaryAmount: "",
+    percent: "",
+    finalAmount: "",
+    orderPoint: "",
+    prognosis: "",
+    prognosisUpdatedAt: "",
+  },
 }) => {
   const classes = useStyles();
   const initialValues = { ...medicine };
 
   return (
     <Dialog open={isOpen} onClose={onClose} maxWidth="xs" fullWidth>
-      <DialogTitle>Редактировать товар</DialogTitle>
+      <DialogTitle>
+        {medicine?._id ? "Редактировать товар" : "Добавить новый товар"}
+      </DialogTitle>
       <DialogContent>
         <Formik
           initialValues={initialValues}
-          onSubmit={(values) => confirm({ _id: medicine?._id, ...values })}
-          validationSchema={medicineValidationSchema}
+          onSubmit={(values) =>
+            confirm({ ...(values as MedicineDto), _id: medicine?._id })
+          }
+          validationSchema={
+            medicine?._id
+              ? editMedicineValidationSchema
+              : createMedicineValidationSchema
+          }
         >
-          {({ isValid, setFieldValue, values: { percent, primaryAmount } }) => (
+          {({
+            isValid,
+            setFieldValue,
+            values: { percent, primaryAmount },
+            errors,
+          }) => (
             <Form>
               <Field
                 autoFocus

@@ -5,13 +5,15 @@ import { Optional } from "../../types/common/general.types";
 import { MedicineDto } from "../../types/dto/Medicine.dto";
 
 export interface MedicineState {
-  isEditOrderPointDialogOpen: boolean;
+  isCreateMedicineDialogOpen: boolean;
+  isEditMedicineDialogOpen: boolean;
   isCalculatePrognosisDialogOpen: boolean;
   currentEditableMedicine: Optional<MedicineDto>;
 }
 
 const initialState: MedicineState = {
-  isEditOrderPointDialogOpen: false,
+  isCreateMedicineDialogOpen: false,
+  isEditMedicineDialogOpen: false,
   isCalculatePrognosisDialogOpen: false,
   currentEditableMedicine: undefined,
 };
@@ -20,8 +22,11 @@ export const medicineSlice = createSlice({
   name: "medicine",
   initialState,
   reducers: {
-    setIsEditOrderPointDialogOpen: (state, { payload }) => {
-      state.isEditOrderPointDialogOpen = payload;
+    setIsCreateMedicineDialogOpen: (state, { payload }) => {
+      state.isCreateMedicineDialogOpen = payload;
+    },
+    setIsEditMedicineDialogOpen: (state, { payload }) => {
+      state.isEditMedicineDialogOpen = payload;
     },
     setIsCalculatePrognosisDialogOpen: (state, { payload }) => {
       state.isCalculatePrognosisDialogOpen = payload;
@@ -33,13 +38,17 @@ export const medicineSlice = createSlice({
 });
 
 export const {
-  setIsEditOrderPointDialogOpen,
+  setIsCreateMedicineDialogOpen,
+  setIsEditMedicineDialogOpen,
   setCurrentEditableMedicine,
   setIsCalculatePrognosisDialogOpen,
 } = medicineSlice.actions;
 
-export const selectIsEditOrderPointDialogOpen = (state: RootState) =>
-  state.medicine.isEditOrderPointDialogOpen;
+export const selectIsCreateMedicineDialogOpen = (state: RootState) =>
+  state.medicine.isCreateMedicineDialogOpen;
+
+export const selectIsEditMedicineDialogOpen = (state: RootState) =>
+  state.medicine.isEditMedicineDialogOpen;
 
 export const selectIsCalculatePrognosisDialogOpen = (state: RootState) =>
   state.medicine.isCalculatePrognosisDialogOpen;

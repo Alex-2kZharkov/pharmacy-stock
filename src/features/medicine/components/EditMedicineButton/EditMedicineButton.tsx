@@ -8,7 +8,7 @@ import { useAppDispatch } from "../../../../store/hooks";
 import { MedicineDto } from "../../../../types/dto/Medicine.dto";
 import {
   setCurrentEditableMedicine,
-  setIsEditOrderPointDialogOpen,
+  setIsEditMedicineDialogOpen,
 } from "../../medicineSlice";
 
 import { useStyles } from "./EditMedicineButton.styles";
@@ -23,7 +23,7 @@ export const EditOrderPointButton: FC<Props> = ({ medicine }) => {
 
   const handleIconClick = () => {
     dispatch(setCurrentEditableMedicine(medicine));
-    dispatch(setIsEditOrderPointDialogOpen(true));
+    dispatch(setIsEditMedicineDialogOpen(true));
   };
 
   return (

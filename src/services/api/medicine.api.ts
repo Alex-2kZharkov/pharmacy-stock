@@ -12,6 +12,14 @@ export const medicineApi = createApi({
       query: () => ({ url: "medicines" }),
     }),
 
+    createMedicine: builder.query<undefined, Partial<MedicineDto>>({
+      query: (payload) => ({
+        url: "medicines",
+        method: "POST",
+        body: payload,
+      }),
+    }),
+
     updateMedicine: builder.query<undefined, Partial<MedicineDto>>({
       query: ({ _id, ...payload }) => ({
         url: `medicines/${_id}`,
@@ -32,6 +40,7 @@ export const medicineApi = createApi({
 
 export const {
   useLazyGetMedicinesQuery,
+  useLazyCreateMedicineQuery,
   useLazyUpdateMedicineQuery,
   useLazyCalculatePrognosisQuery,
 } = medicineApi;

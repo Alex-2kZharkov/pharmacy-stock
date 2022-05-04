@@ -3,7 +3,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Divider, IconButton, Stack } from "@mui/material";
 
 import { selectCurrentPage } from "../../features/app/appSlice";
-import { setIsCreateUserDialogOpen } from "../../features/users/userSlice";
+import { setIsCreateMedicineDialogOpen } from "../../features/medicine/medicineSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { PagesTypes } from "../../types/common/pages.types";
 
@@ -17,7 +17,11 @@ export const Toolbar = () => {
 
   const handleAddButtonClick = () => {
     if (currentPage === PagesTypes.EMPLOYEES_PAGE) {
-      dispatch(setIsCreateUserDialogOpen(true));
+      dispatch(setIsCreateMedicineDialogOpen(true));
+    }
+
+    if (currentPage === PagesTypes.ITEMS_PAGE) {
+      dispatch(setIsCreateMedicineDialogOpen(true));
     }
   };
 
