@@ -1,44 +1,78 @@
 import { useState, MouseEvent } from "react";
 
 import { ToggleButtonGroup, ToggleButton } from "@mui/material";
+import { endOfDay, startOfDay, sub } from "date-fns";
 
 import { useStyles } from "./DateFilter.styles";
 
 export const DateFilter = () => {
   const classes = useStyles();
-  const [alignment, setAlignment] = useState("");
+  const [period, setPeriod] = useState("");
+  const [today, yesterday, week, month, quarter, year] = [
+    "today",
+    "yesterday",
+    "week",
+    "month",
+    "quarter",
+    "year",
+  ];
 
-  const handleChange = (
-    event: MouseEvent<HTMLElement>,
-    newAlignment: string
-  ) => {
-    setAlignment(newAlignment);
+  const periods = {
+    [today]: {
+      dateFrom: startOfDay(new Date()),
+      dateTo: endOfDay(new Date()),
+    },
+    [yesterday]: {
+      dateFrom: startOfDay(sub(new Date(), { days: 1 })),
+      dateTo: endOfDay(sub(new Date(), { days: 1 })),
+    },
+    [week]: {
+      dateFrom: startOfDay(sub(new Date(), { weeks: 1 })),
+      dateTo: endOfDay(sub(new Date(), { weeks: 1 })),
+    },
+    [month]: {
+      dateFrom: startOfDay(sub(new Date(), { months: 1 })),
+      dateTo: endOfDay(sub(new Date(), { months: 1 })),
+    },
+    [quarter]: {
+      dateFrom: startOfDay(sub(new Date(), { months: 3 })),
+      dateTo: endOfDay(sub(new Date(), { months: 3 })),
+    },
+    [year]: {
+      dateFrom: startOfDay(sub(new Date(), { years: 1 })),
+      dateTo: endOfDay(sub(new Date(), { years: 1 })),
+    },
+  };
+
+  const handleChange = (event: MouseEvent<HTMLElement>, periodName: string) => {
+    // eslint-disable-next-line no-console
+    console.log(periodName, periods[periodName]);
+    setPeriod(periodName);
   };
 
   return (
     <ToggleButtonGroup
-      color="primary"
-      value={alignment}
+      value={period}
       exclusive
       onChange={handleChange}
       className={classes.dateFilterContainer}
     >
-      <ToggleButton value="web" className={classes.inactiveButton}>
+      <ToggleButton value={today} className={classes.inactiveButton}>
         Сегодня
       </ToggleButton>
-      <ToggleButton value="android" className={classes.inactiveButton}>
+      <ToggleButton value={yesterday} className={classes.inactiveButton}>
         Вчера
       </ToggleButton>
-      <ToggleButton value="ios1" className={classes.inactiveButton}>
+      <ToggleButton value={week} className={classes.inactiveButton}>
         Неделя
       </ToggleButton>
-      <ToggleButton value="ios2" className={classes.inactiveButton}>
+      <ToggleButton value={month} className={classes.inactiveButton}>
         Месяц
       </ToggleButton>
-      <ToggleButton value="ios3" className={classes.inactiveButton}>
+      <ToggleButton value={quarter} className={classes.inactiveButton}>
         Квартал
       </ToggleButton>
-      <ToggleButton value="ios4" className={classes.inactiveButton}>
+      <ToggleButton value={year} className={classes.inactiveButton}>
         Год
       </ToggleButton>
     </ToggleButtonGroup>
