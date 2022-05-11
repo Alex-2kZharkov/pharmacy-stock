@@ -5,7 +5,7 @@ export const useStyles = makeStyles((theme) => ({
   dateFilterContainer: {
     marginBottom: theme.spacing(2),
   },
-  inactiveButton: {
+  button: {
     "&.Mui-selected, &.Mui-selected:hover": {
       color: `${theme.palette.primary.light} !important`,
       backgroundColor: `${theme.palette.background.paper} !important`,

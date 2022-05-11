@@ -1,78 +1,54 @@
-import { useState, MouseEvent } from "react";
+import { FC, MouseEvent } from "react";
 
-import { ToggleButtonGroup, ToggleButton } from "@mui/material";
-import { endOfDay, startOfDay, sub } from "date-fns";
+import { ToggleButtonGroup, ToggleButton, Divider } from "@mui/material";
+
+import {
+  TODAY,
+  YESTERDAY,
+  WEEK,
+  MONTH,
+  QUARTER,
+  YEAR,
+} from "../../constants/filter.constants";
 
 import { useStyles } from "./DateFilter.styles";
 
-export const DateFilter = () => {
+interface Props {
+  value: string;
+  onChange: (event: MouseEvent<HTMLElement>, periodName: string) => void;
+}
+
+export const DateFilter: FC<Props> = ({ value, onChange }) => {
   const classes = useStyles();
-  const [period, setPeriod] = useState("");
-  const [today, yesterday, week, month, quarter, year] = [
-    "today",
-    "yesterday",
-    "week",
-    "month",
-    "quarter",
-    "year",
-  ];
-
-  const periods = {
-    [today]: {
-      dateFrom: startOfDay(new Date()),
-      dateTo: endOfDay(new Date()),
-    },
-    [yesterday]: {
-      dateFrom: startOfDay(sub(new Date(), { days: 1 })),
-      dateTo: endOfDay(sub(new Date(), { days: 1 })),
-    },
-    [week]: {
-      dateFrom: startOfDay(sub(new Date(), { weeks: 1 })),
-      dateTo: endOfDay(sub(new Date(), { weeks: 1 })),
-    },
-    [month]: {
-      dateFrom: startOfDay(sub(new Date(), { months: 1 })),
-      dateTo: endOfDay(sub(new Date(), { months: 1 })),
-    },
-    [quarter]: {
-      dateFrom: startOfDay(sub(new Date(), { months: 3 })),
-      dateTo: endOfDay(sub(new Date(), { months: 3 })),
-    },
-    [year]: {
-      dateFrom: startOfDay(sub(new Date(), { years: 1 })),
-      dateTo: endOfDay(sub(new Date(), { years: 1 })),
-    },
-  };
-
-  const handleChange = (event: MouseEvent<HTMLElement>, periodName: string) => {
-    // eslint-disable-next-line no-console
-    console.log(periodName, periods[periodName]);
-    setPeriod(periodName);
-  };
 
   return (
     <ToggleButtonGroup
-      value={period}
+      value={value}
       exclusive
-      onChange={handleChange}
+      onChange={onChange}
       className={classes.dateFilterContainer}
     >
-      <ToggleButton value={today} className={classes.inactiveButton}>
+      <ToggleButton value={TODAY} className={classes.button}>
         Сегодня
       </ToggleButton>
-      <ToggleButton value={yesterday} className={classes.inactiveButton}>
+      <Divider orientation="vertical" flexItem />
+      <ToggleButton value={YESTERDAY} className={classes.button}>
         Вчера
       </ToggleButton>
-      <ToggleButton value={week} className={classes.inactiveButton}>
+      <Divider orientation="vertical" flexItem />
+      <ToggleButton value={WEEK} className={classes.button}>
         Неделя
       </ToggleButton>
-      <ToggleButton value={month} className={classes.inactiveButton}>
+      <Divider orientation="vertical" flexItem />
+      <ToggleButton value={MONTH} className={classes.button}>
         Месяц
       </ToggleButton>
-      <ToggleButton value={quarter} className={classes.inactiveButton}>
+      <Divider orientation="vertical" flexItem />
+      <ToggleButton value={QUARTER} className={classes.button}>
         Квартал
       </ToggleButton>
-      <ToggleButton value={year} className={classes.inactiveButton}>
+      <Divider orientation="vertical" flexItem />
+      <ToggleButton value={YEAR} className={classes.button}>
         Год
       </ToggleButton>
     </ToggleButtonGroup>
