@@ -1,6 +1,6 @@
 import { MouseEvent, useEffect, useState } from "react";
 
-import { Box } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
 import { AdminPageWrapper } from "../../components/AdminPageWrapper";
@@ -27,10 +27,7 @@ export const MedicineSale = () => {
   useEffect(() => {
     const period = DATE_PERIODS[periodName];
 
-    getMedicineSales({
-      dateFrom: period?.dateFrom?.toISOString(),
-      dateTo: period?.dateTo?.toISOString(),
-    });
+    getMedicineSales(period?.toISOString());
   }, [getMedicineSales, periodName]);
 
   return (
@@ -44,6 +41,14 @@ export const MedicineSale = () => {
           rows={medicineSaleList ?? []}
           disableColumnMenu={true}
           getRowId={(row) => row._id}
+          components={{
+            // eslint-disable-next-line react/no-multi-comp
+            NoRowsOverlay: () => (
+              <Stack height="100%" alignItems="center" justifyContent="center">
+                Нет данных
+              </Stack>
+            ),
+          }}
         />
       </Box>
     </AdminPageWrapper>
