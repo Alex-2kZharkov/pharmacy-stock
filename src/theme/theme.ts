@@ -5,6 +5,7 @@ import {
   ACCENT,
   BACKGROUND,
   BACKGROUND_ACCENT,
+  BLACK,
   BORDER_COLOUR,
   DEFAULT_GREY,
   ERROR,
@@ -39,6 +40,7 @@ export const theme = createTheme({
       light: LIGHT_GREY,
       main: DEFAULT_GREY,
       dark: BORDER_COLOUR,
+      contrastText: BLACK,
     },
     background: {
       default: BACKGROUND,
