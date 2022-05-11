@@ -1,6 +1,6 @@
 import { MouseEvent, useEffect, useState } from "react";
 
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
 import { AdminPageWrapper } from "../../components/AdminPageWrapper";
@@ -32,7 +32,12 @@ export const MedicineSale = () => {
 
   return (
     <AdminPageWrapper sectionTitle="Продажи">
-      <DateFilter value={periodName} onChange={handleChange} />
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <DateFilter value={periodName} onChange={handleChange} />
+        <Typography variant="h6">
+          Всего записей: {medicineSaleList?.length ?? 0}
+        </Typography>
+      </Stack>
       <Box className={classes.dataGridContainer}>
         <DataGrid
           className={classes.dataGrid}
