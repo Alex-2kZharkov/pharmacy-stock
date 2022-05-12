@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { BASE_URL } from "../../constants/host.constants";
+import { BuyMedicineDialogTypes } from "../../features/medicine/components/BuyMedicineDilalog/BuyMedicineDialog.types";
 import { Optional } from "../../types/common/general.types";
 import { MedicineDto } from "../../types/dto/Medicine.dto";
 
@@ -35,6 +36,14 @@ export const medicineApi = createApi({
         body: { id },
       }),
     }),
+
+    buyMedicine: builder.query<{ message: string }, BuyMedicineDialogTypes>({
+      query: (payload) => ({
+        url: `medicine-shippings`,
+        method: "POST",
+        body: payload,
+      }),
+    }),
   }),
 });
 
@@ -43,4 +52,5 @@ export const {
   useLazyCreateMedicineQuery,
   useLazyUpdateMedicineQuery,
   useLazyCalculatePrognosisQuery,
+  useLazyBuyMedicineQuery,
 } = medicineApi;

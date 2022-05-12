@@ -32,7 +32,7 @@ import { BuyMedicineDialogTypes } from "./BuyMedicineDialog.types";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  confirm: (payload: Partial<MedicineDto>) => void;
+  confirm: (payload: BuyMedicineDialogTypes) => void;
   medicine?: MedicineDto;
   budgetAmount?: number;
 }
@@ -61,7 +61,9 @@ export const BuyMedicineDialog: FC<Props> = ({
       <DialogContent>
         <Formik
           initialValues={initialValues}
-          onSubmit={confirm}
+          onSubmit={(values: BuyMedicineDialogTypes) =>
+            confirm({ ...values, _id: medicine?._id })
+          }
           validationSchema={buyMedicineDialogSchema}
         >
           {({ isValid, setFieldValue, values }) => (

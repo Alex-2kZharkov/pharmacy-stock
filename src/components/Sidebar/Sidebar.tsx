@@ -117,7 +117,23 @@ export const Sidebar = () => {
                 <ListItemIcon>
                   <LocalPharmacyOutlined />
                 </ListItemIcon>
-                {isSideBarExpanded && <ListItemText primary="Товары" />}
+                {isSideBarExpanded && (
+                  <ListItemText primary="Справочник товаров" />
+                )}
+              </ListItemButton>
+            </ListItem>
+            <ListItem component={Link} to="/medicine-purchases">
+              <ListItemButton
+                className={clsx(classes.listItem, {
+                  [classes.listItemClosed]: !isSideBarExpanded,
+                })}
+              >
+                <ListItemIcon>
+                  <AddShoppingCartOutlined />
+                </ListItemIcon>
+                {isSideBarExpanded && (
+                  <ListItemText primary="Товары на складе" />
+                )}
               </ListItemButton>
             </ListItem>
             <ListItem component={Link} to="/medicine-sales">
@@ -131,20 +147,6 @@ export const Sidebar = () => {
                   <AttachMoneyOutlined />
                 </ListItemIcon>
                 {isSideBarExpanded && <ListItemText primary="Продажи" />}
-              </ListItemButton>
-            </ListItem>
-            <ListItem component={Link} to="/medicine-purchases">
-              <ListItemButton
-                className={clsx(classes.listItem, {
-                  [classes.listItemClosed]: !isSideBarExpanded,
-                })}
-              >
-                <ListItemIcon>
-                  <AddShoppingCartOutlined />
-                </ListItemIcon>
-                {isSideBarExpanded && (
-                  <ListItemText primary="Расходы на товары" />
-                )}
               </ListItemButton>
             </ListItem>
             <ListItem>

@@ -5,6 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 
 import { AdminPageWrapper } from "../../components/AdminPageWrapper";
 import {
+  useLazyBuyMedicineQuery,
   useLazyCalculatePrognosisQuery,
   useLazyCreateMedicineQuery,
   useLazyGetMedicinesQuery,
@@ -16,6 +17,7 @@ import { MedicineDto } from "../../types/dto/Medicine.dto";
 import { setCurrentPage } from "../app/appSlice";
 
 import { BuyMedicineDialog } from "./components/BuyMedicineDilalog";
+import { BuyMedicineDialogTypes } from "./components/BuyMedicineDilalog/BuyMedicineDialog.types";
 import { CalculatePrognosisDialog } from "./components/CalculatePrognosisDialog";
 import { MedicineDialog } from "./components/MedicineDialog";
 import { MEDICINE_TABLE_COLUMNS } from "./Medicines.constants";
@@ -55,6 +57,8 @@ export const Medicines = () => {
   const [updateMedicine, { isFetching: isUpdateExecuting }] =
     useLazyUpdateMedicineQuery();
   const [calculatePrognosis, { data }] = useLazyCalculatePrognosisQuery();
+  const [buyMedicine, { isFetching: isBuyingExecuting }] =
+    useLazyBuyMedicineQuery();
 
   const handleCalculatePrognosisDialogClose = () =>
     dispatch(setIsCalculatePrognosisDialogOpen(false));
@@ -79,8 +83,8 @@ export const Medicines = () => {
   const handleBuyMedicineDialogClose = () =>
     dispatch(setIsBuyMedicineDialogOpen(false));
 
-  const handleBuyMedicineDialogConfirm = (payload: Partial<MedicineDto>) => {
-    // updateMedicine(payload);
+  const handleBuyMedicineDialogConfirm = (payload: BuyMedicineDialogTypes) => {
+    buyMedicine(payload);
     dispatch(setCurrentEditableMedicine(undefined));
     handleBuyMedicineDialogClose();
   };
@@ -106,6 +110,7 @@ export const Medicines = () => {
     isUpdateExecuting,
     isCreationExecuting,
     isCalculatePrognosisDialogOpen,
+    isBuyingExecuting,
     data?.message,
   ]);
 
