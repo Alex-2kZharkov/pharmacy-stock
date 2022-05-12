@@ -5,3 +5,5 @@ export const INVALID_PHONE_MESSAGE =
 export const PHONE_LENGTH = 13;
 export const INVALID_PHONE_MAX_MESSAGE = "Максимальное число символов равно 13";
 export const INVALID_PHONE_MIN_MESSAGE = "Минимальное число символов равно 13";
+export const INVALID_BUYING_QUANTITY = "Недостаточно денег для покупки";
+export const INVALID_MEDICINE_EXPIRATION_DATE = "Срок годности товара истек";

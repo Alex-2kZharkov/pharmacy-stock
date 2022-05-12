@@ -15,16 +15,19 @@ import { PagesTypes } from "../../types/common/pages.types";
 import { MedicineDto } from "../../types/dto/Medicine.dto";
 import { setCurrentPage } from "../app/appSlice";
 
+import { BuyMedicineDialog } from "./components/BuyMedicineDilalog";
 import { CalculatePrognosisDialog } from "./components/CalculatePrognosisDialog";
 import { MedicineDialog } from "./components/MedicineDialog";
 import { MEDICINE_TABLE_COLUMNS } from "./Medicines.constants";
 import { useStyles } from "./Medicines.styles";
 import {
   selectCurrentEditableMedicine,
+  selectIsBuyMedicineDialogOpen,
   selectIsCalculatePrognosisDialogOpen,
   selectIsCreateMedicineDialogOpen,
   selectIsEditMedicineDialogOpen,
   setCurrentEditableMedicine,
+  setIsBuyMedicineDialogOpen,
   setIsCalculatePrognosisDialogOpen,
   setIsCreateMedicineDialogOpen,
   setIsEditMedicineDialogOpen,
@@ -44,6 +47,7 @@ export const Medicines = () => {
   const isCalculatePrognosisDialogOpen = useAppSelector(
     selectIsCalculatePrognosisDialogOpen
   );
+  const isBuyMedicineDialogOpen = useAppSelector(selectIsBuyMedicineDialogOpen);
 
   const [getMedicines, { data: medicineList }] = useLazyGetMedicinesQuery();
   const [createMedicine, { isFetching: isCreationExecuting }] =
@@ -72,6 +76,15 @@ export const Medicines = () => {
     handleEditMedicineDialogClose();
   };
 
+  const handleBuyMedicineDialogClose = () =>
+    dispatch(setIsBuyMedicineDialogOpen(false));
+
+  const handleBuyMedicineDialogConfirm = (payload: Partial<MedicineDto>) => {
+    // updateMedicine(payload);
+    dispatch(setCurrentEditableMedicine(undefined));
+    handleBuyMedicineDialogClose();
+  };
+
   useEffect(() => {
     dispatch(setCurrentPage(PagesTypes.ITEMS_PAGE));
   }, [dispatch]);
@@ -88,7 +101,13 @@ export const Medicines = () => {
 
   useEffect(() => {
     getMedicines();
-  }, [getMedicines, isUpdateExecuting, isCreationExecuting, data?.message]);
+  }, [
+    getMedicines,
+    isUpdateExecuting,
+    isCreationExecuting,
+    isCalculatePrognosisDialogOpen,
+    data?.message,
+  ]);
 
   return (
     <>
@@ -126,13 +145,19 @@ export const Medicines = () => {
         isOpen={isCreateMedicineDialogOpen}
         onClose={handleCreateMedicineDialogClose}
         confirm={handleCreateMedicineDialogConfirm}
-        medicine={currentEditableMedicine}
       />
       <MedicineDialog
         isOpen={isEditOrderPointDialogOpened}
         onClose={handleEditMedicineDialogClose}
         confirm={handleEditMedicineDialogConfirm}
         medicine={currentEditableMedicine}
+      />
+      <BuyMedicineDialog
+        isOpen={isBuyMedicineDialogOpen}
+        onClose={handleBuyMedicineDialogClose}
+        confirm={handleBuyMedicineDialogConfirm}
+        medicine={currentEditableMedicine}
+        budgetAmount={100000}
       />
     </>
   );

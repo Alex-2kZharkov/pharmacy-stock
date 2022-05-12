@@ -25,7 +25,7 @@ export const CalculatePrognosisDialog: FC<Props> = ({
 
   return (
     <Dialog open={isOpen} onClose={onClose} maxWidth="xs" fullWidth>
-      <DialogTitle>Рекомендация по полнения склада</DialogTitle>
+      <DialogTitle>Рекомендация по пополнению склада</DialogTitle>
       <DialogContent>
         {message}
         <DialogActions className={classes.dialogActions}>

@@ -10,7 +10,8 @@ import russianLocale from "date-fns/locale/ru";
 import { DemandButton } from "../../components/DemanButton";
 import { WARNING } from "../../theme/colors/colors.constants";
 
-import { EditOrderPointButton } from "./components/EditMedicineButton/EditMedicineButton";
+import { BuyMedicineButton } from "./components/BuyMedicineButton";
+import { EditOrderPointButton } from "./components/EditMedicineButton";
 
 export const MEDICINE_TABLE_COLUMNS = [
   {
@@ -105,13 +106,14 @@ export const MEDICINE_TABLE_COLUMNS = [
     renderCell: ({ row }: GridRenderCellParams<Date>) => (
       <Stack
         direction="row"
-        spacing={3}
+        spacing={1}
         justifyContent="space-between"
         alignItems="center"
       >
         <div>{row.prognosis}</div>
         <DemandButton medicine={row} />
         <EditOrderPointButton medicine={row} />
+        <BuyMedicineButton medicine={row} />
       </Stack>
     ),
   },
