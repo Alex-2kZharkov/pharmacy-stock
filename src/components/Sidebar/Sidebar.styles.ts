@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles((theme) => ({
   sidebar: {
-    width: 315,
+    width: 330,
     minHeight: "100vh",
     backgroundColor: theme.palette.background.paper,
   },
@@ -65,6 +65,6 @@ export const useStyles = makeStyles((theme) => ({
     maxWidth: 64,
   },
   sidebarDisplayItem: {
-    marginTop: theme.spacing(22),
+    marginTop: theme.spacing(10),
   },
 }));

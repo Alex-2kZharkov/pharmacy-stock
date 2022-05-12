@@ -10,7 +10,8 @@ import {
   GridView,
   LocalPharmacyOutlined,
   PeopleOutlined,
-  ShowChartOutlined,
+  ClassOutlined,
+  ConstructionOutlined,
 } from "@mui/icons-material";
 import {
   Collapse,
@@ -122,6 +123,21 @@ export const Sidebar = () => {
                 )}
               </ListItemButton>
             </ListItem>
+            <ListItem component={Link} to="/medicine-categories">
+              <ListItemButton
+                className={clsx(classes.listItem, {
+                  [classes.listItemClosed]: !isSideBarExpanded,
+                  [classes.listItemActive]: pathname === "/medicine-categories",
+                })}
+              >
+                <ListItemIcon>
+                  <ClassOutlined />
+                </ListItemIcon>
+                {isSideBarExpanded && (
+                  <ListItemText primary="Справочник категорий товаров" />
+                )}
+              </ListItemButton>
+            </ListItem>
             <ListItem component={Link} to="/medicine-purchases">
               <ListItemButton
                 className={clsx(classes.listItem, {
@@ -156,7 +172,7 @@ export const Sidebar = () => {
                 })}
               >
                 <ListItemIcon>
-                  <ShowChartOutlined />
+                  <ConstructionOutlined />
                 </ListItemIcon>
                 {isSideBarExpanded && (
                   <ListItemText primary="Административные расходы" />
