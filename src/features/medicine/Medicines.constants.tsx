@@ -9,6 +9,7 @@ import russianLocale from "date-fns/locale/ru";
 
 import { DemandButton } from "../../components/DemanButton";
 import { WARNING } from "../../theme/colors/colors.constants";
+import { MedicineDto } from "../../types/dto/Medicine.dto";
 
 import { BuyMedicineButton } from "./components/BuyMedicineButton";
 import { EditOrderPointButton } from "./components/EditMedicineButton";
@@ -62,13 +63,8 @@ export const MEDICINE_TABLE_COLUMNS = [
     type: "number",
     width: 200,
     editable: true,
-  },
-  {
-    field: "finalAmount",
-    headerName: "Стоимость продажи 1 ед.",
-    type: "number",
-    width: 200,
-    editable: true,
+    renderCell: ({ row }: GridRenderCellParams<MedicineDto>) =>
+      row.primaryAmount.toFixed(2),
   },
   {
     field: "percent",
@@ -78,12 +74,24 @@ export const MEDICINE_TABLE_COLUMNS = [
     editable: true,
   },
   {
-    field: "soldForMonth",
-    headerName: "Продано на текущий месяц",
+    field: "finalAmount",
+    headerName: "Стоимость продажи 1 ед.",
     type: "number",
     width: 200,
     editable: true,
+    renderCell: ({ row }: GridRenderCellParams<MedicineDto>) =>
+      row.finalAmount.toFixed(2),
   },
+  {
+    field: "profitPerUnit",
+    headerName: "Прибыль от продажи 1 ед.",
+    type: "number",
+    width: 210,
+    editable: true,
+    renderCell: ({ row }: GridRenderCellParams<MedicineDto>) =>
+      (row.finalAmount - row.primaryAmount).toFixed(2),
+  },
+
   {
     field: "prognosisUpdatedAt",
     headerName: "Дата расчета последнего прогноза",
