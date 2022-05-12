@@ -1,11 +1,15 @@
+import { WarningOutlined } from "@mui/icons-material";
+import { Tooltip } from "@mui/material";
 import {
   GridRenderCellParams,
   GridValueFormatterParams,
   GridValueGetterParams,
 } from "@mui/x-data-grid";
-import { format } from "date-fns";
+import { addDays, format } from "date-fns";
 import russianLocale from "date-fns/locale/ru";
 
+import { TWO_WEEKS } from "../../constants/date.constants";
+import { WARNING } from "../../theme/colors/colors.constants";
 import { MedicineDto } from "../../types/dto/Medicine.dto";
 
 export const MEDICINE_PURCHASES_TABLE_COLUMNS = [
@@ -50,21 +54,26 @@ export const MEDICINE_PURCHASES_TABLE_COLUMNS = [
     headerName: "Годен до",
     width: 140,
     editable: true,
-    valueFormatter: (params: GridValueFormatterParams) => {
-      return format(new Date(params.value as string), "dd MMMM yyyy", {
-        locale: russianLocale,
-      });
+    renderCell: ({ row }: GridRenderCellParams<Date>) => {
+      const formattedDate = format(
+        new Date(row.expirationDate as string),
+        "dd MMMM yyyy",
+        {
+          locale: russianLocale,
+        }
+      );
+
+      return new Date(row.expirationDate as string) <=
+        addDays(new Date(), TWO_WEEKS) ? (
+        <>
+          <div style={{ marginRight: 8 }}>{formattedDate}</div>
+          <Tooltip title="Срок годности товара истекает">
+            <WarningOutlined style={{ color: WARNING }} />
+          </Tooltip>
+        </>
+      ) : (
+        formattedDate
+      );
     },
-    // renderCell: ({ row }: GridRenderCellParams<Date>) =>
-    //   row.quantity < row.orderPoint ? (
-    //     <>
-    //       <Tooltip title="Количества товара на складе меньше Точки заказа. Закупите больше товара">
-    //         <WarningOutlined style={{ color: WARNING }} />
-    //       </Tooltip>
-    //       <div style={{ marginLeft: 8 }}>{row.quantity}</div>
-    //     </>
-    //   ) : (
-    //     row.quantity
-    //   ),
   },
 ];
