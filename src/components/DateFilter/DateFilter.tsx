@@ -22,32 +22,27 @@ export const DateFilter: FC<Props> = ({ value, onChange }) => {
   const classes = useStyles();
 
   return (
-    <ToggleButtonGroup
-      value={value}
-      exclusive
-      onChange={onChange}
-      className={classes.dateFilterContainer}
-    >
+    <ToggleButtonGroup value={value} exclusive onChange={onChange}>
       <ToggleButton value={TODAY} className={classes.button}>
         Сегодня
       </ToggleButton>
-      <Divider orientation="vertical" flexItem />
+      <Divider orientation="vertical" />
       <ToggleButton value={YESTERDAY} className={classes.button}>
         Вчера
       </ToggleButton>
-      <Divider orientation="vertical" flexItem />
+      <Divider orientation="vertical" />
       <ToggleButton value={WEEK} className={classes.button}>
         Неделя
       </ToggleButton>
-      <Divider orientation="vertical" flexItem />
+      <Divider orientation="vertical" />
       <ToggleButton value={MONTH} className={classes.button}>
         Месяц
       </ToggleButton>
-      <Divider orientation="vertical" flexItem />
+      <Divider orientation="vertical" />
       <ToggleButton value={QUARTER} className={classes.button}>
         Квартал
       </ToggleButton>
-      <Divider orientation="vertical" flexItem />
+      <Divider orientation="vertical" />
       <ToggleButton value={YEAR} className={classes.button}>
         Год
       </ToggleButton>

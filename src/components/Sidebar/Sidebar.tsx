@@ -142,6 +142,7 @@ export const Sidebar = () => {
               <ListItemButton
                 className={clsx(classes.listItem, {
                   [classes.listItemClosed]: !isSideBarExpanded,
+                  [classes.listItemActive]: pathname === "/medicine-purchases",
                 })}
               >
                 <ListItemIcon>

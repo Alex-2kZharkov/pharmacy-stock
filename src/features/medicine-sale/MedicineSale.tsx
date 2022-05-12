@@ -32,7 +32,12 @@ export const MedicineSale = () => {
 
   return (
     <AdminPageWrapper sectionTitle="Продажи">
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        className={classes.dateFilterContainer}
+      >
         <DateFilter value={periodName} onChange={handleChange} />
         <Typography variant="h6">
           Всего записей: {medicineSaleList?.length ?? 0}

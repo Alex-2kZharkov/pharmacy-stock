@@ -2,9 +2,6 @@ import { makeStyles } from "@material-ui/core";
 import { alpha } from "@mui/material";
 
 export const useStyles = makeStyles((theme) => ({
-  dateFilterContainer: {
-    marginBottom: theme.spacing(2),
-  },
   button: {
     "&.Mui-selected, &.Mui-selected:hover": {
       color: `${theme.palette.primary.light} !important`,

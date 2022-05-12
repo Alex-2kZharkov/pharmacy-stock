@@ -116,7 +116,7 @@ export const Medicines = () => {
 
   return (
     <>
-      <AdminPageWrapper sectionTitle="Товары">
+      <AdminPageWrapper sectionTitle="Справочник товаров">
         <Box className={classes.dataGridContainer}>
           <DataGrid
             className={classes.dataGrid}

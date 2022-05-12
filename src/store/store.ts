@@ -5,6 +5,7 @@ import { appReducer } from "../features/app/appSlice";
 import { medicineReducer } from "../features/medicine/medicineSlice";
 import { userReducer } from "../features/users/userSlice";
 import { medicineApi } from "../services/api/medicine.api";
+import { medicinePurchaseApi } from "../services/api/medicinePurchases.api";
 import { medicineSaleApi } from "../services/api/medicineSale.api";
 import { userApi } from "../services/api/user.api";
 
@@ -15,12 +16,14 @@ export const store = configureStore({
     medicine: medicineReducer,
     [userApi.reducerPath]: userApi.reducer,
     [medicineApi.reducerPath]: medicineApi.reducer,
+    [medicinePurchaseApi.reducerPath]: medicinePurchaseApi.reducer,
     [medicineSaleApi.reducerPath]: medicineSaleApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       userApi.middleware,
       medicineApi.middleware,
+      medicinePurchaseApi.middleware,
       medicineSaleApi.middleware
     ),
 });
