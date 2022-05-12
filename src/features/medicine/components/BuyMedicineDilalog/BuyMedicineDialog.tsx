@@ -12,13 +12,17 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  FormHelperText,
 } from "@mui/material";
 import { addDays } from "date-fns";
 import ruLocale from "date-fns/locale/ru";
 import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-material-ui";
 
-import { INVALID_MEDICINE_EXPIRATION_DATE } from "../../../../constants/yup.constants";
+import {
+  INVALID_BUYING_QUANTITY,
+  INVALID_MEDICINE_EXPIRATION_DATE,
+} from "../../../../constants/yup.constants";
 import { MedicineDto } from "../../../../types/dto/Medicine.dto";
 
 import { buyMedicineDialogSchema } from "./BuyMedicineDialog.schema";
@@ -45,7 +49,7 @@ export const BuyMedicineDialog: FC<Props> = ({
     _id: medicine?._id,
     name: medicine?.name,
     budgetAmount,
-    buyingQuantity: 0,
+    buyingQuantity: 1,
     finalMedicineAmount: medicine?.finalAmount,
     expirationDate: addDays(new Date(), 1),
     totalAmount: 0,
@@ -63,7 +67,6 @@ export const BuyMedicineDialog: FC<Props> = ({
           {({ isValid, setFieldValue, values }) => (
             <Form>
               <Field
-                autoFocus
                 id="name"
                 name="name"
                 label="Название товара"
@@ -74,7 +77,6 @@ export const BuyMedicineDialog: FC<Props> = ({
                 disabled
               />
               <Field
-                autoFocus
                 id="budgetAmount"
                 name="budgetAmount"
                 label="Сумма деньги в бюджете"
@@ -105,15 +107,18 @@ export const BuyMedicineDialog: FC<Props> = ({
                 margin="dense"
                 type="number"
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                  setFieldValue("buyingQuantity", e.target.value);
-                  setFieldValue(
-                    "totalAmount",
+                  const newAmount =
                     Number(e.target.value) *
-                      ((values as BuyMedicineDialogTypes)
-                        ?.finalMedicineAmount ?? 1)
-                  );
+                    ((values as BuyMedicineDialogTypes)?.finalMedicineAmount ??
+                      1);
+                  setFieldValue("buyingQuantity", Number(e.target.value));
+                  setFieldValue("totalAmount", newAmount);
                 }}
               />
+              {((values as BuyMedicineDialogTypes).budgetAmount ?? 0) <
+                (values as BuyMedicineDialogTypes).totalAmount && (
+                <FormHelperText error>{INVALID_BUYING_QUANTITY}</FormHelperText>
+              )}
               <Field
                 id="totalAmount"
                 name="totalAmount"
@@ -131,7 +136,7 @@ export const BuyMedicineDialog: FC<Props> = ({
                   minDateMessage={INVALID_MEDICINE_EXPIRATION_DATE}
                   className={classes.datepicker}
                   label="Годен до"
-                  format="dd-MM-yyyy"
+                  format="dd MMMM yyyy"
                   value={(values as BuyMedicineDialogTypes).expirationDate}
                   InputProps={{ readOnly: true }}
                   onChange={(date: MaterialUiPickersDate) => {
@@ -145,7 +150,15 @@ export const BuyMedicineDialog: FC<Props> = ({
                 <Button variant="outlined" onClick={onClose}>
                   Отменить
                 </Button>
-                <Button variant="contained" type="submit" disabled={!isValid}>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  disabled={
+                    !isValid ||
+                    ((values as BuyMedicineDialogTypes).budgetAmount ?? 0) <
+                      (values as BuyMedicineDialogTypes).totalAmount
+                  }
+                >
                   Сохранить
                 </Button>
               </DialogActions>

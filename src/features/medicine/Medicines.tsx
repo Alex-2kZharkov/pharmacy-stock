@@ -157,7 +157,7 @@ export const Medicines = () => {
         onClose={handleBuyMedicineDialogClose}
         confirm={handleBuyMedicineDialogConfirm}
         medicine={currentEditableMedicine}
-        budgetAmount={100000}
+        budgetAmount={10000}
       />
     </>
   );
