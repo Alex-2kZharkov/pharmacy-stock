@@ -1,5 +1,5 @@
 import { WarningOutlined } from "@mui/icons-material";
-import { Tooltip } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
 import {
   GridRenderCellParams,
   GridValueFormatterParams,
@@ -11,6 +11,8 @@ import russianLocale from "date-fns/locale/ru";
 import { TWO_WEEKS } from "../../constants/date.constants";
 import { WARNING } from "../../theme/colors/colors.constants";
 import { MedicineDto } from "../../types/dto/Medicine.dto";
+
+import { SellMedicineButton } from "./components/SellMedicineButton";
 
 export const MEDICINE_PURCHASES_TABLE_COLUMNS = [
   {
@@ -52,7 +54,7 @@ export const MEDICINE_PURCHASES_TABLE_COLUMNS = [
   {
     field: "expirationDate",
     headerName: "Годен до",
-    width: 140,
+    width: 180,
     editable: true,
     renderCell: ({ row }: GridRenderCellParams<Date>) => {
       const formattedDate = format(
@@ -70,9 +72,14 @@ export const MEDICINE_PURCHASES_TABLE_COLUMNS = [
           <Tooltip title="Срок годности товара истекает">
             <WarningOutlined style={{ color: WARNING }} />
           </Tooltip>
+          <SellMedicineButton medicinePurchase={row} />
         </>
       ) : (
-        formattedDate
+        <>
+          {formattedDate}
+          <Box style={{ marginRight: 32 }} />
+          <SellMedicineButton medicinePurchase={row} />
+        </>
       );
     },
   },

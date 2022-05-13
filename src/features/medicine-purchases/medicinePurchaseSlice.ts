@@ -2,67 +2,38 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { RootState } from "../../store/store";
 import { Optional } from "../../types/common/general.types";
-import { MedicineDto } from "../../types/dto/Medicine.dto";
+import { MedicinePurchaseDto } from "../../types/dto/MedicinePurchase.dto";
 
-export interface MedicineState {
-  isCreateMedicineDialogOpen: boolean;
-  isEditMedicineDialogOpen: boolean;
-  isCalculatePrognosisDialogOpen: boolean;
-  isBuyMedicineDialogOpen: boolean;
-  currentEditableMedicine: Optional<MedicineDto>;
+export interface MedicinePurchaseState {
+  isSellMedicineDialogOpen: boolean;
+  currentEditableMedicinePurchase: Optional<MedicinePurchaseDto>;
 }
 
-const initialState: MedicineState = {
-  isCreateMedicineDialogOpen: false,
-  isEditMedicineDialogOpen: false,
-  isCalculatePrognosisDialogOpen: false,
-  isBuyMedicineDialogOpen: false,
-  currentEditableMedicine: undefined,
+const initialState: MedicinePurchaseState = {
+  isSellMedicineDialogOpen: false,
+  currentEditableMedicinePurchase: undefined,
 };
 
 export const medicinePurchaseSlice = createSlice({
-  name: "medicine",
+  name: "medicinePurchase",
   initialState,
   reducers: {
-    setIsCreateMedicineDialogOpen: (state, { payload }) => {
-      state.isCreateMedicineDialogOpen = payload;
-    },
-    setIsEditMedicineDialogOpen: (state, { payload }) => {
-      state.isEditMedicineDialogOpen = payload;
-    },
-    setIsCalculatePrognosisDialogOpen: (state, { payload }) => {
-      state.isCalculatePrognosisDialogOpen = payload;
-    },
-    setIsBuyMedicineDialogOpen: (state, { payload }) => {
-      state.isBuyMedicineDialogOpen = payload;
+    setIsSellMedicineDialogOpen: (state, { payload }) => {
+      state.isSellMedicineDialogOpen = payload;
     },
     setCurrentEditableMedicine: (state, { payload }) => {
-      state.currentEditableMedicine = payload;
+      state.currentEditableMedicinePurchase = payload;
     },
   },
 });
 
-export const {
-  setIsCreateMedicineDialogOpen,
-  setIsEditMedicineDialogOpen,
-  setCurrentEditableMedicine,
-  setIsCalculatePrognosisDialogOpen,
-  setIsBuyMedicineDialogOpen,
-} = medicinePurchaseSlice.actions;
-
-export const selectIsCreateMedicineDialogOpen = (state: RootState) =>
-  state.medicine.isCreateMedicineDialogOpen;
-
-export const selectIsEditMedicineDialogOpen = (state: RootState) =>
-  state.medicine.isEditMedicineDialogOpen;
-
-export const selectIsCalculatePrognosisDialogOpen = (state: RootState) =>
-  state.medicine.isCalculatePrognosisDialogOpen;
+export const { setIsSellMedicineDialogOpen, setCurrentEditableMedicine } =
+  medicinePurchaseSlice.actions;
 
 export const selectCurrentEditableMedicine = (state: RootState) =>
-  state.medicine.currentEditableMedicine;
+  state.medicinePurchase.currentEditableMedicinePurchase;
 
-export const selectIsBuyMedicineDialogOpen = (state: RootState) =>
-  state.medicine.isBuyMedicineDialogOpen;
+export const selectIsSellMedicineDialogOpen = (state: RootState) =>
+  state.medicinePurchase.isSellMedicineDialogOpen;
 
-export const medicineReducer = medicinePurchaseSlice.reducer;
+export const medicinePurchaseReducer = medicinePurchaseSlice.reducer;
