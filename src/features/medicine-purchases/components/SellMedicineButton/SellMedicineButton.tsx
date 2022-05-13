@@ -7,8 +7,8 @@ import clsx from "clsx";
 import { useAppDispatch } from "../../../../store/hooks";
 import { MedicinePurchaseDto } from "../../../../types/dto/MedicinePurchase.dto";
 import {
+  setCurrentEditableMedicinePurchase,
   setIsSellMedicineDialogOpen,
-  setCurrentEditableMedicine,
 } from "../../medicinePurchaseSlice";
 
 import { useStyles } from "./SellMedicineButton.styles";
@@ -22,7 +22,7 @@ export const SellMedicineButton: FC<Props> = ({ medicinePurchase }) => {
   const dispatch = useAppDispatch();
 
   const handleIconClick = () => {
-    dispatch(setCurrentEditableMedicine(medicinePurchase));
+    dispatch(setCurrentEditableMedicinePurchase(medicinePurchase));
     dispatch(setIsSellMedicineDialogOpen(true));
   };
 

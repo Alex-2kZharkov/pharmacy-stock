@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { BASE_URL } from "../../constants/host.constants";
+import { SellMedicineDialogTypes } from "../../features/medicine-purchases/components/SellMedicineDilalog/SellMedicineDialog.types";
 import { MedicinePurchaseDto } from "../../types/dto/MedicinePurchase.dto";
 
 export const medicinePurchaseApi = createApi({
@@ -15,7 +16,18 @@ export const medicinePurchaseApi = createApi({
         },
       }),
     }),
+
+    createMedicineSale: builder.query<undefined, SellMedicineDialogTypes>({
+      query: (payload) => ({
+        url: "medicine-sales",
+        method: "POST",
+        body: payload,
+      }),
+    }),
   }),
 });
 
-export const { useLazyGetMedicinePurchasesQuery } = medicinePurchaseApi;
+export const {
+  useLazyGetMedicinePurchasesQuery,
+  useLazyCreateMedicineSaleQuery,
+} = medicinePurchaseApi;

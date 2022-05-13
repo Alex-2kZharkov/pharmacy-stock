@@ -21,16 +21,18 @@ export const medicinePurchaseSlice = createSlice({
     setIsSellMedicineDialogOpen: (state, { payload }) => {
       state.isSellMedicineDialogOpen = payload;
     },
-    setCurrentEditableMedicine: (state, { payload }) => {
+    setCurrentEditableMedicinePurchase: (state, { payload }) => {
       state.currentEditableMedicinePurchase = payload;
     },
   },
 });
 
-export const { setIsSellMedicineDialogOpen, setCurrentEditableMedicine } =
-  medicinePurchaseSlice.actions;
+export const {
+  setIsSellMedicineDialogOpen,
+  setCurrentEditableMedicinePurchase,
+} = medicinePurchaseSlice.actions;
 
-export const selectCurrentEditableMedicine = (state: RootState) =>
+export const selectCurrentEditableMedicinePurchase = (state: RootState) =>
   state.medicinePurchase.currentEditableMedicinePurchase;
 
 export const selectIsSellMedicineDialogOpen = (state: RootState) =>

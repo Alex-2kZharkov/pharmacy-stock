@@ -1,5 +1,6 @@
 export interface SellMedicineDialogTypes {
-  _id?: string;
+  purchaseId?: string;
+  medicineId?: string;
   name?: string;
   quantity?: number;
   sellQuantity: number;

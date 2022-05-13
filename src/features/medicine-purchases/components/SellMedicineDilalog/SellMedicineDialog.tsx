@@ -33,12 +33,13 @@ export const SellMedicineDialog: FC<Props> = ({
 }) => {
   const classes = useStyles();
   const initialValues: SellMedicineDialogTypes = {
-    _id: medicinePurchase?._id,
+    purchaseId: medicinePurchase?._id,
+    medicineId: medicinePurchase?.medicine?._id,
     name: medicinePurchase?.medicine?.name,
     quantity: medicinePurchase?.quantity,
     sellQuantity: 1,
     finalMedicineAmount: medicinePurchase?.medicine?.finalAmount,
-    totalAmount: 0,
+    totalAmount: medicinePurchase?.medicine?.finalAmount ?? 0,
   };
 
   return (
@@ -48,7 +49,11 @@ export const SellMedicineDialog: FC<Props> = ({
         <Formik
           initialValues={initialValues}
           onSubmit={(values: SellMedicineDialogTypes) =>
-            confirm({ ...values, _id: medicinePurchase?._id })
+            confirm({
+              ...values,
+              purchaseId: medicinePurchase?._id,
+              medicineId: medicinePurchase?.medicine?._id,
+            })
           }
           validationSchema={sellMedicineDialogSchema}
         >
@@ -79,7 +84,7 @@ export const SellMedicineDialog: FC<Props> = ({
               <Field
                 id="finalMedicineAmount"
                 name="finalMedicineAmount"
-                label="Стоимость покупки 1 ед."
+                label="Стоимость продажи 1 ед."
                 fullWidth
                 variant="standard"
                 component={TextField}

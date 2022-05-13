@@ -6,27 +6,42 @@ import { DataGrid } from "@mui/x-data-grid";
 import { AdminPageWrapper } from "../../components/AdminPageWrapper";
 import { DateFilter } from "../../components/DateFilter";
 import { DATE_PERIODS } from "../../constants/filter.constants";
-import { useLazyGetMedicinePurchasesQuery } from "../../services/api/medicinePurchases.api";
-import { useAppDispatch } from "../../store/hooks";
+import {
+  useLazyCreateMedicineSaleQuery,
+  useLazyGetMedicinePurchasesQuery,
+} from "../../services/api/medicinePurchases.api";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { PagesTypes } from "../../types/common/pages.types";
 import { setCurrentPage } from "../app/appSlice";
 
+import { SellMedicineDialog } from "./components/SellMedicineDilalog";
+import { SellMedicineDialogTypes } from "./components/SellMedicineDilalog/SellMedicineDialog.types";
 import { MEDICINE_PURCHASES_TABLE_COLUMNS } from "./MedicinePurchases.constants";
 import { useStyles } from "./MedicinePurchases.styles";
+import {
+  selectCurrentEditableMedicinePurchase,
+  selectIsSellMedicineDialogOpen,
+  setCurrentEditableMedicinePurchase,
+  setIsSellMedicineDialogOpen,
+} from "./medicinePurchaseSlice";
 
 export const MedicinePurchases = () => {
   const classes = useStyles();
-  const [periodName, setPeriodName] = useState("");
-  const handleChange = (
-    event: MouseEvent<HTMLElement>,
-    newPeriodName: string
-  ) => {
-    setPeriodName(newPeriodName);
-  };
   const dispatch = useAppDispatch();
+
+  const isSellMedicineDialogOpen = useAppSelector(
+    selectIsSellMedicineDialogOpen
+  );
+  const currentEditableMedicinePurchase = useAppSelector(
+    selectCurrentEditableMedicinePurchase
+  );
 
   const [getMedicinePurchases, { data: medicinePurchases }] =
     useLazyGetMedicinePurchasesQuery();
+  const [createMedicineSale, { isFetching: isCreatingSaleExecuting }] =
+    useLazyCreateMedicineSaleQuery();
+
+  const [periodName, setPeriodName] = useState("");
 
   useEffect(() => {
     dispatch(setCurrentPage(PagesTypes.PURCHASES_PAGE));
@@ -36,10 +51,23 @@ export const MedicinePurchases = () => {
     const period = DATE_PERIODS[periodName];
 
     getMedicinePurchases(period?.toISOString());
-  }, [getMedicinePurchases, periodName]);
+  }, [getMedicinePurchases, periodName, isCreatingSaleExecuting]);
 
-  // eslint-disable-next-line no-console
-  console.log(medicinePurchases);
+  const handleChange = (
+    event: MouseEvent<HTMLElement>,
+    newPeriodName: string
+  ) => setPeriodName(newPeriodName);
+
+  const handleSellMedicineDialogClose = () =>
+    dispatch(setIsSellMedicineDialogOpen(false));
+
+  const handleSellMedicineDialogConfirm = (
+    payload: SellMedicineDialogTypes
+  ) => {
+    createMedicineSale(payload);
+    dispatch(setCurrentEditableMedicinePurchase(undefined));
+    handleSellMedicineDialogClose();
+  };
 
   return (
     <>
@@ -78,6 +106,13 @@ export const MedicinePurchases = () => {
           />
         </Box>
       </AdminPageWrapper>
+
+      <SellMedicineDialog
+        isOpen={isSellMedicineDialogOpen}
+        onClose={handleSellMedicineDialogClose}
+        confirm={handleSellMedicineDialogConfirm}
+        medicinePurchase={currentEditableMedicinePurchase}
+      />
     </>
   );
 };
