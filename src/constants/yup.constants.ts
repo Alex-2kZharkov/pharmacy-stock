@@ -9,3 +9,5 @@ export const INVALID_BUYING_QUANTITY = "Недостаточно денег дл
 export const INVALID_MEDICINE_EXPIRATION_DATE = "Срок годности товара истек";
 export const INVALID_POSITIVE_INTEGER_NUMBER =
   "Введите целое положительное число";
+export const INVALID_QUANTITY_SELLING =
+  "Недостаточное количество товара к продаже";
