@@ -8,7 +8,7 @@ import { format } from "date-fns";
 import russianLocale from "date-fns/locale/ru";
 
 import { DemandButton } from "../../components/DemanButton";
-import { WARNING } from "../../theme/colors/colors.constants";
+import { ERROR } from "../../theme/colors/colors.constants";
 import { MedicineDto } from "../../types/dto/Medicine.dto";
 
 import { BuyMedicineButton } from "./components/BuyMedicineButton";
@@ -42,7 +42,7 @@ export const MEDICINE_TABLE_COLUMNS = [
       row.quantity < row.orderPoint ? (
         <>
           <Tooltip title="Количества товара на складе меньше Точки заказа. Закупите больше товара">
-            <WarningOutlined style={{ color: WARNING }} />
+            <WarningOutlined style={{ color: ERROR }} />
           </Tooltip>
           <div style={{ marginLeft: 8 }}>{row.quantity}</div>
         </>

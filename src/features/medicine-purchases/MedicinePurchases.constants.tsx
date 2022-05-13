@@ -8,8 +8,8 @@ import {
 import { addDays, format } from "date-fns";
 import russianLocale from "date-fns/locale/ru";
 
-import { TWO_WEEKS } from "../../constants/date.constants";
-import { WARNING } from "../../theme/colors/colors.constants";
+import { ONE_WEEK, TWO_WEEKS } from "../../constants/date.constants";
+import { WARNING, ERROR } from "../../theme/colors/colors.constants";
 import { MedicineDto } from "../../types/dto/Medicine.dto";
 
 import { SellMedicineButton } from "./components/SellMedicineButton";
@@ -64,13 +64,19 @@ export const MEDICINE_PURCHASES_TABLE_COLUMNS = [
           locale: russianLocale,
         }
       );
+      const expirationDate = new Date(row.expirationDate as string);
+      const isLessOrEqualToWeek =
+        expirationDate <= addDays(new Date(), ONE_WEEK) &&
+        expirationDate < addDays(new Date(), TWO_WEEKS);
 
-      return new Date(row.expirationDate as string) <=
-        addDays(new Date(), TWO_WEEKS) ? (
+      return row.quantity > 0 &&
+        expirationDate <= addDays(new Date(), TWO_WEEKS) ? (
         <>
           <div style={{ marginRight: 8 }}>{formattedDate}</div>
           <Tooltip title="Срок годности товара истекает">
-            <WarningOutlined style={{ color: WARNING }} />
+            <WarningOutlined
+              style={{ color: isLessOrEqualToWeek ? ERROR : WARNING }}
+            />
           </Tooltip>
           <SellMedicineButton medicinePurchase={row} />
         </>
