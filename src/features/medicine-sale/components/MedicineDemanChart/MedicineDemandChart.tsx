@@ -32,7 +32,7 @@ export const MedicineDemandChart: FC<Props> = ({
   return (
     <Dialog open={isOpen} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle>{`График продаж товара "${medicineName}"`}</DialogTitle>
-      <DialogContent>
+      <DialogContent style={{ paddingBottom: 0 }}>
         <Stack
           direction="row"
           justifyContent="center"
