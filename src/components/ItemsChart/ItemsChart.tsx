@@ -7,6 +7,7 @@ import {
   CartesianGrid,
   AreaChart,
   Area,
+  Label,
 } from "recharts";
 
 import { ACCENT } from "../../theme/colors/colors.constants";
@@ -35,12 +36,19 @@ export const ItemsChart: FC<Props> = ({ items }) => {
         interval="preserveStartEnd"
         tick={{ fontSize: 12 }}
       />
-      <YAxis />
+      <YAxis>
+        <Label
+          value="Продано товаров"
+          position="insideTopLeft"
+          angle={-90}
+          dy={300}
+        />
+      </YAxis>
       <CartesianGrid strokeDasharray="3 3" />
       <Tooltip />
       <Area
         type="monotone"
-        dataKey="quantity"
+        dataKey="Продано"
         stroke={ACCENT}
         fillOpacity={1}
         fill="url(#colorPv)"
