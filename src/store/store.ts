@@ -3,6 +3,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 
 import { appReducer } from "../features/app/appSlice";
 import { medicinePurchaseReducer } from "../features/medicine-purchases/medicinePurchaseSlice";
+import { medicineSaleReducer } from "../features/medicine-sale/medicineSaleSlice";
 import { medicineReducer } from "../features/medicine/medicineSlice";
 import { userReducer } from "../features/users/userSlice";
 import { medicineApi } from "../services/api/medicine.api";
@@ -16,6 +17,7 @@ export const store = configureStore({
     user: userReducer,
     medicine: medicineReducer,
     medicinePurchase: medicinePurchaseReducer,
+    medicineSale: medicineSaleReducer,
     [userApi.reducerPath]: userApi.reducer,
     [medicineApi.reducerPath]: medicineApi.reducer,
     [medicinePurchaseApi.reducerPath]: medicinePurchaseApi.reducer,

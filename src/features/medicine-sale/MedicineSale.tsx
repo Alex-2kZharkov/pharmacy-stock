@@ -7,13 +7,36 @@ import { AdminPageWrapper } from "../../components/AdminPageWrapper";
 import { DateFilter } from "../../components/DateFilter";
 import { DATE_PERIODS } from "../../constants/filter.constants";
 import { useLazyGetMedicineSalesQuery } from "../../services/api/medicineSale.api";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
+import { MedicineDemandChart } from "./components/MedicineDemanChart";
 import { MEDICINE_SALE_TABLE_COLUMNS } from "./MedicineSale.constants";
 import { useStyles } from "./MedicineSale.styles";
+import {
+  selectIsMedicineDemandChartModalOpen,
+  setIsMedicineDemandChartModalOpen,
+} from "./medicineSaleSlice";
 
 export const MedicineSale = () => {
   const classes = useStyles();
+  const dispatch = useAppDispatch();
+
+  const isDemandChartOpen = useAppSelector(
+    selectIsMedicineDemandChartModalOpen
+  );
+
+  const [getMedicineSales, { data: medicineSaleList }] =
+    useLazyGetMedicineSalesQuery();
+
   const [periodName, setPeriodName] = useState("");
+
+  useEffect(() => {
+    getMedicineSales(DATE_PERIODS[periodName]?.toISOString());
+  }, [getMedicineSales, periodName]);
+
+  const handleDemandChartClose = () =>
+    dispatch(setIsMedicineDemandChartModalOpen(false));
+
   const handleChange = (
     event: MouseEvent<HTMLElement>,
     newPeriodName: string
@@ -21,46 +44,48 @@ export const MedicineSale = () => {
     setPeriodName(newPeriodName);
   };
 
-  const [getMedicineSales, { data: medicineSaleList }] =
-    useLazyGetMedicineSalesQuery();
-
-  useEffect(() => {
-    const period = DATE_PERIODS[periodName];
-
-    getMedicineSales(period?.toISOString());
-  }, [getMedicineSales, periodName]);
-
   return (
-    <AdminPageWrapper sectionTitle="Продажи">
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        className={classes.dateFilterContainer}
-      >
-        <DateFilter value={periodName} onChange={handleChange} />
-        <Typography variant="h6">
-          Всего записей: {medicineSaleList?.length ?? 0}
-        </Typography>
-      </Stack>
-      <Box className={classes.dataGridContainer}>
-        <DataGrid
-          className={classes.dataGrid}
-          columns={MEDICINE_SALE_TABLE_COLUMNS}
-          disableSelectionOnClick
-          rows={medicineSaleList ?? []}
-          disableColumnMenu={true}
-          getRowId={(row) => row._id}
-          components={{
-            // eslint-disable-next-line react/no-multi-comp
-            NoRowsOverlay: () => (
-              <Stack height="100%" alignItems="center" justifyContent="center">
-                Нет данных
-              </Stack>
-            ),
-          }}
-        />
-      </Box>
-    </AdminPageWrapper>
+    <>
+      <AdminPageWrapper sectionTitle="Продажи">
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          className={classes.dateFilterContainer}
+        >
+          <DateFilter value={periodName} onChange={handleChange} />
+          <Typography variant="h6">
+            Всего записей: {medicineSaleList?.length ?? 0}
+          </Typography>
+        </Stack>
+        <Box className={classes.dataGridContainer}>
+          <DataGrid
+            className={classes.dataGrid}
+            columns={MEDICINE_SALE_TABLE_COLUMNS}
+            disableSelectionOnClick
+            rows={medicineSaleList ?? []}
+            disableColumnMenu={true}
+            getRowId={(row) => row._id}
+            components={{
+              // eslint-disable-next-line react/no-multi-comp
+              NoRowsOverlay: () => (
+                <Stack
+                  height="100%"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  Нет данных
+                </Stack>
+              ),
+            }}
+          />
+        </Box>
+      </AdminPageWrapper>
+      <MedicineDemandChart
+        isOpen={isDemandChartOpen}
+        onClose={handleDemandChartClose}
+        medicineName="Бодрость на весь день"
+      />
+    </>
   );
 };
