@@ -9,7 +9,7 @@ import {
 export const buyMedicineDialogSchema = yup.object().shape({
   name: yup.string().required(REQUIRED_FIELD_MESSAGE),
   budgetAmount: yup.number().required(REQUIRED_FIELD_MESSAGE),
-  finalMedicineAmount: yup.number().required(REQUIRED_FIELD_MESSAGE),
+  primaryMedicineAmount: yup.number().required(REQUIRED_FIELD_MESSAGE),
   buyingQuantity: yup
     .number()
     .required(REQUIRED_FIELD_MESSAGE)

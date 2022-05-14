@@ -3,7 +3,7 @@ export interface BuyMedicineDialogTypes {
   name?: string;
   budgetAmount?: number;
   buyingQuantity: number;
-  finalMedicineAmount?: number;
+  primaryMedicineAmount?: number;
   expirationDate: Date;
-  totalAmount: number;
+  totalAmount?: number;
 }

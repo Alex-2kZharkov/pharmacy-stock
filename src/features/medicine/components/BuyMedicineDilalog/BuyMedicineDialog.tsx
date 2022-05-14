@@ -50,9 +50,9 @@ export const BuyMedicineDialog: FC<Props> = ({
     name: medicine?.name,
     budgetAmount,
     buyingQuantity: 1,
-    finalMedicineAmount: medicine?.finalAmount,
+    primaryMedicineAmount: medicine?.primaryAmount,
     expirationDate: addDays(new Date(), 1),
-    totalAmount: 0,
+    totalAmount: medicine?.primaryAmount,
   };
 
   return (
@@ -89,8 +89,8 @@ export const BuyMedicineDialog: FC<Props> = ({
                 disabled
               />
               <Field
-                id="finalMedicineAmount"
-                name="finalMedicineAmount"
+                id="primaryMedicineAmount"
+                name="primaryMedicineAmount"
                 label="Стоимость покупки 1 ед."
                 fullWidth
                 variant="standard"
@@ -111,14 +111,14 @@ export const BuyMedicineDialog: FC<Props> = ({
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
                   const newAmount =
                     Number(e.target.value) *
-                    ((values as BuyMedicineDialogTypes)?.finalMedicineAmount ??
-                      1);
+                    ((values as BuyMedicineDialogTypes)
+                      ?.primaryMedicineAmount ?? 1);
                   setFieldValue("buyingQuantity", Number(e.target.value));
                   setFieldValue("totalAmount", newAmount);
                 }}
               />
               {((values as BuyMedicineDialogTypes).budgetAmount ?? 0) <
-                (values as BuyMedicineDialogTypes).totalAmount && (
+                ((values as BuyMedicineDialogTypes).totalAmount ?? 0) && (
                 <FormHelperText error>{INVALID_BUYING_QUANTITY}</FormHelperText>
               )}
               <Field
@@ -158,7 +158,7 @@ export const BuyMedicineDialog: FC<Props> = ({
                   disabled={
                     !isValid ||
                     ((values as BuyMedicineDialogTypes).budgetAmount ?? 0) <
-                      (values as BuyMedicineDialogTypes).totalAmount
+                      ((values as BuyMedicineDialogTypes).totalAmount ?? 0)
                   }
                 >
                   Сохранить
