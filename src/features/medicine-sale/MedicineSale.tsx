@@ -6,7 +6,10 @@ import { DataGrid } from "@mui/x-data-grid";
 import { AdminPageWrapper } from "../../components/AdminPageWrapper";
 import { DateFilter } from "../../components/DateFilter";
 import { DATE_PERIODS } from "../../constants/filter.constants";
-import { useLazyGetMedicineSalesQuery } from "../../services/api/medicineSale.api";
+import {
+  useLazyGetMedicineSalesDemandQuery,
+  useLazyGetMedicineSalesQuery,
+} from "../../services/api/medicineSale.api";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 import { MedicineDemandChart } from "./components/MedicineDemanChart";
@@ -29,12 +32,26 @@ export const MedicineSale = () => {
 
   const [getMedicineSales, { data: medicineSaleList }] =
     useLazyGetMedicineSalesQuery();
+  const [getMedicineSalesDemand, { data: salesDemandList }] =
+    useLazyGetMedicineSalesDemandQuery();
 
   const [periodName, setPeriodName] = useState("");
 
   useEffect(() => {
     getMedicineSales(DATE_PERIODS[periodName]?.toISOString());
-  }, [getMedicineSales, periodName]);
+
+    if (currentMedicineSale) {
+      getMedicineSalesDemand({
+        dateFrom: DATE_PERIODS[periodName]?.toISOString(),
+        id: currentMedicineSale.medicine._id,
+      });
+    }
+  }, [
+    getMedicineSales,
+    periodName,
+    currentMedicineSale,
+    getMedicineSalesDemand,
+  ]);
 
   const handleDemandChartClose = () =>
     dispatch(setIsMedicineDemandChartModalOpen(false));
@@ -87,6 +104,7 @@ export const MedicineSale = () => {
         isOpen={isDemandChartOpen}
         onClose={handleDemandChartClose}
         medicineName={currentMedicineSale?.medicine?.name}
+        items={salesDemandList}
       />
     </>
   );

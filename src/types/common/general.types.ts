@@ -16,3 +16,8 @@ export interface CurrentEntityAction {
   setCurrentEntity: (payload: Entities) => ActionCreator;
   setIsCurrentModalOpen: (payload: boolean) => ActionCreator;
 }
+
+export interface Item {
+  createdAt: string;
+  quantity: number;
+}

@@ -1,10 +1,11 @@
 import { Stack } from "@mui/material";
 
 import { AdminPageWrapper } from "../../components/AdminPageWrapper";
+import { ItemsChart } from "../../components/ItemsChart";
+import { Item } from "../../types/common/general.types";
 
 import { IncomeChart } from "./IncomeChart";
 import { Indicator } from "./Indicator";
-import { ItemsChart } from "./ItemsChart";
 
 export const Overview = () => {
   return (
@@ -21,7 +22,7 @@ export const Overview = () => {
         alignItems="center"
       >
         <IncomeChart />
-        <ItemsChart />
+        <ItemsChart items={[] as Item[]} />
       </Stack>
     </AdminPageWrapper>
   );
