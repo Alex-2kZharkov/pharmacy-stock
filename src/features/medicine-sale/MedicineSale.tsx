@@ -13,6 +13,7 @@ import { MedicineDemandChart } from "./components/MedicineDemanChart";
 import { MEDICINE_SALE_TABLE_COLUMNS } from "./MedicineSale.constants";
 import { useStyles } from "./MedicineSale.styles";
 import {
+  selectCurrentMedicineSale,
   selectIsMedicineDemandChartModalOpen,
   setIsMedicineDemandChartModalOpen,
 } from "./medicineSaleSlice";
@@ -24,6 +25,7 @@ export const MedicineSale = () => {
   const isDemandChartOpen = useAppSelector(
     selectIsMedicineDemandChartModalOpen
   );
+  const currentMedicineSale = useAppSelector(selectCurrentMedicineSale);
 
   const [getMedicineSales, { data: medicineSaleList }] =
     useLazyGetMedicineSalesQuery();
@@ -84,7 +86,7 @@ export const MedicineSale = () => {
       <MedicineDemandChart
         isOpen={isDemandChartOpen}
         onClose={handleDemandChartClose}
-        medicineName="Бодрость на весь день"
+        medicineName={currentMedicineSale?.medicine?.name}
       />
     </>
   );

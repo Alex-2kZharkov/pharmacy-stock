@@ -13,7 +13,7 @@ import { useStyles } from "./MedicineDemandChart.styles";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  medicineName: string;
+  medicineName?: string;
 }
 
 export const MedicineDemandChart: FC<Props> = ({
@@ -25,11 +25,11 @@ export const MedicineDemandChart: FC<Props> = ({
 
   return (
     <Dialog open={isOpen} onClose={onClose} maxWidth="xs" fullWidth>
-      <DialogTitle>График продаж товара {}</DialogTitle>
+      <DialogTitle>{`График продаж товара "${medicineName}"`}</DialogTitle>
       <DialogContent>
         <DialogActions className={classes.dialogActions}>
           <Button variant="contained" type="submit" onClick={onClose}>
-            Сохранить
+            OK
           </Button>
         </DialogActions>
       </DialogContent>

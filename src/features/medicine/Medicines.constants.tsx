@@ -111,7 +111,7 @@ export const MEDICINE_TABLE_COLUMNS = [
     type: "number",
     width: 200,
     editable: true,
-    renderCell: ({ row }: GridRenderCellParams<Date>) => (
+    renderCell: ({ row }: GridRenderCellParams<MedicineDto>) => (
       <Stack
         direction="row"
         spacing={1}

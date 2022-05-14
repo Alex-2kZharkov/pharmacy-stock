@@ -51,7 +51,6 @@ export const userApi = createApi({
     }),
   }),
 });
-
 export const {
   useLazyGetUsersQuery,
   useLazyCreateUserQuery,
