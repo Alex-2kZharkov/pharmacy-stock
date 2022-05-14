@@ -6,6 +6,7 @@ import { medicinePurchaseReducer } from "../features/medicine-purchases/medicine
 import { medicineSaleReducer } from "../features/medicine-sale/medicineSaleSlice";
 import { medicineReducer } from "../features/medicine/medicineSlice";
 import { userReducer } from "../features/users/userSlice";
+import { budgetApi } from "../services/api/budget.api";
 import { medicineApi } from "../services/api/medicine.api";
 import { medicinePurchaseApi } from "../services/api/medicinePurchases.api";
 import { medicineSaleApi } from "../services/api/medicineSale.api";
@@ -22,13 +23,15 @@ export const store = configureStore({
     [medicineApi.reducerPath]: medicineApi.reducer,
     [medicinePurchaseApi.reducerPath]: medicinePurchaseApi.reducer,
     [medicineSaleApi.reducerPath]: medicineSaleApi.reducer,
+    [budgetApi.reducerPath]: budgetApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       userApi.middleware,
       medicineApi.middleware,
       medicinePurchaseApi.middleware,
-      medicineSaleApi.middleware
+      medicineSaleApi.middleware,
+      budgetApi.middleware
     ),
 });
 
