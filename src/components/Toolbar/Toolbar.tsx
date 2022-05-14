@@ -1,6 +1,14 @@
 import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
-import { Divider, IconButton, Stack } from "@mui/material";
+import {
+  Divider,
+  FilledInput,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  Stack,
+} from "@mui/material";
 
 import { selectCurrentPage } from "../../features/app/appSlice";
 import { setIsCreateMedicineDialogOpen } from "../../features/medicine/medicineSlice";
@@ -27,10 +35,24 @@ export const Toolbar = () => {
 
   return (
     <>
-      <Stack direction="row" mr={3}>
-        <IconButton aria-label="Поиск" className={classes.button}>
-          <SearchIcon className={classes.icon} />
-        </IconButton>
+      <Stack direction="row" mr={3} alignItems="center">
+        <FormControl className={classes.formControl} variant="filled">
+          <InputLabel htmlFor="filled-adornment-password">
+            Поиск по названию...
+          </InputLabel>
+          <FilledInput
+            className={classes.filledInput}
+            id="filled-adornment-password"
+            onChange={() => alert("password")}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton aria-label="toggle password visibility" edge="end">
+                  <SearchIcon />
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
         <IconButton
           aria-label="Добавить"
           className={classes.button}
