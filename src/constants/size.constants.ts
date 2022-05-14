@@ -1,0 +1,5 @@
+export const FULL_SCREEN_CHART_WIDTH = 1300;
+export const PARTIAL_SCREEN_CHART_WIDTH = 1130;
+export const DEFAULT_CHART_WIDTH = 800;
+export const DEFAULT_CHART_HEIGHT = 600;
+export const OVERVIEW_CHART_HEIGHT = 550;

@@ -9,7 +9,7 @@ import { userReducer } from "../features/users/userSlice";
 import { medicineApi } from "../services/api/medicine.api";
 import { medicinePurchaseApi } from "../services/api/medicinePurchases.api";
 import { medicineSaleApi } from "../services/api/medicineSale.api";
-import { overviewApi } from "../services/api/overviewApi";
+import { overviewApi } from "../services/api/overview.api";
 import { userApi } from "../services/api/user.api";
 
 export const store = configureStore({

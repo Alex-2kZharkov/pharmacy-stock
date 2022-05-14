@@ -10,16 +10,26 @@ import {
   Label,
 } from "recharts";
 
+import {
+  DEFAULT_CHART_HEIGHT,
+  DEFAULT_CHART_WIDTH,
+} from "../../constants/size.constants";
 import { ACCENT } from "../../theme/colors/colors.constants";
 import { Item } from "../../types/common/general.types";
 
 interface Props {
   items?: Item[];
+  width?: number;
+  height?: number;
 }
 
-export const ItemsChart: FC<Props> = ({ items }) => {
+export const ItemsChart: FC<Props> = ({ items, width, height }) => {
   return (
-    <AreaChart width={800} height={600} data={items}>
+    <AreaChart
+      width={width ?? DEFAULT_CHART_WIDTH}
+      height={height ?? DEFAULT_CHART_HEIGHT}
+      data={items}
+    >
       <defs>
         <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
           <stop offset="5%" stopColor={ACCENT} stopOpacity={0.8} />

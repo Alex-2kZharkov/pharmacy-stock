@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import {
   AddShoppingCartOutlined,
   AttachMoneyOutlined,
@@ -26,16 +24,23 @@ import {
 import clsx from "clsx";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
+import {
+  selectIsSideBarExpanded,
+  setIsSidebarExpanded,
+} from "../../features/app/appSlice";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+
 import { useStyles } from "./Sidebar.styles";
 
 export const Sidebar = () => {
   const classes = useStyles();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [isSideBarExpanded, setIsSideBarExpanded] = useState(true);
+  const isSideBarExpanded = useAppSelector(selectIsSideBarExpanded);
   const { pathname } = useLocation();
 
-  const collapseSidebar = () => setIsSideBarExpanded(false);
-  const expandSidebar = () => setIsSideBarExpanded(true);
+  const collapseSidebar = () => dispatch(setIsSidebarExpanded(false));
+  const expandSidebar = () => dispatch(setIsSidebarExpanded(true));
 
   const collapseButton = (
     <ListItem onClick={collapseSidebar} className={classes.sidebarDisplayItem}>
