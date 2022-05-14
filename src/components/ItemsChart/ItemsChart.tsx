@@ -34,7 +34,7 @@ export const ItemsChart: FC<Props> = ({ items }) => {
         minTickGap={-100}
         axisLine={false}
         interval="preserveStartEnd"
-        tick={{ fontSize: 12 }}
+        tick={{ fontSize: 10 }}
       />
       <YAxis>
         <Label
@@ -42,6 +42,7 @@ export const ItemsChart: FC<Props> = ({ items }) => {
           position="insideTopLeft"
           angle={-90}
           dy={300}
+          dx={-9}
         />
       </YAxis>
       <CartesianGrid strokeDasharray="3 3" />
