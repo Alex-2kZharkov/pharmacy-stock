@@ -8,6 +8,7 @@ import { medicineSaleReducer } from "../features/medicine-sale/medicineSaleSlice
 import { medicineReducer } from "../features/medicine/medicineSlice";
 import { recommendationReducer } from "../features/recommendation/recommendationSlice";
 import { userReducer } from "../features/users/userSlice";
+import { administrativePurchaseApi } from "../services/api/administrativePurchase.api";
 import { medicineApi } from "../services/api/medicine.api";
 import { medicinePurchaseApi } from "../services/api/medicinePurchases.api";
 import { medicineSaleApi } from "../services/api/medicineSale.api";
@@ -30,6 +31,7 @@ export const store = configureStore({
     [medicineSaleApi.reducerPath]: medicineSaleApi.reducer,
     [overviewApi.reducerPath]: overviewApi.reducer,
     [recommendationApi.reducerPath]: recommendationApi.reducer,
+    [administrativePurchaseApi.reducerPath]: administrativePurchaseApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -38,7 +40,8 @@ export const store = configureStore({
       medicinePurchaseApi.middleware,
       medicineSaleApi.middleware,
       overviewApi.middleware,
-      recommendationApi.middleware
+      recommendationApi.middleware,
+      administrativePurchaseApi.middleware
     ),
 });
 

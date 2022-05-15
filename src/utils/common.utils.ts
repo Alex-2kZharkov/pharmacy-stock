@@ -1,4 +1,8 @@
 import {
+  setCurrentEditablePurchase,
+  setIsUpdateDialogOpen,
+} from "../features/administrative-purchase/administrativePurchaseSlice";
+import {
   setCurrentEditableUser,
   setIsUpdateUserDialogOpen,
 } from "../features/users/userSlice";
@@ -18,6 +22,10 @@ export const getCurrentEntityActions = (
     [EntitiesNames.Medicine]: {
       setCurrentEntity: setCurrentEditableUser,
       setIsCurrentModalOpen: setIsUpdateUserDialogOpen,
+    },
+    [EntitiesNames.AdministrativePurchase]: {
+      setCurrentEntity: setCurrentEditablePurchase,
+      setIsCurrentModalOpen: setIsUpdateDialogOpen,
     },
   };
 

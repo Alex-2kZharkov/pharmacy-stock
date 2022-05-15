@@ -53,7 +53,7 @@ export const AdministrativePurchaseDialog: FC<Props> = ({
           onSubmit={handleFormSubmit}
           validationSchema={administrativePurchaseSchema}
         >
-          {() => (
+          {({ isValid }) => (
             <Form>
               <Field
                 autoFocus
@@ -80,7 +80,7 @@ export const AdministrativePurchaseDialog: FC<Props> = ({
                 <Button onClick={onClose} variant="outlined">
                   Отменить
                 </Button>
-                <Button variant="contained" type="submit">
+                <Button variant="contained" type="submit" disabled={!isValid}>
                   Сохранить
                 </Button>
               </DialogActions>

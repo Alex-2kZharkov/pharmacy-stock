@@ -9,6 +9,7 @@ import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 
 import { ErrorFallback } from "../../components/ErrorFallback";
 import { theme } from "../../theme/theme";
+import { AdministrativePurchase } from "../administrative-purchase";
 import { Medicines } from "../medicine";
 import { MedicinePurchases } from "../medicine-purchases";
 import { MedicineSale } from "../medicine-sale";
@@ -39,6 +40,10 @@ export const App = () => {
               <Route
                 path="/medicine-purchases"
                 element={<MedicinePurchases />}
+              />
+              <Route
+                path="//administrative-purchases"
+                element={<AdministrativePurchase />}
               />
               <Route path="/employees" element={<UsersPage />} />
               <Route path="/recommendations" element={<Recommendation />} />

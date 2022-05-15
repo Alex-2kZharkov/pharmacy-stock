@@ -3,8 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../../constants/host.constants";
 import { AdministrativePurchaseDto } from "../../types/dto/AdministrativePurchase.dto";
 
-export const administrativePurchase = createApi({
-  reducerPath: "administrativePurchase",
+export const administrativePurchaseApi = createApi({
+  reducerPath: "administrativePurchaseApi",
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   endpoints: (builder) => ({
     getAdministrativePurchase: builder.query<
@@ -12,7 +12,7 @@ export const administrativePurchase = createApi({
       { dateFilter: string; name: string }
     >({
       query: ({ dateFilter, name }) => ({
-        url: "users",
+        url: "administrative-purchases",
         params: {
           dateFrom: dateFilter ?? "",
           name,
@@ -47,4 +47,4 @@ export const {
   useLazyCreateUserAdministrativePurchaseQuery,
   useLazyGetAdministrativePurchaseQuery,
   useLazyUpdateUserAdministrativePurchaseQuery,
-} = administrativePurchase;
+} = administrativePurchaseApi;

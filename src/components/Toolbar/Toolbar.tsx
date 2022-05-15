@@ -14,6 +14,7 @@ import {
   Tooltip,
 } from "@mui/material";
 
+import { setIsCreateDialogOpen } from "../../features/administrative-purchase/administrativePurchaseSlice";
 import {
   selectCurrentPage,
   selectCurrentSearchValue,
@@ -50,6 +51,10 @@ export const Toolbar = () => {
 
     if (currentPage === PagesTypes.ITEMS_PAGE) {
       dispatch(setIsCreateMedicineDialogOpen(true));
+    }
+
+    if (currentPage === PagesTypes.ADMINISTRATIVE_PURCHASES) {
+      dispatch(setIsCreateDialogOpen(true));
     }
   };
 

@@ -171,10 +171,12 @@ export const Sidebar = () => {
                 {isSideBarExpanded && <ListItemText primary="Продажи" />}
               </ListItemButton>
             </ListItem>
-            <ListItem>
+            <ListItem component={Link} to="/administrative-purchases">
               <ListItemButton
                 className={clsx(classes.listItem, {
                   [classes.listItemClosed]: !isSideBarExpanded,
+                  [classes.listItemActive]:
+                    pathname === "/administrative-purchases",
                 })}
               >
                 <ListItemIcon>

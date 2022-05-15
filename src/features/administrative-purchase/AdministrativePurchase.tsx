@@ -82,18 +82,18 @@ export const AdministrativePurchase = () => {
   return (
     <>
       <AdminPageWrapper sectionTitle="Административные расходы">
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          className={classes.dateFilterContainer}
+        >
+          <DateFilter value={periodName} onChange={handleChange} />
+          <Typography variant="h6">
+            Всего записей: {administrativePurchaseList?.length ?? 0}
+          </Typography>
+        </Stack>
         <Box className={classes.dataGridContainer}>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            className={classes.dateFilterContainer}
-          >
-            <DateFilter value={periodName} onChange={handleChange} />
-            <Typography variant="h6">
-              Всего записей: {administrativePurchaseList?.length ?? 0}
-            </Typography>
-          </Stack>
           <DataGrid
             className={classes.dataGrid}
             rows={administrativePurchaseList ?? []}

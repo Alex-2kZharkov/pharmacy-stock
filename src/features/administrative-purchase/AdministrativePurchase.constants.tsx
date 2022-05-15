@@ -26,7 +26,7 @@ export const ADMINISTRATIVE_PURCHASE_TABLE_COLUMNS: GridColumns = [
   {
     field: "name",
     headerName: "Назначение",
-    width: 200,
+    width: 550,
     editable: true,
   },
   {
@@ -35,8 +35,8 @@ export const ADMINISTRATIVE_PURCHASE_TABLE_COLUMNS: GridColumns = [
     width: 170,
     editable: true,
     renderCell: ({ row }: GridRenderCellParams<AdministrativePurchaseDto>) => (
-      <Stack direction="row" spacing={2} justifyContent="space-between">
-        <div>{row.amount}</div>
+      <Stack direction="row" alignItems="center">
+        <div style={{ width: 120 }}>{row.amount}</div>
         <Stack direction="row">
           <EditButton
             entityName={EntitiesNames.AdministrativePurchase}
