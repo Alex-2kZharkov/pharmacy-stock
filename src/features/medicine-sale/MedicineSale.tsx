@@ -11,6 +11,8 @@ import {
   useLazyGetMedicineSalesQuery,
 } from "../../services/api/medicineSale.api";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { PagesTypes } from "../../types/common/pages.types";
+import { setCurrentPage } from "../app/appSlice";
 
 import { MedicineDemandChart } from "./components/MedicineDemanChart";
 import { MEDICINE_SALE_TABLE_COLUMNS } from "./MedicineSale.constants";
@@ -36,6 +38,10 @@ export const MedicineSale = () => {
     useLazyGetMedicineSalesDemandQuery();
 
   const [periodName, setPeriodName] = useState("");
+
+  useEffect(() => {
+    dispatch(setCurrentPage(PagesTypes.PURCHASES_PAGE));
+  }, [dispatch]);
 
   useEffect(() => {
     getMedicineSales(DATE_PERIODS[periodName]?.toISOString());

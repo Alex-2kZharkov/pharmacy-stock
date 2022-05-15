@@ -17,14 +17,16 @@ import {
   useLazyGetSalesNumberQuery,
   useLazyGetShippingCostQuery,
 } from "../../services/api/overview.api";
-import { useAppSelector } from "../../store/hooks";
-import { selectIsSideBarExpanded } from "../app/appSlice";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { PagesTypes } from "../../types/common/pages.types";
+import { selectIsSideBarExpanded, setCurrentPage } from "../app/appSlice";
 
 import { Indicator } from "./Indicator";
 import { useStyles } from "./Overview.styles";
 
 export const Overview = () => {
   const classes = useStyles();
+  const dispatch = useAppDispatch();
 
   const isSideBarExpanded = useAppSelector(selectIsSideBarExpanded);
 
@@ -43,6 +45,9 @@ export const Overview = () => {
   ) => {
     setPeriodName(newPeriodName);
   };
+  useEffect(() => {
+    dispatch(setCurrentPage(PagesTypes.OVERVIEW_PAGE));
+  }, [dispatch]);
 
   useEffect(() => {
     const date = DATE_PERIODS[periodName]?.toISOString();

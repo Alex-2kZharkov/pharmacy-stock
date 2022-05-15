@@ -1,5 +1,6 @@
 import { ChangeEvent } from "react";
 
+import { ClearOutlined } from "@mui/icons-material";
 import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 import {
@@ -10,6 +11,7 @@ import {
   InputAdornment,
   InputLabel,
   Stack,
+  Tooltip,
 } from "@mui/material";
 
 import {
@@ -37,6 +39,10 @@ export const Toolbar = () => {
   const handleSearchFieldChange = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(setCurrentSearchValue(e.currentTarget.value));
 
+  const cancelSearch = () => {
+    dispatch(setCurrentSearchValue(""));
+  };
+
   const handleAddButtonClick = () => {
     if (currentPage === PagesTypes.EMPLOYEES_PAGE) {
       dispatch(setIsCreateMedicineDialogOpen(true));
@@ -62,13 +68,16 @@ export const Toolbar = () => {
             disabled={isSearchFieldDisabled}
             endAdornment={
               <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  edge="end"
-                  disabled={isSearchFieldDisabled}
-                >
-                  <SearchIcon />
-                </IconButton>
+                <Tooltip title={currentSearchValue ? "Отменить" : "Найти"}>
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    edge="end"
+                    disabled={isSearchFieldDisabled}
+                    onClick={cancelSearch}
+                  >
+                    {currentSearchValue ? <ClearOutlined /> : <SearchIcon />}
+                  </IconButton>
+                </Tooltip>
               </InputAdornment>
             }
           />
