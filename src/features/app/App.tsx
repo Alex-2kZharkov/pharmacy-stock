@@ -13,6 +13,7 @@ import { Medicines } from "../medicine";
 import { MedicinePurchases } from "../medicine-purchases";
 import { MedicineSale } from "../medicine-sale";
 import { Overview } from "../overview";
+import { Recommendation } from "../recommendation";
 import { UsersPage } from "../users";
 
 export const App = () => {
@@ -40,8 +41,7 @@ export const App = () => {
                 element={<MedicinePurchases />}
               />
               <Route path="/employees" element={<UsersPage />} />
-              <Route path="/" element={<Medicines />} />{" "}
-              <Route path="/" element={<Medicines />} />
+              <Route path="/recommendations" element={<Recommendation />} />
             </Routes>
           </ErrorBoundary>
         </Router>

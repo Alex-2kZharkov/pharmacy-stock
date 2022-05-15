@@ -5,6 +5,7 @@ import { appReducer } from "../features/app/appSlice";
 import { medicinePurchaseReducer } from "../features/medicine-purchases/medicinePurchaseSlice";
 import { medicineSaleReducer } from "../features/medicine-sale/medicineSaleSlice";
 import { medicineReducer } from "../features/medicine/medicineSlice";
+import { recommendationReducer } from "../features/recommendation/recommendationSlice";
 import { userReducer } from "../features/users/userSlice";
 import { medicineApi } from "../services/api/medicine.api";
 import { medicinePurchaseApi } from "../services/api/medicinePurchases.api";
@@ -19,6 +20,7 @@ export const store = configureStore({
     medicine: medicineReducer,
     medicinePurchase: medicinePurchaseReducer,
     medicineSale: medicineSaleReducer,
+    recommendation: recommendationReducer,
     [userApi.reducerPath]: userApi.reducer,
     [medicineApi.reducerPath]: medicineApi.reducer,
     [medicinePurchaseApi.reducerPath]: medicinePurchaseApi.reducer,

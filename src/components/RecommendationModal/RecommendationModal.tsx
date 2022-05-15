@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from "@mui/material";
 
-import { useStyles } from "./CalculatePrognosisDialog.styles";
+import { useStyles } from "./RecommendationModal.styles";
 
 interface Props {
   isOpen: boolean;
@@ -16,7 +16,7 @@ interface Props {
   message?: string;
 }
 
-export const CalculatePrognosisDialog: FC<Props> = ({
+export const RecommendationModal: FC<Props> = ({
   isOpen,
   onClose,
   message,

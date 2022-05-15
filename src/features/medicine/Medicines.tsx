@@ -5,6 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { debounce } from "lodash";
 
 import { AdminPageWrapper } from "../../components/AdminPageWrapper";
+import { RecommendationModal } from "../../components/RecommendationModal";
 import { DEBOUNCE_TIME } from "../../constants/size.constants";
 import {
   useLazyBuyMedicineQuery,
@@ -20,7 +21,6 @@ import { selectCurrentSearchValue, setCurrentPage } from "../app/appSlice";
 
 import { BuyMedicineDialog } from "./components/BuyMedicineDilalog";
 import { BuyMedicineDialogTypes } from "./components/BuyMedicineDilalog/BuyMedicineDialog.types";
-import { CalculatePrognosisDialog } from "./components/CalculatePrognosisDialog";
 import { MedicineDialog } from "./components/MedicineDialog";
 import { MEDICINE_TABLE_COLUMNS } from "./Medicines.constants";
 import { useStyles } from "./Medicines.styles";
@@ -146,7 +146,7 @@ export const Medicines = () => {
         </Box>
       </AdminPageWrapper>
 
-      <CalculatePrognosisDialog
+      <RecommendationModal
         isOpen={isCalculatePrognosisDialogOpen}
         onClose={handleCalculatePrognosisDialogClose}
         message={data?.message}

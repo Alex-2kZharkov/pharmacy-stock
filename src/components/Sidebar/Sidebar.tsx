@@ -199,10 +199,11 @@ export const Sidebar = () => {
               </ListItemButton>
             </ListItem>
 
-            <ListItem>
+            <ListItem component={Link} to="/recommendations">
               <ListItemButton
                 className={clsx(classes.listItem, {
                   [classes.listItemClosed]: !isSideBarExpanded,
+                  [classes.listItemActive]: pathname === "/recommendations",
                 })}
               >
                 <ListItemIcon>
