@@ -47,9 +47,7 @@ export const selectCurrentSearchValue = (state: RootState) =>
   state.app.currentSearchValue;
 
 export const selectIsSearchFieldDisabled = (state: RootState) =>
-  [PagesTypes.OVERVIEW_PAGE, PagesTypes.RECOMMENDATIONS_PAGE].includes(
-    state.app.currentPage
-  );
+  [PagesTypes.OVERVIEW_PAGE].includes(state.app.currentPage);
 
 export const selectIsAddButtonDisabled = (state: RootState) =>
   [
