@@ -1,3 +1,5 @@
+import { ChangeEvent } from "react";
+
 import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 import {
@@ -10,7 +12,13 @@ import {
   Stack,
 } from "@mui/material";
 
-import { selectCurrentPage } from "../../features/app/appSlice";
+import {
+  selectCurrentPage,
+  selectCurrentSearchValue,
+  selectIsAddButtonDisabled,
+  selectIsSearchFieldDisabled,
+  setCurrentSearchValue,
+} from "../../features/app/appSlice";
 import { setIsCreateMedicineDialogOpen } from "../../features/medicine/medicineSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { PagesTypes } from "../../types/common/pages.types";
@@ -22,6 +30,12 @@ export const Toolbar = () => {
   const classes = useStyles();
 
   const currentPage = useAppSelector(selectCurrentPage);
+  const currentSearchValue = useAppSelector(selectCurrentSearchValue);
+  const isSearchFieldDisabled = useAppSelector(selectIsSearchFieldDisabled);
+  const isAddButtonDisabled = useAppSelector(selectIsAddButtonDisabled);
+
+  const handleSearchFieldChange = (e: ChangeEvent<HTMLInputElement>) =>
+    dispatch(setCurrentSearchValue(e.currentTarget.value));
 
   const handleAddButtonClick = () => {
     if (currentPage === PagesTypes.EMPLOYEES_PAGE) {
@@ -43,10 +57,16 @@ export const Toolbar = () => {
           <FilledInput
             className={classes.filledInput}
             id="filled-adornment-password"
-            onChange={() => alert("password")}
+            value={currentSearchValue}
+            onChange={handleSearchFieldChange}
+            disabled={isSearchFieldDisabled}
             endAdornment={
               <InputAdornment position="end">
-                <IconButton aria-label="toggle password visibility" edge="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  edge="end"
+                  disabled={isSearchFieldDisabled}
+                >
                   <SearchIcon />
                 </IconButton>
               </InputAdornment>
@@ -57,6 +77,7 @@ export const Toolbar = () => {
           aria-label="Добавить"
           className={classes.button}
           onClick={handleAddButtonClick}
+          disabled={isAddButtonDisabled}
         >
           <AddIcon className={classes.icon} />
         </IconButton>
