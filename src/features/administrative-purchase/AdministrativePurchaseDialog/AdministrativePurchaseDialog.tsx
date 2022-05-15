@@ -6,10 +6,12 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  FormHelperText,
 } from "@mui/material";
 import { Formik, Field, Form, FormikValues } from "formik";
 import { TextField } from "formik-material-ui";
 
+import { INVALID_BUYING_QUANTITY } from "../../../constants/yup.constants";
 import { AdministrativePurchaseDto } from "../../../types/dto/AdministrativePurchase.dto";
 import { administrativePurchaseSchema } from "../AdministrativePurchase.schema";
 
@@ -20,6 +22,7 @@ interface Props {
   onClose: () => void;
   confirm: (payload: AdministrativePurchaseDto) => void;
   administrativePurchase?: AdministrativePurchaseDto;
+  budgetAmount?: number;
 }
 
 export const AdministrativePurchaseDialog: FC<Props> = ({
@@ -27,12 +30,14 @@ export const AdministrativePurchaseDialog: FC<Props> = ({
   onClose,
   confirm,
   administrativePurchase: { _id, name, amount } = {},
+  budgetAmount,
 }) => {
   const classes = useStyles();
 
   const initialValues = {
     name: name ?? "",
     amount: amount ?? "",
+    budgetAmount,
   };
 
   const handleFormSubmit = (values: FormikValues) => {
@@ -53,7 +58,7 @@ export const AdministrativePurchaseDialog: FC<Props> = ({
           onSubmit={handleFormSubmit}
           validationSchema={administrativePurchaseSchema}
         >
-          {({ isValid }) => (
+          {({ isValid, values }) => (
             <Form>
               <Field
                 autoFocus
@@ -66,6 +71,16 @@ export const AdministrativePurchaseDialog: FC<Props> = ({
                 margin="dense"
               />
               <Field
+                id="budgetAmount"
+                name="budgetAmount"
+                label="Сумма денег в бюджете"
+                fullWidth
+                variant="standard"
+                component={TextField}
+                margin="dense"
+                disabled
+              />
+              <Field
                 id="amount"
                 name="amount"
                 label="Затраченная сумма"
@@ -76,11 +91,19 @@ export const AdministrativePurchaseDialog: FC<Props> = ({
                 type="number"
               />
 
+              {values.amount > (budgetAmount ?? 0) && (
+                <FormHelperText error>{INVALID_BUYING_QUANTITY}</FormHelperText>
+              )}
+
               <DialogActions className={classes.dialogActions}>
                 <Button onClick={onClose} variant="outlined">
                   Отменить
                 </Button>
-                <Button variant="contained" type="submit" disabled={!isValid}>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  disabled={!isValid || values.amount > (budgetAmount ?? 0)}
+                >
                   Сохранить
                 </Button>
               </DialogActions>

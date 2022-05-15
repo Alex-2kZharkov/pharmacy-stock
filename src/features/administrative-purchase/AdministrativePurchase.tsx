@@ -121,12 +121,14 @@ export const AdministrativePurchase = () => {
         isOpen={isCreateDialogOpen}
         onClose={handleCreateDialogClosed}
         confirm={createAdministrativePurchase}
+        budgetAmount={100000}
       />
       <AdministrativePurchaseDialog
         isOpen={isUpdateDialogOpen}
         onClose={handleUpdateDialogClosed}
         confirm={updateAdministrativePurchase}
         administrativePurchase={currentEditablePurchase}
+        budgetAmount={100000}
       />
     </>
   );
