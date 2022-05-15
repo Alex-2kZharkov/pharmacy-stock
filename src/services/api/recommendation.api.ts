@@ -4,7 +4,7 @@ import { BASE_URL } from "../../constants/host.constants";
 import { RecommendationDto } from "../../types/dto/Recommendation.dto";
 
 export const recommendationApi = createApi({
-  reducerPath: "medicineSaleApi",
+  reducerPath: "recommendationApi",
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   endpoints: (builder) => ({
     getRecommendations: builder.query<

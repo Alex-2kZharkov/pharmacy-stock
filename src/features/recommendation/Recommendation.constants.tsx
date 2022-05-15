@@ -35,11 +35,16 @@ export const RECOMMENDATION_TABLE_COLUMNS = [
   {
     field: "description",
     headerName: "Описание рекомендации",
-    width: 650,
+    width: 600,
+    editable: true,
+  },
+  {
+    field: "showIcon",
+    headerName: "",
+    width: 50,
     editable: true,
     renderCell: ({ row }: GridRenderCellParams<RecommendationDto>) => (
       <Stack direction="row" alignItems="center">
-        <div style={{ marginRight: 32 }}>{row.totalAmount}</div>
         <ShowRecommendationButton recommendationText={row.description} />
       </Stack>
     ),

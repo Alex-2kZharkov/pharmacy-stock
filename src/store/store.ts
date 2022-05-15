@@ -11,6 +11,7 @@ import { medicineApi } from "../services/api/medicine.api";
 import { medicinePurchaseApi } from "../services/api/medicinePurchases.api";
 import { medicineSaleApi } from "../services/api/medicineSale.api";
 import { overviewApi } from "../services/api/overview.api";
+import { recommendationApi } from "../services/api/recommendation.api";
 import { userApi } from "../services/api/user.api";
 
 export const store = configureStore({
@@ -26,6 +27,7 @@ export const store = configureStore({
     [medicinePurchaseApi.reducerPath]: medicinePurchaseApi.reducer,
     [medicineSaleApi.reducerPath]: medicineSaleApi.reducer,
     [overviewApi.reducerPath]: overviewApi.reducer,
+    [recommendationApi.reducerPath]: recommendationApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -33,7 +35,8 @@ export const store = configureStore({
       medicineApi.middleware,
       medicinePurchaseApi.middleware,
       medicineSaleApi.middleware,
-      overviewApi.middleware
+      overviewApi.middleware,
+      recommendationApi.middleware
     ),
 });
 
