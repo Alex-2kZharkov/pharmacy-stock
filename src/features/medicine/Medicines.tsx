@@ -2,8 +2,10 @@ import { useEffect } from "react";
 
 import { Box, Stack } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import { debounce } from "lodash";
 
 import { AdminPageWrapper } from "../../components/AdminPageWrapper";
+import { DEBOUNCE_TIME } from "../../constants/size.constants";
 import {
   useLazyBuyMedicineQuery,
   useLazyCalculatePrognosisQuery,
@@ -14,7 +16,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { PagesTypes } from "../../types/common/pages.types";
 import { MedicineDto } from "../../types/dto/Medicine.dto";
-import { setCurrentPage } from "../app/appSlice";
+import { selectCurrentSearchValue, setCurrentPage } from "../app/appSlice";
 
 import { BuyMedicineDialog } from "./components/BuyMedicineDilalog";
 import { BuyMedicineDialogTypes } from "./components/BuyMedicineDilalog/BuyMedicineDialog.types";
@@ -50,6 +52,7 @@ export const Medicines = () => {
     selectIsCalculatePrognosisDialogOpen
   );
   const isBuyMedicineDialogOpen = useAppSelector(selectIsBuyMedicineDialogOpen);
+  const currentSearchValue = useAppSelector(selectCurrentSearchValue);
 
   const [getMedicines, { data: medicineList }] = useLazyGetMedicinesQuery();
   const [createMedicine, { isFetching: isCreationExecuting }] =
@@ -104,7 +107,8 @@ export const Medicines = () => {
   ]);
 
   useEffect(() => {
-    getMedicines();
+    const debouncedRequest = debounce(getMedicines, DEBOUNCE_TIME);
+    debouncedRequest(currentSearchValue);
   }, [
     getMedicines,
     isUpdateExecuting,
@@ -112,6 +116,7 @@ export const Medicines = () => {
     isCalculatePrognosisDialogOpen,
     isBuyingExecuting,
     data?.message,
+    currentSearchValue,
   ]);
 
   return (

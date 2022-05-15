@@ -2,17 +2,19 @@ import { MouseEvent, useEffect, useState } from "react";
 
 import { Box, Stack, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import { debounce } from "lodash";
 
 import { AdminPageWrapper } from "../../components/AdminPageWrapper";
 import { DateFilter } from "../../components/DateFilter";
 import { DATE_PERIODS } from "../../constants/filter.constants";
+import { DEBOUNCE_TIME } from "../../constants/size.constants";
 import {
   useLazyCreateMedicineSaleQuery,
   useLazyGetMedicinePurchasesQuery,
 } from "../../services/api/medicinePurchases.api";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { PagesTypes } from "../../types/common/pages.types";
-import { setCurrentPage } from "../app/appSlice";
+import { selectCurrentSearchValue, setCurrentPage } from "../app/appSlice";
 
 import { SellMedicineDialog } from "./components/SellMedicineDilalog";
 import { SellMedicineDialogTypes } from "./components/SellMedicineDilalog/SellMedicineDialog.types";
@@ -32,6 +34,7 @@ export const MedicinePurchases = () => {
   const isSellMedicineDialogOpen = useAppSelector(
     selectIsSellMedicineDialogOpen
   );
+  const currentSearchValue = useAppSelector(selectCurrentSearchValue);
   const currentEditableMedicinePurchase = useAppSelector(
     selectCurrentEditableMedicinePurchase
   );
@@ -48,10 +51,18 @@ export const MedicinePurchases = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const period = DATE_PERIODS[periodName];
+    const debouncedRequest = debounce(getMedicinePurchases, DEBOUNCE_TIME);
 
-    getMedicinePurchases(period?.toISOString());
-  }, [getMedicinePurchases, periodName, isCreatingSaleExecuting]);
+    debouncedRequest({
+      dateFilter: DATE_PERIODS[periodName]?.toISOString(),
+      name: currentSearchValue,
+    });
+  }, [
+    getMedicinePurchases,
+    periodName,
+    isCreatingSaleExecuting,
+    currentSearchValue,
+  ]);
 
   const handleChange = (
     event: MouseEvent<HTMLElement>,

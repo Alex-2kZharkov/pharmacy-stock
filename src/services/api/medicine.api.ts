@@ -9,8 +9,8 @@ export const medicineApi = createApi({
   reducerPath: "medicineApi",
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   endpoints: (builder) => ({
-    getMedicines: builder.query<MedicineDto[], void>({
-      query: () => ({ url: "medicines" }),
+    getMedicines: builder.query<MedicineDto[], string>({
+      query: (name) => ({ url: "medicines", params: { name } }),
     }),
 
     createMedicine: builder.query<undefined, Partial<MedicineDto>>({

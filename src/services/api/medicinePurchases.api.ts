@@ -8,11 +8,15 @@ export const medicinePurchaseApi = createApi({
   reducerPath: "medicinePurchaseApi",
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   endpoints: (builder) => ({
-    getMedicinePurchases: builder.query<MedicinePurchaseDto[], string>({
-      query: (dateFilter) => ({
+    getMedicinePurchases: builder.query<
+      MedicinePurchaseDto[],
+      { dateFilter: string; name: string }
+    >({
+      query: ({ dateFilter, name }) => ({
         url: "medicine-shippings",
         params: {
           dateFrom: dateFilter ?? "",
+          name,
         },
       }),
     }),
