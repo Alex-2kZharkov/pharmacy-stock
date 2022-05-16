@@ -13,6 +13,7 @@ import {
   useLazyGetAdministrativePurchaseQuery,
   useLazyUpdateUserAdministrativePurchaseQuery,
 } from "../../services/api/administrativePurchase.api";
+import { useGetBudgetQuery } from "../../services/api/overview.api";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { PagesTypes } from "../../types/common/pages.types";
 import { selectCurrentSearchValue, setCurrentPage } from "../app/appSlice";
@@ -37,6 +38,7 @@ export const AdministrativePurchase = () => {
   const currentEditablePurchase = useAppSelector(selectCurrentEditablePurchase);
   const currentSearchValue = useAppSelector(selectCurrentSearchValue);
 
+  const { data: budget, refetch } = useGetBudgetQuery();
   const [getAdministrativePurchases, { data: administrativePurchaseList }] =
     useLazyGetAdministrativePurchaseQuery();
   const [createAdministrativePurchase, { isFetching: isCreationFetching }] =
@@ -60,12 +62,14 @@ export const AdministrativePurchase = () => {
       dateFilter: DATE_PERIODS[periodName]?.toISOString(),
       name: currentSearchValue,
     });
+    refetch();
   }, [
     getAdministrativePurchases,
     periodName,
     currentSearchValue,
     isCreationFetching,
     isUpdateFetching,
+    refetch,
   ]);
 
   const handleChange = (
@@ -121,14 +125,14 @@ export const AdministrativePurchase = () => {
         isOpen={isCreateDialogOpen}
         onClose={handleCreateDialogClosed}
         confirm={createAdministrativePurchase}
-        budgetAmount={100000}
+        budgetAmount={budget?.amount ?? 0}
       />
       <AdministrativePurchaseDialog
         isOpen={isUpdateDialogOpen}
         onClose={handleUpdateDialogClosed}
         confirm={updateAdministrativePurchase}
         administrativePurchase={currentEditablePurchase}
-        budgetAmount={100000}
+        budgetAmount={budget?.amount ?? 0}
       />
     </>
   );

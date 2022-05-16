@@ -14,6 +14,7 @@ import {
   useLazyGetMedicinesQuery,
   useLazyUpdateMedicineQuery,
 } from "../../services/api/medicine.api";
+import { useGetBudgetQuery } from "../../services/api/overview.api";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { PagesTypes } from "../../types/common/pages.types";
 import { MedicineDto } from "../../types/dto/Medicine.dto";
@@ -54,6 +55,7 @@ export const Medicines = () => {
   const isBuyMedicineDialogOpen = useAppSelector(selectIsBuyMedicineDialogOpen);
   const currentSearchValue = useAppSelector(selectCurrentSearchValue);
 
+  const { data: budget, refetch } = useGetBudgetQuery();
   const [getMedicines, { data: medicineList }] = useLazyGetMedicinesQuery();
   const [createMedicine, { isFetching: isCreationExecuting }] =
     useLazyCreateMedicineQuery();
@@ -109,6 +111,7 @@ export const Medicines = () => {
   useEffect(() => {
     const debouncedRequest = debounce(getMedicines, DEBOUNCE_TIME);
     debouncedRequest(currentSearchValue);
+    refetch();
   }, [
     getMedicines,
     isUpdateExecuting,
@@ -117,6 +120,7 @@ export const Medicines = () => {
     isBuyingExecuting,
     data?.message,
     currentSearchValue,
+    refetch,
   ]);
 
   return (
@@ -167,7 +171,7 @@ export const Medicines = () => {
         onClose={handleBuyMedicineDialogClose}
         confirm={handleBuyMedicineDialogConfirm}
         medicine={currentEditableMedicine}
-        budgetAmount={10000}
+        budgetAmount={budget?.amount ?? 0}
       />
     </>
   );
