@@ -1,6 +1,6 @@
 import { MouseEvent, useEffect, useState } from "react";
 
-import { Stack } from "@mui/material";
+import { CircularProgress, Stack } from "@mui/material";
 
 import { AdminPageWrapper } from "../../components/AdminPageWrapper";
 import { DateFilter } from "../../components/DateFilter";
@@ -18,6 +18,7 @@ import {
   useLazyGetShippingCostQuery,
 } from "../../services/api/overview.api";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { ACCENT } from "../../theme/colors/colors.constants";
 import { PagesTypes } from "../../types/common/pages.types";
 import { selectIsSideBarExpanded, setCurrentPage } from "../app/appSlice";
 
@@ -34,8 +35,10 @@ export const Overview = () => {
   const [getShippingCost, { data: shippingCost }] =
     useLazyGetShippingCostQuery();
   const [getSalesNumber, { data: salesNumber }] = useLazyGetSalesNumberQuery();
-  const [getMedicineSalesDemand, { data: salesList }] =
-    useLazyGetMedicineSalesDemandQuery();
+  const [
+    getMedicineSalesDemand,
+    { data: salesList, isFetching: isListFetching },
+  ] = useLazyGetMedicineSalesDemandQuery();
 
   const [periodName, setPeriodName] = useState("");
 
@@ -75,16 +78,24 @@ export const Overview = () => {
         direction="row"
         spacing={4}
         alignItems="center"
+        justifyContent="center"
       >
-        <ItemsChart
-          items={salesList}
-          width={
-            isSideBarExpanded
-              ? PARTIAL_SCREEN_CHART_WIDTH
-              : FULL_SCREEN_CHART_WIDTH
-          }
-          height={OVERVIEW_CHART_HEIGHT}
-        />
+        {isListFetching ? (
+          <CircularProgress
+            style={{ marginTop: 150, color: ACCENT }}
+            size={150}
+          />
+        ) : (
+          <ItemsChart
+            items={salesList}
+            width={
+              isSideBarExpanded
+                ? PARTIAL_SCREEN_CHART_WIDTH
+                : FULL_SCREEN_CHART_WIDTH
+            }
+            height={OVERVIEW_CHART_HEIGHT}
+          />
+        )}
       </Stack>
     </AdminPageWrapper>
   );

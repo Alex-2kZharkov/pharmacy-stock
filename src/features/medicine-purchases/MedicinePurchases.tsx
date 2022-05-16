@@ -1,6 +1,6 @@
 import { MouseEvent, useEffect, useState } from "react";
 
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { debounce } from "lodash";
 
@@ -13,6 +13,7 @@ import {
   useLazyGetMedicinePurchasesQuery,
 } from "../../services/api/medicinePurchases.api";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { ACCENT } from "../../theme/colors/colors.constants";
 import { PagesTypes } from "../../types/common/pages.types";
 import { selectCurrentSearchValue, setCurrentPage } from "../app/appSlice";
 
@@ -94,28 +95,42 @@ export const MedicinePurchases = () => {
             Всего записей: {medicinePurchases?.length ?? 0}
           </Typography>
         </Stack>
-        <Box className={classes.dataGridContainer}>
-          <DataGrid
-            className={classes.dataGrid}
-            columns={MEDICINE_PURCHASES_TABLE_COLUMNS}
-            disableSelectionOnClick
-            rows={medicinePurchases ?? []}
-            disableColumnMenu={true}
-            getRowId={(row) => row._id}
-            components={{
-              // eslint-disable-next-line react/no-multi-comp
-              NoRowsOverlay: () => (
-                <Stack
-                  height="100%"
-                  alignItems="center"
-                  justifyContent="center"
-                >
-                  Нет данных
-                </Stack>
-              ),
-            }}
-          />
-        </Box>
+        {!medicinePurchases ? (
+          <Stack
+            sx={{ marginTop: 2 }}
+            direction="row"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <CircularProgress
+              style={{ marginTop: 150, color: ACCENT }}
+              size={150}
+            />
+          </Stack>
+        ) : (
+          <Box className={classes.dataGridContainer}>
+            <DataGrid
+              className={classes.dataGrid}
+              columns={MEDICINE_PURCHASES_TABLE_COLUMNS}
+              disableSelectionOnClick
+              rows={medicinePurchases ?? []}
+              disableColumnMenu={true}
+              getRowId={(row) => row._id}
+              components={{
+                // eslint-disable-next-line react/no-multi-comp
+                NoRowsOverlay: () => (
+                  <Stack
+                    height="100%"
+                    alignItems="center"
+                    justifyContent="center"
+                  >
+                    Нет данных
+                  </Stack>
+                ),
+              }}
+            />
+          </Box>
+        )}
       </AdminPageWrapper>
 
       <SellMedicineDialog
