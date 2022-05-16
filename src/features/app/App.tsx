@@ -10,6 +10,7 @@ import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import { ErrorFallback } from "../../components/ErrorFallback";
 import { theme } from "../../theme/theme";
 import { AdministrativePurchase } from "../administrative-purchase";
+import { Login } from "../login";
 import { Medicines } from "../medicine";
 import { MedicinePurchases } from "../medicine-purchases";
 import { MedicineSale } from "../medicine-sale";
@@ -35,6 +36,7 @@ export const App = () => {
           >
             <Routes>
               <Route path="/" element={<Overview />} />
+              <Route path="/login" element={<Login />} />
               <Route path="/medicines" element={<Medicines />} />
               <Route path="/medicine-sales" element={<MedicineSale />} />
               <Route
