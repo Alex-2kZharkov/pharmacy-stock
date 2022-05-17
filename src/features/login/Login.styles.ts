@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core";
 export const useStyles = makeStyles((theme) => ({
   page: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(13.2, 0),
+    padding: theme.spacing(12, 0, 14.3),
   },
   container: {
     padding: theme.spacing(5, 4),
@@ -68,12 +68,30 @@ export const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  errorField: {
+    borderColor: `${theme.palette.error.main} !important`,
+    backgroundColor: `${theme.palette.error.main} !important`,
+    "& .MuiInput-underline:after": {
+      borderBottomColor: theme.palette.error.main,
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: theme.palette.error.main,
+      },
+      "&:hover fieldset": {
+        borderColor: theme.palette.error.main,
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: theme.palette.error.main,
+      },
+    },
+  },
   loginButton: {
     width: "100%",
     backgroundColor: `${theme.palette.primary.main} !important`,
     paddingTop: "12px !important",
     paddingBottom: "12px !important",
     borderRadius: 8,
-    marginTop: `${theme.spacing(2)}px !important`,
+    marginTop: `${theme.spacing(3)}px !important`,
   },
 }));

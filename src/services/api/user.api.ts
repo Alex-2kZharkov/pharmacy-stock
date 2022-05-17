@@ -49,6 +49,17 @@ export const userApi = createApi({
         }
       },
     }),
+
+    login: builder.query<
+      { access_token: string; user: { _doc: UserDto } },
+      { username: string; password: string }
+    >({
+      query: (payload) => ({
+        url: `auth/login`,
+        method: "POST",
+        body: payload,
+      }),
+    }),
   }),
 });
 export const {
@@ -56,4 +67,5 @@ export const {
   useLazyCreateUserQuery,
   useLazyUpdateUserQuery,
   useLazyDeleteUserQuery,
+  useLazyLoginQuery,
 } = userApi;
