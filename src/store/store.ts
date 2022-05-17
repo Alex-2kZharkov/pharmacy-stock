@@ -4,12 +4,14 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import { administrativePurchaseReducer } from "../features/administrative-purchase/administrativePurchaseSlice";
 import { appReducer } from "../features/app/appSlice";
 import { authReducer } from "../features/app/authSlice";
+import { categoryReducer } from "../features/category/categorySlice";
 import { medicinePurchaseReducer } from "../features/medicine-purchases/medicinePurchaseSlice";
 import { medicineSaleReducer } from "../features/medicine-sale/medicineSaleSlice";
 import { medicineReducer } from "../features/medicine/medicineSlice";
 import { recommendationReducer } from "../features/recommendation/recommendationSlice";
 import { userReducer } from "../features/users/userSlice";
 import { administrativePurchaseApi } from "../services/api/administrativePurchase.api";
+import { categoriesApi } from "../services/api/category.api";
 import { medicineApi } from "../services/api/medicine.api";
 import { medicinePurchaseApi } from "../services/api/medicinePurchases.api";
 import { medicineSaleApi } from "../services/api/medicineSale.api";
@@ -20,6 +22,7 @@ import { userApi } from "../services/api/user.api";
 export const store = configureStore({
   reducer: {
     app: appReducer,
+    category: categoryReducer,
     auth: authReducer,
     user: userReducer,
     medicine: medicineReducer,
@@ -34,6 +37,7 @@ export const store = configureStore({
     [overviewApi.reducerPath]: overviewApi.reducer,
     [recommendationApi.reducerPath]: recommendationApi.reducer,
     [administrativePurchaseApi.reducerPath]: administrativePurchaseApi.reducer,
+    [categoriesApi.reducerPath]: categoriesApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -43,7 +47,8 @@ export const store = configureStore({
       medicineSaleApi.middleware,
       overviewApi.middleware,
       recommendationApi.middleware,
-      administrativePurchaseApi.middleware
+      administrativePurchaseApi.middleware,
+      categoriesApi.middleware
     ),
 });
 

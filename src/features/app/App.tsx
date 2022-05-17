@@ -14,6 +14,7 @@ import { useLazyGetUserQuery } from "../../services/api/user.api";
 import { useAppDispatch } from "../../store/hooks";
 import { theme } from "../../theme/theme";
 import { AdministrativePurchase } from "../administrative-purchase";
+import { Category } from "../category";
 import { Login } from "../login";
 import { Medicines } from "../medicine";
 import { MedicinePurchases } from "../medicine-purchases";
@@ -68,6 +69,7 @@ export const App = () => {
             <Route path="/" element={<Overview />} />
             <Route path="/login" element={<Login />} />
             <Route path="/medicines" element={<Medicines />} />
+            <Route path="/categories" element={<Category />} />
             <Route path="/medicine-sales" element={<MedicineSale />} />
             <Route path="/medicine-purchases" element={<MedicinePurchases />} />
             <Route

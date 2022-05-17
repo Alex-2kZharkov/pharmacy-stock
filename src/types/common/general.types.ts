@@ -1,5 +1,6 @@
 import { ActionCreator } from "../../store/store";
 import { AdministrativePurchaseDto } from "../dto/AdministrativePurchase.dto";
+import { CategoryDto } from "../dto/Category.dto";
 import { MedicineDto } from "../dto/Medicine.dto";
 import { UserDto } from "../dto/User.dto";
 
@@ -10,12 +11,14 @@ export enum EntitiesNames {
   User = "User",
   Medicine = "Medicine",
   AdministrativePurchase = "AdministrativePurchase",
+  Category = "Category",
 }
 
 export type Entities =
   | Optional<UserDto>
   | Optional<MedicineDto>
-  | Optional<AdministrativePurchaseDto>;
+  | Optional<AdministrativePurchaseDto>
+  | Optional<CategoryDto>;
 
 export interface CurrentEntityAction {
   setCurrentEntity: (payload: Entities) => ActionCreator;

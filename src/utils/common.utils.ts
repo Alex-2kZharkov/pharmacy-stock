@@ -3,6 +3,10 @@ import {
   setIsUpdateDialogOpen,
 } from "../features/administrative-purchase/administrativePurchaseSlice";
 import {
+  setCurrentEditableCategory,
+  setIsUpdateDialogOpen as setIsUpdateCategoryDialogOpen,
+} from "../features/category/categorySlice";
+import {
   setCurrentEditableUser,
   setIsUpdateUserDialogOpen,
 } from "../features/users/userSlice";
@@ -26,6 +30,10 @@ export const getCurrentEntityActions = (
     [EntitiesNames.AdministrativePurchase]: {
       setCurrentEntity: setCurrentEditablePurchase,
       setIsCurrentModalOpen: setIsUpdateDialogOpen,
+    },
+    [EntitiesNames.Category]: {
+      setCurrentEntity: setCurrentEditableCategory,
+      setIsCurrentModalOpen: setIsUpdateCategoryDialogOpen,
     },
   };
 
