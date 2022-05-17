@@ -33,7 +33,7 @@ export const Section: FC<Props> = ({ title }) => {
           <div className={classes.avatarContainer}>
             <img
               className={classes.avatar}
-              src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bWVufGVufDB8fDB8fA%3D%3D&w=1000&q=80"
+              src="https://icons.iconarchive.com/icons/papirus-team/papirus-status/512/avatar-default-icon.png"
               alt="Person avatar"
               width="44"
               height="44"

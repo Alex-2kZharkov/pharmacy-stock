@@ -14,7 +14,6 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     width: 52,
     height: 52,
-    border: `solid 2px ${theme.palette.primary.light}`,
     borderRadius: "100%",
   },
   avatar: {
