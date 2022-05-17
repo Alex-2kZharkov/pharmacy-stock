@@ -60,6 +60,10 @@ export const userApi = createApi({
         body: payload,
       }),
     }),
+
+    getUser: builder.query<UserDto[], string>({
+      query: (id) => ({ url: `users/${id}` }),
+    }),
   }),
 });
 export const {
@@ -68,4 +72,5 @@ export const {
   useLazyUpdateUserQuery,
   useLazyDeleteUserQuery,
   useLazyLoginQuery,
+  useLazyGetUserQuery,
 } = userApi;

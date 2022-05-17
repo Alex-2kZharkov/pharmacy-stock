@@ -2,6 +2,8 @@ import { FC } from "react";
 
 import { Stack, Typography } from "@mui/material";
 
+import { selectCurrentUser } from "../../features/app/authSlice";
+import { useAppSelector } from "../../store/hooks";
 import { Toolbar } from "../Toolbar";
 
 import { useStyles } from "./Section.styles";
@@ -12,6 +14,7 @@ interface Props {
 
 export const Section: FC<Props> = ({ title }) => {
   const classes = useStyles();
+  const { firstName, lastName } = useAppSelector(selectCurrentUser) ?? {};
 
   return (
     <Stack
@@ -25,7 +28,7 @@ export const Section: FC<Props> = ({ title }) => {
         <Toolbar />
         <Stack direction="row" alignItems="center" spacing={1}>
           <Typography variant="subtitle2" component="div">
-            Александр Жарков
+            {`${firstName} ${lastName}`}
           </Typography>
           <div className={classes.avatarContainer}>
             <img

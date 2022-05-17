@@ -4,13 +4,18 @@ import { RootState } from "../../store/store";
 import { UserDto } from "../../types/dto/User.dto";
 
 interface AuthState {
-  user: UserDto | null;
+  user: UserDto | undefined;
   token: string | null;
 }
 
+const initialState: AuthState = {
+  user: undefined,
+  token: null,
+};
+
 const slice = createSlice({
   name: "auth",
-  initialState: { user: null, token: null } as AuthState,
+  initialState,
   reducers: {
     setCredentials: (
       state,

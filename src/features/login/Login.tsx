@@ -7,6 +7,7 @@ import { Formik, Form, Field, FormikValues } from "formik";
 import { TextField } from "formik-material-ui";
 import { useNavigate } from "react-router-dom";
 
+import { LOCAL_STORAGE_CURRENT_USER_PROPERTY } from "../../constants/names.constants";
 import { useLazyLoginQuery } from "../../services/api/user.api";
 import { useAppDispatch } from "../../store/hooks";
 import { setCredentials } from "../app/authSlice";
@@ -39,14 +40,16 @@ export const Login = () => {
         password: values.password,
       }).unwrap();
 
-      dispatch(setCredentials({ token: access_token, user: currentUser }));
-      // eslint-disable-next-line no-console
-      console.log(access_token, currentUser, "##########################");
+      const credentials = { token: access_token, user: currentUser };
+      localStorage.setItem(
+        LOCAL_STORAGE_CURRENT_USER_PROPERTY,
+        JSON.stringify(credentials)
+      );
+
+      dispatch(setCredentials(credentials));
       navigate("/");
     } catch {
       setOpen(true);
-      // eslint-disable-next-line no-console
-      console.log(error, "##########################");
     }
   };
 
