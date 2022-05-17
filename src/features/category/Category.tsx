@@ -47,7 +47,7 @@ export const Category = () => {
   const [periodName, setPeriodName] = useState("");
 
   useEffect(() => {
-    dispatch(setCurrentPage(PagesTypes.ADMINISTRATIVE_PURCHASES));
+    dispatch(setCurrentPage(PagesTypes.CATEGORY_PAGE));
   }, [dispatch]);
 
   useEffect(() => {

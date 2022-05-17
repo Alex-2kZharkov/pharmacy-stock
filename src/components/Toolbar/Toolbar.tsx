@@ -22,6 +22,7 @@ import {
   selectIsSearchFieldDisabled,
   setCurrentSearchValue,
 } from "../../features/app/appSlice";
+import { setIsCreateDialogOpen as setIsCreateCategoryDialogOpen } from "../../features/category/categorySlice";
 import { setIsCreateMedicineDialogOpen } from "../../features/medicine/medicineSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { PagesTypes } from "../../types/common/pages.types";
@@ -51,6 +52,10 @@ export const Toolbar = () => {
 
     if (currentPage === PagesTypes.ITEMS_PAGE) {
       dispatch(setIsCreateMedicineDialogOpen(true));
+    }
+
+    if (currentPage === PagesTypes.CATEGORY_PAGE) {
+      dispatch(setIsCreateCategoryDialogOpen(true));
     }
 
     if (currentPage === PagesTypes.ADMINISTRATIVE_PURCHASES) {
