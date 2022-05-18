@@ -23,7 +23,7 @@ export const editMedicineValidationSchema = yup.object().shape({
     .required(REQUIRED_FIELD_MESSAGE)
     .positive(POSITIVE_NUMBER_VALIDATION_MESSAGE),
   finalAmount: yup.number().required(REQUIRED_FIELD_MESSAGE),
-  prognosisUpdatedAt: yup.string(),
+  prognosisUpdatedAt: yup.string().nullable(),
   prognosis: yup.number().required(REQUIRED_FIELD_MESSAGE),
 });
 
@@ -43,6 +43,6 @@ export const createMedicineValidationSchema = yup.object().shape({
     .required(REQUIRED_FIELD_MESSAGE)
     .positive(POSITIVE_NUMBER_VALIDATION_MESSAGE),
   finalAmount: yup.number().required(REQUIRED_FIELD_MESSAGE),
-  prognosisUpdatedAt: yup.string(),
+  prognosisUpdatedAt: yup.string().nullable(),
   prognosis: yup.number(),
 });

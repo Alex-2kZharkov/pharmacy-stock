@@ -234,12 +234,14 @@ export const Medicines = () => {
         isOpen={isCreateMedicineDialogOpen}
         onClose={handleCreateMedicineDialogClose}
         confirm={handleCreateMedicineDialogConfirm}
+        categories={categoriesList}
       />
       <MedicineDialog
         isOpen={isEditOrderPointDialogOpened}
         onClose={handleEditMedicineDialogClose}
         confirm={handleEditMedicineDialogConfirm}
         medicine={currentEditableMedicine}
+        categories={categoriesList}
       />
       <BuyMedicineDialog
         isOpen={isBuyMedicineDialogOpen}

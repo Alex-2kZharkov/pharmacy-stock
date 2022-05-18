@@ -1,16 +1,21 @@
-import { ChangeEvent, FC } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 
 import {
+  Autocomplete,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  TextField as MuiTextField,
 } from "@mui/material";
 import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-material-ui";
 
 import { ONE_HUNDRED_PERCENT } from "../../../../constants/calculations.constants";
+import { REQUIRED_FIELD_MESSAGE } from "../../../../constants/yup.constants";
+import { WHITE } from "../../../../theme/colors/colors.constants";
+import { CategoryDto } from "../../../../types/dto/Category.dto";
 import { MedicineDto } from "../../../../types/dto/Medicine.dto";
 
 import {
@@ -24,6 +29,7 @@ interface Props {
   onClose: () => void;
   confirm: (payload: Partial<MedicineDto>) => void;
   medicine?: MedicineDto;
+  categories?: CategoryDto[];
 }
 
 export const MedicineDialog: FC<Props> = ({
@@ -33,17 +39,33 @@ export const MedicineDialog: FC<Props> = ({
   medicine = {
     _id: "",
     name: "",
-    quantity: "",
-    primaryAmount: "",
-    percent: "",
-    finalAmount: "",
-    orderPoint: "",
-    prognosis: "",
+    quantity: 0,
+    primaryAmount: 0,
+    percent: 0,
+    finalAmount: 0,
+    orderPoint: 0,
+    prognosis: 0,
     prognosisUpdatedAt: "",
   },
+  categories,
 }) => {
   const classes = useStyles();
-  const initialValues = { ...medicine };
+  const initialValues: Partial<MedicineDto> = {
+    ...medicine,
+  };
+
+  const [autoCompleteValue, setAutoCompleteValue] =
+    useState<CategoryDto | null>(null);
+  const [isAutoCompleteError, setIsAutoCompleteError] = useState(false);
+
+  useEffect(() => {
+    const targetCategory: CategoryDto | undefined = categories?.find(
+      ({ name }) => name === initialValues?.category?.name
+    );
+    if (targetCategory) {
+      setAutoCompleteValue(targetCategory);
+    }
+  }, [categories, initialValues?.category?.name]);
 
   return (
     <Dialog open={isOpen} onClose={onClose} maxWidth="xs" fullWidth>
@@ -53,21 +75,24 @@ export const MedicineDialog: FC<Props> = ({
       <DialogContent>
         <Formik
           initialValues={initialValues}
-          onSubmit={(values) =>
-            confirm({ ...(values as MedicineDto), _id: medicine?._id })
-          }
+          onSubmit={(values) => {
+            if (!autoCompleteValue) {
+              setIsAutoCompleteError(true);
+            } else {
+              confirm({
+                ...(values as MedicineDto),
+                _id: medicine?._id,
+                category: autoCompleteValue,
+              });
+            }
+          }}
           validationSchema={
             medicine?._id
               ? editMedicineValidationSchema
               : createMedicineValidationSchema
           }
         >
-          {({
-            isValid,
-            setFieldValue,
-            values: { percent, primaryAmount },
-            errors,
-          }) => (
+          {({ isValid, setFieldValue, values: { percent, primaryAmount } }) => (
             <Form>
               <Field
                 autoFocus
@@ -78,6 +103,35 @@ export const MedicineDialog: FC<Props> = ({
                 variant="standard"
                 component={TextField}
                 margin="dense"
+              />
+              <Autocomplete
+                isOptionEqualToValue={(option, value) =>
+                  option?.name === value?.name
+                }
+                className={classes.autocomplete}
+                disablePortal
+                getOptionLabel={(option: CategoryDto) => option.name}
+                id="categoryCombo"
+                options={categories ?? []}
+                sx={{
+                  backgroundColor: WHITE,
+                  marginTop: "20px",
+                  marginBottom: "10px",
+                }}
+                value={autoCompleteValue}
+                onChange={(_, newValue: CategoryDto | null) => {
+                  setAutoCompleteValue(newValue);
+                }}
+                renderInput={(params) => (
+                  <MuiTextField
+                    {...params}
+                    error={isAutoCompleteError}
+                    helperText={
+                      isAutoCompleteError ? REQUIRED_FIELD_MESSAGE : ""
+                    }
+                    label="Выберите категорию"
+                  />
+                )}
               />
               <Field
                 autoFocus
@@ -178,12 +232,15 @@ export const MedicineDialog: FC<Props> = ({
                 type="number"
                 disabled
               />
-
               <DialogActions className={classes.dialogActions}>
                 <Button variant="outlined" onClick={onClose}>
                   Отменить
                 </Button>
-                <Button variant="contained" type="submit" disabled={!isValid}>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  disabled={!isValid || !autoCompleteValue}
+                >
                   Сохранить
                 </Button>
               </DialogActions>
