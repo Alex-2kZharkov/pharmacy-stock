@@ -20,8 +20,14 @@ export const medicineApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getMedicines: builder.query<MedicineDto[], string>({
-      query: (name) => ({ url: "medicines", params: { name } }),
+    getMedicines: builder.query<
+      MedicineDto[],
+      { dateFilter: string; name: string; categoryFilter: string }
+    >({
+      query: ({ dateFilter, name, categoryFilter }) => ({
+        url: "medicines",
+        params: { name, dateFrom: dateFilter, categoryFilter },
+      }),
     }),
 
     createMedicine: builder.query<undefined, Partial<MedicineDto>>({

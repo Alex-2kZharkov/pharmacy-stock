@@ -11,4 +11,7 @@ export const useStyles = makeStyles((theme) => ({
       backgroundColor: `${theme.palette.background.default} !important`,
     },
   },
+  dateFilterContainer: {
+    marginBottom: theme.spacing(2),
+  },
 }));

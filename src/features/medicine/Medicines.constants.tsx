@@ -3,6 +3,7 @@ import { Stack, Tooltip } from "@mui/material";
 import {
   GridRenderCellParams,
   GridValueFormatterParams,
+  GridValueGetterParams,
 } from "@mui/x-data-grid";
 import { format } from "date-fns";
 import russianLocale from "date-fns/locale/ru";
@@ -31,6 +32,15 @@ export const MEDICINE_TABLE_COLUMNS = [
     headerName: "Наименование товара",
     width: 250,
     editable: true,
+  },
+  {
+    field: "category.name",
+    headerName: "Категория",
+    width: 170,
+    editable: true,
+    valueGetter: ({ row }: GridValueGetterParams) => {
+      return row.category?.name;
+    },
   },
   {
     field: "quantity",

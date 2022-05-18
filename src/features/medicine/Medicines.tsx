@@ -1,12 +1,22 @@
-import { useEffect } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 
-import { Box, CircularProgress, Stack } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  CircularProgress,
+  Stack,
+  Typography,
+  TextField,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { debounce } from "lodash";
 
 import { AdminPageWrapper } from "../../components/AdminPageWrapper";
+import { DateFilter } from "../../components/DateFilter";
 import { RecommendationModal } from "../../components/RecommendationModal";
+import { DATE_PERIODS } from "../../constants/filter.constants";
 import { DEBOUNCE_TIME } from "../../constants/size.constants";
+import { useGetCategoriesQuery } from "../../services/api/category.api";
 import {
   useLazyBuyMedicineQuery,
   useLazyCalculatePrognosisQuery,
@@ -16,8 +26,9 @@ import {
 } from "../../services/api/medicine.api";
 import { useGetBudgetQuery } from "../../services/api/overview.api";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { ACCENT } from "../../theme/colors/colors.constants";
+import { ACCENT, WHITE } from "../../theme/colors/colors.constants";
 import { PagesTypes } from "../../types/common/pages.types";
+import { CategoryDto } from "../../types/dto/Category.dto";
 import { MedicineDto } from "../../types/dto/Medicine.dto";
 import { selectCurrentSearchValue, setCurrentPage } from "../app/appSlice";
 
@@ -65,6 +76,13 @@ export const Medicines = () => {
   const [calculatePrognosis, { data }] = useLazyCalculatePrognosisQuery();
   const [buyMedicine, { isFetching: isBuyingExecuting }] =
     useLazyBuyMedicineQuery();
+  const { data: categoriesList } = useGetCategoriesQuery({
+    dateFilter: "",
+    name: "",
+  });
+
+  const [periodName, setPeriodName] = useState("");
+  const [inputValue, setInputValue] = useState("");
 
   const handleCalculatePrognosisDialogClose = () =>
     dispatch(setIsCalculatePrognosisDialogOpen(false));
@@ -95,6 +113,13 @@ export const Medicines = () => {
     handleBuyMedicineDialogClose();
   };
 
+  const handleChange = (
+    event: MouseEvent<HTMLElement>,
+    newPeriodName: string
+  ) => {
+    setPeriodName(newPeriodName);
+  };
+
   useEffect(() => {
     dispatch(setCurrentPage(PagesTypes.ITEMS_PAGE));
   }, [dispatch]);
@@ -111,7 +136,11 @@ export const Medicines = () => {
 
   useEffect(() => {
     const debouncedRequest = debounce(getMedicines, DEBOUNCE_TIME);
-    debouncedRequest(currentSearchValue);
+    debouncedRequest({
+      dateFilter: DATE_PERIODS[periodName]?.toISOString(),
+      name: currentSearchValue,
+      categoryFilter: inputValue,
+    });
     refetch();
   }, [
     getMedicines,
@@ -122,11 +151,42 @@ export const Medicines = () => {
     data?.message,
     currentSearchValue,
     refetch,
+    periodName,
+    inputValue,
   ]);
 
   return (
     <>
       <AdminPageWrapper sectionTitle="Справочник товаров">
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          className={classes.dateFilterContainer}
+        >
+          <DateFilter value={periodName} onChange={handleChange} />
+          <Autocomplete
+            disablePortal
+            getOptionLabel={(option: CategoryDto) => option.name}
+            id="combo-box-demo"
+            options={categoriesList ?? []}
+            sx={{
+              width: 400,
+              marginLeft: -5,
+              backgroundColor: WHITE,
+            }}
+            renderInput={(params) => (
+              <TextField {...params} label="Введите название категории" />
+            )}
+            inputValue={inputValue}
+            onInputChange={(_, newInputValue) => {
+              setInputValue(newInputValue);
+            }}
+          />
+          <Typography variant="h6">
+            Всего записей: {medicineList?.length ?? 0}
+          </Typography>
+        </Stack>
         {!medicineList ? (
           <Stack
             sx={{ marginTop: 2 }}
