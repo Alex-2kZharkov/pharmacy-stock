@@ -12,6 +12,7 @@ export enum EntitiesNames {
   Medicine = "Medicine",
   AdministrativePurchase = "AdministrativePurchase",
   Category = "Category",
+  Empty = "",
 }
 
 export type Entities =

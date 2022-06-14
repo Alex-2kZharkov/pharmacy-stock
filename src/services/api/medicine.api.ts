@@ -5,6 +5,7 @@ import { BuyMedicineDialogTypes } from "../../features/medicine/components/BuyMe
 import { RootState } from "../../store/store";
 import { Optional } from "../../types/common/general.types";
 import { MedicineDto } from "../../types/dto/Medicine.dto";
+import { RecommendationDto } from "../../types/dto/Recommendation.dto";
 
 export const medicineApi = createApi({
   reducerPath: "medicineApi",
@@ -46,7 +47,10 @@ export const medicineApi = createApi({
       }),
     }),
 
-    calculatePrognosis: builder.query<{ message: string }, Optional<string>>({
+    calculatePrognosis: builder.query<
+      { description: string },
+      Optional<string>
+    >({
       query: (id) => ({
         url: `medicines/prognosis`,
         method: "POST",
@@ -54,7 +58,7 @@ export const medicineApi = createApi({
       }),
     }),
 
-    buyMedicine: builder.query<{ message: string }, BuyMedicineDialogTypes>({
+    buyMedicine: builder.query<RecommendationDto, BuyMedicineDialogTypes>({
       query: (payload) => ({
         url: `medicine-shippings`,
         method: "POST",

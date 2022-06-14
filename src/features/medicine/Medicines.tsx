@@ -3,7 +3,7 @@ import { MouseEvent, useEffect, useState } from "react";
 import {
   Autocomplete,
   Box,
-  CircularProgress,
+  // CircularProgress,
   Stack,
   Typography,
   TextField,
@@ -26,7 +26,7 @@ import {
 } from "../../services/api/medicine.api";
 import { useGetBudgetQuery } from "../../services/api/overview.api";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { ACCENT, WHITE } from "../../theme/colors/colors.constants";
+import { WHITE } from "../../theme/colors/colors.constants";
 import { PagesTypes } from "../../types/common/pages.types";
 import { CategoryDto } from "../../types/dto/Category.dto";
 import { MedicineDto } from "../../types/dto/Medicine.dto";
@@ -73,7 +73,8 @@ export const Medicines = () => {
     useLazyCreateMedicineQuery();
   const [updateMedicine, { isFetching: isUpdateExecuting }] =
     useLazyUpdateMedicineQuery();
-  const [calculatePrognosis, { data }] = useLazyCalculatePrognosisQuery();
+  const [calculatePrognosis, { data: prognosisData }] =
+    useLazyCalculatePrognosisQuery();
   const [buyMedicine, { isFetching: isBuyingExecuting }] =
     useLazyBuyMedicineQuery();
   const { data: categoriesList } = useGetCategoriesQuery({
@@ -148,7 +149,7 @@ export const Medicines = () => {
     isCreationExecuting,
     isCalculatePrognosisDialogOpen,
     isBuyingExecuting,
-    data?.message,
+    prognosisData?.description,
     currentSearchValue,
     refetch,
     periodName,
@@ -187,48 +188,48 @@ export const Medicines = () => {
             Всего записей: {medicineList?.length ?? 0}
           </Typography>
         </Stack>
-        {!medicineList ? (
-          <Stack
-            sx={{ marginTop: 2 }}
-            direction="row"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <CircularProgress
-              style={{ marginTop: 150, color: ACCENT }}
-              size={150}
-            />
-          </Stack>
-        ) : (
-          <Box className={classes.dataGridContainer}>
-            <DataGrid
-              className={classes.dataGrid}
-              columns={MEDICINE_TABLE_COLUMNS}
-              disableSelectionOnClick
-              rows={medicineList ?? []}
-              disableColumnMenu={true}
-              getRowId={(row) => row._id}
-              components={{
-                // eslint-disable-next-line react/no-multi-comp
-                NoRowsOverlay: () => (
-                  <Stack
-                    height="100%"
-                    alignItems="center"
-                    justifyContent="center"
-                  >
-                    Нет данных
-                  </Stack>
-                ),
-              }}
-            />
-          </Box>
-        )}
+        {/*{!medicineList ? (*/}
+        {/*  <Stack*/}
+        {/*    sx={{ marginTop: 2 }}*/}
+        {/*    direction="row"*/}
+        {/*    alignItems="center"*/}
+        {/*    justifyContent="center"*/}
+        {/*  >*/}
+        {/*    <CircularProgress*/}
+        {/*      style={{ marginTop: 150, color: ACCENT }}*/}
+        {/*      size={150}*/}
+        {/*    />*/}
+        {/*  </Stack>*/}
+        {/*) : (*/}
+        <Box className={classes.dataGridContainer}>
+          <DataGrid
+            className={classes.dataGrid}
+            columns={MEDICINE_TABLE_COLUMNS}
+            disableSelectionOnClick
+            rows={medicineList ?? []}
+            disableColumnMenu={true}
+            getRowId={(row) => row._id}
+            components={{
+              // eslint-disable-next-line react/no-multi-comp
+              NoRowsOverlay: () => (
+                <Stack
+                  height="100%"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  Нет данных
+                </Stack>
+              ),
+            }}
+          />
+        </Box>
+        {/*)}*/}
       </AdminPageWrapper>
 
       <RecommendationModal
         isOpen={isCalculatePrognosisDialogOpen}
         onClose={handleCalculatePrognosisDialogClose}
-        message={data?.message}
+        message={prognosisData?.description}
       />
       <MedicineDialog
         isOpen={isCreateMedicineDialogOpen}

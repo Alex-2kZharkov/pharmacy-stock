@@ -28,7 +28,9 @@ import {
   selectIsSideBarExpanded,
   setIsSidebarExpanded,
 } from "../../features/app/appSlice";
+import { selectCurrentUser } from "../../features/app/authSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { RoleTypes } from "../../types/common/role.types";
 
 import { useStyles } from "./Sidebar.styles";
 
@@ -38,6 +40,7 @@ export const Sidebar = () => {
   const navigate = useNavigate();
   const isSideBarExpanded = useAppSelector(selectIsSideBarExpanded);
   const { pathname } = useLocation();
+  const currentUser = useAppSelector(selectCurrentUser);
 
   const collapseSidebar = () => dispatch(setIsSidebarExpanded(false));
   const expandSidebar = () => dispatch(setIsSidebarExpanded(true));
@@ -187,19 +190,21 @@ export const Sidebar = () => {
                 )}
               </ListItemButton>
             </ListItem>
-            <ListItem component={Link} to="/employees">
-              <ListItemButton
-                className={clsx(classes.listItem, {
-                  [classes.listItemClosed]: !isSideBarExpanded,
-                  [classes.listItemActive]: pathname === "/employees",
-                })}
-              >
-                <ListItemIcon>
-                  <PeopleOutlined />
-                </ListItemIcon>
-                {isSideBarExpanded && <ListItemText primary="Сотрудники" />}
-              </ListItemButton>
-            </ListItem>
+            {currentUser?.role?.name === RoleTypes.ADMIN && (
+              <ListItem component={Link} to="/employees">
+                <ListItemButton
+                  className={clsx(classes.listItem, {
+                    [classes.listItemClosed]: !isSideBarExpanded,
+                    [classes.listItemActive]: pathname === "/employees",
+                  })}
+                >
+                  <ListItemIcon>
+                    <PeopleOutlined />
+                  </ListItemIcon>
+                  {isSideBarExpanded && <ListItemText primary="Сотрудники" />}
+                </ListItemButton>
+              </ListItem>
+            )}
 
             <ListItem component={Link} to="/recommendations">
               <ListItemButton

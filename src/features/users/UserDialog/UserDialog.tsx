@@ -109,9 +109,6 @@ export const UserDialog: FC<Props> = ({
                 <MenuItem value={RoleTypes.MANAGER}>
                   {RoleTypesRussian.MANAGER}
                 </MenuItem>
-                <MenuItem value={RoleTypes.EMPLOYEE}>
-                  {RoleTypesRussian.EMPLOYEE}
-                </MenuItem>
               </Field>
 
               <DialogActions className={classes.dialogActions}>

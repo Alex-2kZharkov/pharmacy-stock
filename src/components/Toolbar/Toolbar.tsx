@@ -24,6 +24,7 @@ import {
 } from "../../features/app/appSlice";
 import { setIsCreateDialogOpen as setIsCreateCategoryDialogOpen } from "../../features/category/categorySlice";
 import { setIsCreateMedicineDialogOpen } from "../../features/medicine/medicineSlice";
+import { setIsCreateUserDialogOpen } from "../../features/users/userSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { PagesTypes } from "../../types/common/pages.types";
 
@@ -47,7 +48,9 @@ export const Toolbar = () => {
 
   const handleAddButtonClick = () => {
     if (currentPage === PagesTypes.EMPLOYEES_PAGE) {
-      dispatch(setIsCreateMedicineDialogOpen(true));
+      // eslint-disable-next-line no-console
+      console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@2");
+      dispatch(setIsCreateUserDialogOpen(true));
     }
 
     if (currentPage === PagesTypes.ITEMS_PAGE) {

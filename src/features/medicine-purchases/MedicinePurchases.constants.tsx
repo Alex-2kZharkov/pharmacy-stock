@@ -32,7 +32,7 @@ export const MEDICINE_PURCHASES_TABLE_COLUMNS = [
     width: 250,
     editable: true,
     valueGetter: ({ row }: GridValueGetterParams) => {
-      return row.medicine.name;
+      return row.medicine?.name;
     },
   },
   {
@@ -49,7 +49,7 @@ export const MEDICINE_PURCHASES_TABLE_COLUMNS = [
     width: 200,
     editable: true,
     renderCell: ({ row }: GridRenderCellParams<MedicineDto>) =>
-      row.medicine.finalAmount.toFixed(2),
+      row.medicine?.finalAmount?.toFixed(2),
   },
   {
     field: "expirationDate",

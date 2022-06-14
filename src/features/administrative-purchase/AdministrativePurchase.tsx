@@ -1,6 +1,6 @@
 import { MouseEvent, useEffect, useState } from "react";
 
-import { Box, CircularProgress, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { debounce } from "lodash";
 
@@ -15,7 +15,7 @@ import {
 } from "../../services/api/administrativePurchase.api";
 import { useGetBudgetQuery } from "../../services/api/overview.api";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { ACCENT } from "../../theme/colors/colors.constants";
+// import { ACCENT } from "../../theme/colors/colors.constants";
 import { PagesTypes } from "../../types/common/pages.types";
 import { selectCurrentSearchValue, setCurrentPage } from "../app/appSlice";
 
@@ -98,42 +98,42 @@ export const AdministrativePurchase = () => {
             Всего записей: {administrativePurchaseList?.length ?? 0}
           </Typography>
         </Stack>
-        {!administrativePurchaseList ? (
-          <Stack
-            sx={{ marginTop: 2 }}
-            direction="row"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <CircularProgress
-              style={{ marginTop: 150, color: ACCENT }}
-              size={150}
-            />
-          </Stack>
-        ) : (
-          <Box className={classes.dataGridContainer}>
-            <DataGrid
-              className={classes.dataGrid}
-              rows={administrativePurchaseList ?? []}
-              columns={ADMINISTRATIVE_PURCHASE_TABLE_COLUMNS}
-              disableSelectionOnClick
-              getRowId={(row) => row._id}
-              disableColumnMenu={true}
-              components={{
-                // eslint-disable-next-line react/no-multi-comp
-                NoRowsOverlay: () => (
-                  <Stack
-                    height="100%"
-                    alignItems="center"
-                    justifyContent="center"
-                  >
-                    Нет данных
-                  </Stack>
-                ),
-              }}
-            />
-          </Box>
-        )}
+        {/*{!administrativePurchaseList ? (*/}
+        {/*  <Stack*/}
+        {/*    sx={{ marginTop: 2 }}*/}
+        {/*    direction="row"*/}
+        {/*    alignItems="center"*/}
+        {/*    justifyContent="center"*/}
+        {/*  >*/}
+        {/*    <CircularProgress*/}
+        {/*      style={{ marginTop: 150, color: ACCENT }}*/}
+        {/*      size={150}*/}
+        {/*    />*/}
+        {/*  </Stack>*/}
+        {/*) : */}
+        <Box className={classes.dataGridContainer}>
+          <DataGrid
+            className={classes.dataGrid}
+            rows={administrativePurchaseList ?? []}
+            columns={ADMINISTRATIVE_PURCHASE_TABLE_COLUMNS}
+            disableSelectionOnClick
+            getRowId={(row) => row._id}
+            disableColumnMenu={true}
+            components={{
+              // eslint-disable-next-line react/no-multi-comp
+              NoRowsOverlay: () => (
+                <Stack
+                  height="100%"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  Нет данных
+                </Stack>
+              ),
+            }}
+          />
+        </Box>
+        {/*)}*/}
       </AdminPageWrapper>
 
       <AdministrativePurchaseDialog
